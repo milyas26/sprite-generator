@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { Download, ExternalLink } from "lucide-react";
 
 interface CharacterSheetViewerProps {
   imageUrl: string;
@@ -10,28 +11,30 @@ interface CharacterSheetViewerProps {
 export function CharacterSheetViewer({ imageUrl, characterName }: CharacterSheetViewerProps) {
   return (
     <div>
-      <div className="flex items-center gap-2 p-4 bg-background">
+      <div className="flex items-center gap-1.5 px-3 py-2 bg-[#0e0e14] border-b border-border">
         <a href={imageUrl} download={`${characterName.replace(/\s+/g, "_")}_sheet.png`} target="_blank" rel="noopener noreferrer">
           <Button
             variant="outline"
             size="sm"
-            className="border-border text-secondary-foreground hover:bg-secondary hover:text-foreground font-mono text-xs"
+            className="h-7 text-[10px] font-mono gap-1 border-border text-secondary-foreground hover:bg-secondary hover:text-foreground"
           >
-            Download PNG
+            <Download className="h-3 w-3" />
+            DOWNLOAD
           </Button>
         </a>
         <a href={imageUrl} target="_blank" rel="noopener noreferrer">
           <Button
             variant="outline"
             size="sm"
-            className="border-border text-secondary-foreground hover:bg-secondary hover:text-foreground font-mono text-xs"
+            className="h-7 text-[10px] font-mono gap-1 border-border text-secondary-foreground hover:bg-secondary hover:text-foreground"
           >
-            Open Full Size
+            <ExternalLink className="h-3 w-3" />
+            FULL SIZE
           </Button>
         </a>
       </div>
-      <div className="bg-background workshop-grid-fine p-8 flex items-center justify-center">
-        <div className="sprite-glow rounded-xl overflow-hidden">
+      <div className="editor-grid-sm bg-[#0c0c12] p-8 flex items-center justify-center">
+        <div className="sprite-glow rounded-lg overflow-hidden">
           <img
             src={imageUrl}
             alt={`${characterName} sprite sheet`}

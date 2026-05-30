@@ -4,18 +4,17 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { useDebounce } from "@/shared/hooks/use-debounce";
 import { useEffect, useState } from "react";
+import { Search } from "lucide-react";
 
 export function SearchBar() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [value, setValue] = useState(searchParams.get("search") || "");
-
   const debouncedValue = useDebounce(value, 300);
 
   useEffect(() => {
     const currentSearch = searchParams.get("search") || "";
     if (debouncedValue === currentSearch) return;
-
     const params = new URLSearchParams(searchParams.toString());
     if (debouncedValue) {
       params.set("search", debouncedValue);
@@ -28,11 +27,14 @@ export function SearchBar() {
   }, [debouncedValue, router]);
 
   return (
-    <Input
-      placeholder="Search characters..."
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
-      className="max-w-sm bg-card border-border text-foreground placeholder:text-muted-foreground focus:border-primary/50 font-mono text-sm"
-    />
+    <div className="relative max-w-sm">
+      <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
+      <Input
+        placeholder="Search characters..."
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        className="pl-7 bg-[#14141e] border-border text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 font-mono text-xs h-8"
+      />
+    </div>
   );
 }

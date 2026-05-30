@@ -8,11 +8,19 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Layers, Info, Clock } from "lucide-react";
 
 interface Props {
   params: Promise<{ id: string }>;
 }
+
+const statusConfig: Record<string, { colors: string; label: string; dot: string }> = {
+  DRAFT: { colors: "text-amber-400 border-amber-500/20 bg-amber-500/5", label: "Draft", dot: "bg-amber-500" },
+  DNA_READY: { colors: "text-sky-400 border-sky-500/20 bg-sky-500/5", label: "DNA Ready", dot: "bg-sky-500" },
+  GENERATING: { colors: "text-primary border-primary/20 bg-primary/5", label: "Generating", dot: "bg-primary animate-sprite-pulse" },
+  READY: { colors: "text-emerald-400 border-emerald-500/20 bg-emerald-500/5", label: "Ready", dot: "bg-emerald-500" },
+  FAILED: { colors: "text-red-400 border-red-500/20 bg-red-500/5", label: "Failed", dot: "bg-red-500" },
+};
 
 export default async function CharacterDetailPage({ params }: Props) {
   const { id } = await params;
@@ -21,57 +29,57 @@ export default async function CharacterDetailPage({ params }: Props) {
   if (!aggregate) notFound();
 
   const { character, assets, jobs } = aggregate as any;
-
-  const statusConfig: Record<string, { colors: string; label: string }> = {
-    DRAFT: { colors: "bg-amber-500/10 text-amber-400 border-amber-500/25", label: "Draft" },
-    DNA_READY: { colors: "bg-sky-500/10 text-sky-400 border-sky-500/25", label: "DNA Ready" },
-    GENERATING: { colors: "bg-primary/10 text-primary border-primary/25 animate-sprite-pulse", label: "Generating" },
-    READY: { colors: "bg-emerald-500/10 text-emerald-400 border-emerald-500/25", label: "Ready" },
-    FAILED: { colors: "bg-red-500/10 text-red-400 border-red-500/25", label: "Failed" },
-  };
-
   const status = statusConfig[character.status] || {
-    colors: "bg-muted text-muted-foreground border-border",
+    colors: "text-muted-foreground border-border bg-transparent",
     label: character.status,
+    dot: "bg-muted-foreground",
   };
 
   return (
-    <div className="space-y-6">
-      <Link
-        href="/dashboard"
-        className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors font-mono"
-      >
-        <ArrowLeft className="h-3.5 w-3.5" />
-        Back to Library
-      </Link>
+    <div className="space-y-4">
+      <div className="flex items-center gap-4">
+        <Link
+          href="/dashboard"
+          className="flex items-center justify-center w-7 h-7 rounded border border-border bg-[#1a1a28] text-muted-foreground hover:text-foreground hover:border-primary/30 transition-colors"
+        >
+          <ArrowLeft className="h-3.5 w-3.5" />
+        </Link>
 
-      <div className="flex items-start justify-between">
-        <div>
-          <div className="flex items-center gap-3 mb-1">
-            <h1 className="text-2xl font-bold tracking-tight text-foreground font-heading">{character.name}</h1>
-            <Badge variant="outline" className={`${status.colors} text-[10px] font-mono px-2 py-0.5`}>
-              {status.label}
-            </Badge>
-          </div>
-          <p className="text-muted-foreground text-sm">
-            Created {new Date(character.createdAt).toLocaleDateString()}
-          </p>
+        <div className="flex-1 min-w-0 flex items-center gap-3">
+          <h1 className="text-lg font-bold tracking-tight text-foreground font-heading truncate">{character.name}</h1>
+          <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-[10px] font-mono font-semibold border ${status.colors}`}>
+            <span className={`inline-block w-1.5 h-1.5 rounded-full ${status.dot}`} />
+            {status.label}
+          </span>
         </div>
+
         <div className="flex items-center gap-2">
-          {character.status === "READY" && (
-            <SpritePackGenerator characterId={character.id} />
-          )}
+          {character.status === "READY" && <SpritePackGenerator characterId={character.id} />}
           <DeleteCharacterButton characterId={character.id} characterName={character.name} />
         </div>
       </div>
 
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-        <div className="xl:col-span-2 space-y-6">
+      <div className="text-[10px] font-mono text-muted-foreground flex items-center gap-4">
+        <span className="flex items-center gap-1">
+          <Clock className="h-3 w-3" />
+          Created {new Date(character.createdAt).toLocaleDateString()}
+        </span>
+        {character.dna && (
+          <span className="flex items-center gap-1">
+            <Info className="h-3 w-3" />
+            DNA extracted
+          </span>
+        )}
+      </div>
+
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
+        <div className="xl:col-span-2 space-y-4">
           {character.sheetUrl && (
-            <Card className="border-border bg-card">
-              <CardHeader className="border-b border-border">
-                <CardTitle className="text-foreground font-mono text-sm tracking-wider">SPRITE SHEET</CardTitle>
-              </CardHeader>
+            <Card className="border-border bg-card overflow-hidden">
+              <div className="editor-panel-header flex items-center gap-2 px-4 py-2.5">
+                <Layers className="h-3.5 w-3.5 text-primary" />
+                <CardTitle className="text-foreground font-mono text-xs tracking-wider">SPRITE SHEET</CardTitle>
+              </div>
               <CardContent className="p-0">
                 <CharacterSheetViewer imageUrl={character.sheetUrl} characterName={character.name} />
               </CardContent>
@@ -81,74 +89,73 @@ export default async function CharacterDetailPage({ params }: Props) {
           <SpritePackViewer assets={assets || []} characterName={character.name} />
 
           {character.status === "GENERATING" && (
-            <Card className="border-primary/25 bg-card">
-              <CardContent className="p-6">
-                <div className="flex items-center gap-3">
-                  <div className="w-3 h-3 rounded-full bg-primary animate-sprite-pulse" />
-                  <p className="text-sm text-accent-foreground">Generating sprite sheet... Refresh to check progress.</p>
-                </div>
+            <Card className="border-primary/20 bg-card">
+              <CardContent className="p-5 flex items-center gap-3">
+                <div className="w-2.5 h-2.5 rounded-full bg-primary animate-sprite-pulse" />
+                <p className="text-xs text-accent-foreground font-mono">Generating sprite sheet... Refresh to check progress.</p>
               </CardContent>
             </Card>
           )}
 
           {character.status === "FAILED" && (
-            <Card className="border-red-500/25 bg-card">
-              <CardContent className="p-6">
-                <p className="text-sm text-red-400">Generation failed. Please try creating again.</p>
+            <Card className="border-red-500/20 bg-card">
+              <CardContent className="p-5">
+                <p className="text-xs text-red-400 font-mono">Generation failed. Please try creating again.</p>
               </CardContent>
             </Card>
           )}
         </div>
 
-        <div className="space-y-6">
+        <div className="space-y-4">
           {character.dna && (
-            <Card className="border-border bg-card">
-              <CardHeader className="border-b border-border">
-                <CardTitle className="text-foreground font-mono text-sm tracking-wider">CHARACTER DNA</CardTitle>
-              </CardHeader>
-              <CardContent className="p-4">
+            <Card className="border-border bg-card overflow-hidden">
+              <div className="editor-panel-header flex items-center gap-2 px-4 py-2.5">
+                <Info className="h-3.5 w-3.5 text-primary" />
+                <CardTitle className="text-foreground font-mono text-xs tracking-wider">CHARACTER DNA</CardTitle>
+              </div>
+              <CardContent className="p-3">
                 <DNAViewer dna={character.dna} />
               </CardContent>
             </Card>
           )}
 
           {jobs && jobs.length > 0 && (
-            <Card className="border-border bg-card">
-              <CardHeader className="border-b border-border">
-                <CardTitle className="text-foreground font-mono text-sm tracking-wider">JOB HISTORY</CardTitle>
-              </CardHeader>
-              <CardContent className="p-4">
-                <div className="space-y-2">
-                  {jobs.map((job: any) => (
-                    <div key={job.id} className="flex items-center justify-between text-xs font-mono py-1.5 px-3 rounded-lg bg-background/50">
-                      <div className="flex items-center gap-2 min-w-0">
-                        <Badge variant="outline" className="border-border text-muted-foreground bg-transparent text-[10px] flex-shrink-0">
-                          {job.type}
-                        </Badge>
-                        <Badge
-                          variant="outline"
-                          className={
-                            job.status === "COMPLETED"
-                              ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/25 text-[10px] flex-shrink-0"
-                              : job.status === "FAILED"
-                                ? "bg-red-500/10 text-red-400 border-red-500/25 text-[10px] flex-shrink-0"
-                                : "border-border text-muted-foreground text-[10px] flex-shrink-0"
-                          }
-                        >
-                          {job.status}
-                        </Badge>
-                        {job.error && (
-                          <span className="text-red-400 truncate">{job.error}</span>
-                        )}
-                      </div>
-                      <span className="text-muted-foreground flex-shrink-0 ml-2">
-                        {job.completedAt
-                          ? new Date(job.completedAt).toLocaleString()
-                          : new Date(job.createdAt).toLocaleString()}
-                      </span>
+            <Card className="border-border bg-card overflow-hidden">
+              <div className="editor-panel-header flex items-center gap-2 px-4 py-2.5">
+                <Clock className="h-3.5 w-3.5 text-primary" />
+                <CardTitle className="text-foreground font-mono text-xs tracking-wider">JOB HISTORY</CardTitle>
+              </div>
+              <CardContent className="p-2 space-y-1">
+                {jobs.map((job: any) => (
+                  <div
+                    key={job.id}
+                    className="flex items-center justify-between text-[10px] font-mono py-1.5 px-2.5 rounded-md bg-background/40 border border-border/50"
+                  >
+                    <div className="flex items-center gap-2 min-w-0">
+                      <Badge variant="outline" className="border-border bg-transparent text-muted-foreground text-[9px] flex-shrink-0 px-1.5 py-0">
+                        {job.type}
+                      </Badge>
+                      <Badge
+                        variant="outline"
+                        className={`text-[9px] flex-shrink-0 px-1.5 py-0 ${
+                          job.status === "COMPLETED"
+                            ? "text-emerald-400 border-emerald-500/20 bg-emerald-500/5"
+                            : job.status === "FAILED"
+                              ? "text-red-400 border-red-500/20 bg-red-500/5"
+                              : "text-muted-foreground border-border bg-transparent"
+                        }`}
+                      >
+                        {job.status}
+                      </Badge>
+                      {job.error && <span className="text-red-400/70 truncate">{job.error}</span>}
                     </div>
-                  ))}
-                </div>
+                    <span className="text-muted-foreground/60 flex-shrink-0 ml-2">
+                      {job.completedAt
+                        ? new Date(job.completedAt).toLocaleString()
+                        : new Date(job.createdAt).toLocaleString()}
+                    </span>
+                  </div>
+                ))}
               </CardContent>
             </Card>
           )}
