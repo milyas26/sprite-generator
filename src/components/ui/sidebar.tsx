@@ -4,11 +4,12 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
-import { Library, PlusCircle } from "lucide-react";
+import { Library, PlusCircle, PenLine } from "lucide-react";
 import { ProcessJobsButton } from "@/features/generation/components/process-jobs-button";
 
 const navItems = [
   { href: "/dashboard", label: "Library", icon: Library },
+  { href: "/dashboard/editor", label: "Asset Editor", icon: PenLine },
   { href: "/dashboard/characters/new", label: "New Character", icon: PlusCircle },
 ];
 
@@ -35,7 +36,9 @@ export function Sidebar() {
           {navItems.map((item) => {
             const isActive =
               pathname === item.href ||
-              (item.href === "/dashboard/characters/new" && pathname.startsWith("/dashboard/characters/new"));
+              (item.href === "/dashboard" && pathname === "/dashboard") ||
+              (item.href === "/dashboard/characters/new" && pathname.startsWith("/dashboard/characters/new")) ||
+              (item.href === "/dashboard/editor" && pathname.startsWith("/dashboard/editor"));
             return (
               <li key={item.href}>
                 <Link

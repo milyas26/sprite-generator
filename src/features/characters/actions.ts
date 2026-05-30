@@ -3,12 +3,17 @@
 import { characterService } from "./services";
 import { createCharacterSchema } from "./validators";
 import { revalidatePath } from "next/cache";
-import type { SpritePackConfig } from "./types";
+import type { SpritePackConfig, CharacterDetailsInput } from "./types";
 
-export async function createCharacter(prompt: string, artStyle: string, detailLevel: string) {
-  const validated = createCharacterSchema.parse({ prompt, style: { artStyle, detailLevel } });
+export async function createCharacter(prompt: string, artStyle: string, detailLevel: string, details?: CharacterDetailsInput) {
+  const validated = createCharacterSchema.parse({ prompt, style: { artStyle, detailLevel }, details });
 
-  const result = await characterService.createCharacter(validated.prompt, validated.style.artStyle, validated.style.detailLevel);
+  const result = await characterService.createCharacter(
+    validated.prompt,
+    validated.style.artStyle,
+    validated.style.detailLevel,
+    validated.details
+  );
 
   revalidatePath("/dashboard");
   return result;
@@ -32,6 +37,12 @@ export async function getCharacter(characterId: string) {
 export async function deleteCharacter(characterId: string) {
   await characterService.deleteCharacter(characterId);
   revalidatePath("/dashboard");
+}
+
+export async function regenerateCharacter(characterId: string) {
+  const result = await characterService.regenerateCharacter(characterId);
+  revalidatePath("/dashboard");
+  return result;
 }
 
 export async function generateSpritePack(characterId: string, animations: SpritePackConfig[]) {

@@ -1,53 +1,7 @@
 {
   "dna": {
-    "prompt": "karakter lelaki kantoran umur 25 dengan stelan formal",
     "name": "Office Formal Man",
     "race": "human",
-    "gender": "male",
-    "class": "engineer",
-    "physical": {
-      "hair": {
-        "style": "neat side-part short hair",
-        "color": "dark brown"
-      },
-      "eyes": {
-        "color": "brown",
-        "shape": "almond"
-      },
-      "skin": {
-        "tone": "fair"
-      },
-      "build": "slim",
-      "height": "average"
-    },
-    "equipment": {
-      "head": null,
-      "body": "formal office suit with navy blazer, white dress shirt, and red tie",
-      "legs": "matching navy dress trousers with black belt",
-      "mainHand": null,
-      "offHand": null,
-      "accessories": [
-        "black leather shoes",
-        "silver wristwatch"
-      ]
-    },
-    "style": {
-      "artStyle": "16bit",
-      "palette": [
-        "#1F2A44",
-        "#3B2F2F",
-        "#F2D3B1",
-        "#EDEDED",
-        "#C23B3B"
-      ],
-      "detailLevel": "medium"
-    },
-    "directions": {
-      "up": "Back view chibi sprite in top-down perspective, showing neat dark brown side-part hair with a clean crown and short nape. Navy blazer broadens the shoulders, with subtle seam pixels and a crisp collar. Straight dress trousers fall cleanly to polished black shoes.",
-      "down": "Front view chibi sprite in top-down perspective, showing a fair face with almond brown eyes and tidy office hair. White shirt and navy blazer frame a bright red tie, with a black belt at the waist. Dress trousers are straight, ending in black formal shoes.",
-      "left": "Left-facing side profile sprite in top-down view, showing the left side of the face with a neat jawline and short side-part hair. The navy blazer hangs cleanly over a white shirt, red tie visible at the collar, with straight trousers and a polished shoe.",
-      "right": "Right-facing side profile sprite in top-down view, showing the right side of the face and the same tidy short dark brown hair. The formal navy blazer, white shirt, and red tie stay crisp in silhouette, while the straight trousers and black shoe keep the office look consistent."
-    },
     "tags": [
       "human",
       "male",
@@ -59,8 +13,54 @@
       "top-down",
       "16bit",
       "pixel-art"
-    ]
+    ],
+    "class": "engineer",
+    "style": {
+      "palette": [
+        "#1F2A44",
+        "#3B2F2F",
+        "#F2D3B1",
+        "#EDEDED",
+        "#C23B3B"
+      ],
+      "artStyle": "16bit",
+      "detailLevel": "medium"
+    },
+    "gender": "male",
+    "prompt": "karakter lelaki kantoran umur 25 dengan stelan formal",
+    "physical": {
+      "eyes": {
+        "color": "brown",
+        "shape": "almond"
+      },
+      "hair": {
+        "color": "dark brown",
+        "style": "neat side-part short hair"
+      },
+      "skin": {
+        "tone": "fair"
+      },
+      "build": "slim",
+      "height": "average"
+    },
+    "equipment": {
+      "body": "formal office suit with navy blazer, white dress shirt, and red tie",
+      "head": null,
+      "legs": "matching navy dress trousers with black belt",
+      "offHand": null,
+      "mainHand": null,
+      "accessories": [
+        "black leather shoes",
+        "silver wristwatch"
+      ]
+    },
+    "directions": {
+      "up": "Back view chibi sprite in top-down perspective, showing neat dark brown side-part hair with a clean crown and short nape. Navy blazer broadens the shoulders, with subtle seam pixels and a crisp collar. Straight dress trousers fall cleanly to polished black shoes.",
+      "down": "Front view chibi sprite in top-down perspective, showing a fair face with almond brown eyes and tidy office hair. White shirt and navy blazer frame a bright red tie, with a black belt at the waist. Dress trousers are straight, ending in black formal shoes.",
+      "left": "Left-facing side profile sprite in top-down view, showing the left side of the face with a neat jawline and short side-part hair. The navy blazer hangs cleanly over a white shirt, red tie visible at the collar, with straight trousers and a polished shoe.",
+      "right": "Right-facing side profile sprite in top-down view, showing the right side of the face and the same tidy short dark brown hair. The formal navy blazer, white shirt, and red tie stay crisp in silhouette, while the straight trousers and black shoe keep the office look consistent."
+    }
   },
-  "generatedAt": "2026-05-30T16:09:55.409Z",
+  "generatedAt": "2026-05-30T18:16:29.351Z",
   "model": "gpt-4o + dall-e-3"
 }

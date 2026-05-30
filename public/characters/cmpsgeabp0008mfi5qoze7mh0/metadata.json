@@ -1,67 +1,66 @@
 {
   "dna": {
-    "prompt": "naga api style scandinavia mitologi",
-    "name": "Rune Serpent",
+    "name": "Runefire Naga",
     "race": "elemental",
-    "gender": "nonbinary",
+    "tags": [
+      "naga",
+      "fire",
+      "scandinavian",
+      "mythology",
+      "rune",
+      "mage",
+      "elemental",
+      "top-down",
+      "pixel-art",
+      "sprite"
+    ],
     "class": "mage",
+    "style": {
+      "palette": [
+        "#2B1B1A",
+        "#7A1E1E",
+        "#D94B2B",
+        "#F2C14E",
+        "#E9E2D0"
+      ],
+      "artStyle": "32bit",
+      "detailLevel": "medium"
+    },
+    "gender": "female",
+    "prompt": "naga api style scandinavia mitologi",
     "physical": {
-      "hair": {
-        "style": "long flowing hair with serpent-like waves",
-        "color": "ember orange"
-      },
       "eyes": {
-        "color": "glowing gold",
+        "color": "gold",
         "shape": "narrow"
       },
+      "hair": {
+        "color": "ember red",
+        "style": "long flowing serpentine mane"
+      },
       "skin": {
-        "tone": "red-orange scales"
+        "tone": "crimson"
       },
       "build": "slim",
       "height": "tall"
     },
     "equipment": {
-      "head": "crown of frozen runes",
-      "body": "scandinavian rune robe with ember trim and scale mantle",
-      "legs": "layered sash skirt over fitted leggings",
-      "mainHand": "flame scepter",
-      "offHand": "null",
+      "body": "scales and layered frost-cloth robe with Norse rune trim",
+      "head": "horned rune crown",
+      "legs": "wrapped scale skirt with braided sash panels",
+      "offHand": null,
+      "mainHand": "flame staff",
       "accessories": [
-        "wolf-fur cloak clasp",
-        "ancient rune torc"
+        "amber rune amulet",
+        "frost-bronze arm bands"
       ]
     },
-    "style": {
-      "artStyle": "32bit",
-      "palette": [
-        "#1B1026",
-        "#4A2C5E",
-        "#C85A2A",
-        "#F2B24A",
-        "#F8E8C8"
-      ],
-      "detailLevel": "medium"
-    },
     "directions": {
-      "up": "Back view of a tall chibi elemental mage sprite, with long ember-orange hair flowing over a rune-etched mantle. The robe back shows glowing Nordic knot patterns, a wolf-fur clasp at the neck, and a tapered sash over slim legs in a top-down RPG tile style.",
-      "down": "Front view shows a serpentine face with narrow glowing gold eyes and red-orange scaled skin. The chest bears a rune robe with ember trim, a bright torc at the collar, and layered sash fabric over fitted leggings. The flame scepter is held upright in a compact pixel-art pose.",
-      "left": "Left profile shows a slim elemental body with long wavy hair trailing behind the shoulder. The side of the rune robe reveals glowing trim, a fur clasp near the neck, and the scepter shaft angled forward. The left leg is narrow and wrapped in layered cloth.",
-      "right": "Right profile mirrors the sprite with ember hair, a narrow glowing eye, and scaled cheek detail. The robe hangs in clean pixel layers with Nordic rune accents, the scepter is gripped close to the body, and the right leg shows fitted leggings beneath the sash."
-    },
-    "tags": [
-      "naga",
-      "api",
-      "scandinavia",
-      "mitologi",
-      "norse mythology",
-      "rune mage",
-      "serpent",
-      "elemental",
-      "pixel art",
-      "top-down",
-      "32bit"
-    ]
+      "up": "Back view of a tall naga sprite with a long ember-red serpentine mane flowing down the spine. The horned rune crown sits above broad shoulders, and the robe back shows Norse knot trim in pixel bands. The tail tapers under layered scale panels and braided sash details.",
+      "down": "Front view shows a fierce naga mage with narrow golden eyes, a small serpent-like face, and a glowing rune crown. The chest robe opens into scale armor and frost-cloth layers, with an amber amulet at the collar. The coiled tail and wrapped skirt read clearly in top-down chibi proportions.",
+      "left": "Left profile shows a sleek serpent head with ember-red mane trailing behind the neck, one golden eye visible, and a raised flame staff in the left hand. The robe drapes over a curved torso, while the scaled tail and sash panels create a strong S-shaped silhouette in pixel form.",
+      "right": "Right profile mirrors the naga mage with the same horned crown, narrow eye, and flowing red mane. The staff is held in the right hand, angled forward. Layered robe cloth, rune trim, and segmented tail scales remain visible, keeping the sprite readable from the top-down side angle."
+    }
   },
-  "generatedAt": "2026-05-30T14:41:07.733Z",
+  "generatedAt": "2026-05-30T17:55:49.270Z",
   "model": "gpt-4o + dall-e-3"
 }

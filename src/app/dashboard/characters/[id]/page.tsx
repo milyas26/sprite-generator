@@ -4,6 +4,7 @@ import { SpritePackGenerator } from "@/features/characters/components/sprite-pac
 import { SpritePackViewer } from "@/features/characters/components/sprite-pack-viewer";
 import { DNAViewer } from "@/features/characters/components/dna-viewer";
 import { DeleteCharacterButton } from "@/features/characters/components/delete-character-dialog";
+import { RegenerateSection } from "@/features/generation/components/regenerate-section";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { notFound } from "next/navigation";
@@ -16,7 +17,9 @@ interface Props {
 
 const statusConfig: Record<string, { colors: string; label: string; dot: string }> = {
   DRAFT: { colors: "text-amber-400 border-amber-500/20 bg-amber-500/5", label: "Draft", dot: "bg-amber-500" },
+  EXTRACTING_DNA: { colors: "text-sky-400 border-sky-500/20 bg-sky-500/5", label: "Extracting DNA", dot: "bg-sky-500 animate-sprite-pulse" },
   DNA_READY: { colors: "text-sky-400 border-sky-500/20 bg-sky-500/5", label: "DNA Ready", dot: "bg-sky-500" },
+  GENERATING_SHEET: { colors: "text-violet-400 border-violet-500/20 bg-violet-500/5", label: "Generating Sheet", dot: "bg-violet-500 animate-sprite-pulse" },
   GENERATING: { colors: "text-primary border-primary/20 bg-primary/5", label: "Generating", dot: "bg-primary animate-sprite-pulse" },
   READY: { colors: "text-emerald-400 border-emerald-500/20 bg-emerald-500/5", label: "Ready", dot: "bg-emerald-500" },
   FAILED: { colors: "text-red-400 border-red-500/20 bg-red-500/5", label: "Failed", dot: "bg-red-500" },
@@ -55,6 +58,7 @@ export default async function CharacterDetailPage({ params }: Props) {
 
         <div className="flex items-center gap-2">
           {character.status === "READY" && <SpritePackGenerator characterId={character.id} />}
+          {character.status === "READY" && <RegenerateSection characterId={character.id} />}
           <DeleteCharacterButton characterId={character.id} characterName={character.name} />
         </div>
       </div>

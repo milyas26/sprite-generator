@@ -1,4 +1,4 @@
-import type { ArtStyle, DetailLevel, CharacterDNA, SpritePackConfig } from "@/features/characters/types";
+import type { ArtStyle, DetailLevel, CharacterDNA, CharacterStatus, SpritePackConfig, CharacterDetailsInput } from "@/features/characters/types";
 import { extractCharacterDNA } from "./dna-extractor";
 import { generateCharacterSheet } from "./sheet-generator";
 import { generateSpritePack, generateAnimationSheet } from "./sprite-pack-generator";
@@ -15,10 +15,25 @@ export interface GenerationResult {
 }
 
 export const generationPipeline = {
-  async run(input: { prompt: string; artStyle: ArtStyle; detailLevel: DetailLevel; characterId?: string }): Promise<GenerationResult> {
+  async run(input: { prompt: string; artStyle: ArtStyle; detailLevel: DetailLevel; characterId?: string; existingDNA?: CharacterDNA; details?: CharacterDetailsInput }): Promise<GenerationResult> {
     const startTime = Date.now();
 
-    const { dna } = await extractCharacterDNA(input.prompt, input.artStyle, input.detailLevel);
+    const updateStatus = async (status: CharacterStatus) => {
+      if (input.characterId) {
+        await prisma.character.update({
+          where: { id: input.characterId },
+          data: { status },
+        });
+      }
+    };
+
+    await updateStatus("EXTRACTING_DNA");
+
+    const dna = input.existingDNA?.directions?.up
+      ? input.existingDNA
+      : (await extractCharacterDNA(input.prompt, input.artStyle, input.detailLevel, input.details)).dna;
+
+    await updateStatus("GENERATING_SHEET");
 
     const result = await generateCharacterSheet(dna);
 

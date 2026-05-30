@@ -3,14 +3,53 @@
 import { useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { createCharacter } from "@/features/characters/actions";
 import { PipelineProgress } from "@/features/generation/components/pipeline-progress";
 import { toast } from "sonner";
-import { PlusCircle, Palette, SlidersHorizontal } from "lucide-react";
+import { PlusCircle, Palette, UserRound } from "lucide-react";
+import type { POV } from "@/features/characters/types";
+
+const GENDERS = ["male", "female", "nonbinary"] as const;
+const RACES = ["human", "elf", "dwarf", "orc", "undead", "robot", "demon", "angel", "beast", "fairy", "elemental"] as const;
+const CLASSES = ["warrior", "mage", "rogue", "ranger", "paladin", "ninja", "samurai", "monk", "druid", "necromancer", "berserker", "pirate", "hunter", "cleric", "bard", "gunslinger", "engineer"] as const;
+const SKIN_TONES = ["pale", "fair", "olive", "tan", "brown", "dark", "blue", "green"] as const;
+const BUILDS = ["slim", "athletic", "muscular", "heavy", "petite", "stocky"] as const;
+const HEIGHTS = ["short", "average", "tall"] as const;
+const HAIR_STYLES = ["short", "long", "ponytail", "braided", "buzz", "mohawk", "bun", "bald", "wavy", "curly", "spiky"] as const;
+const HAIR_COLORS = ["black", "brown", "blonde", "red", "white", "gray", "blue", "green", "pink", "purple", "silver"] as const;
+const EYE_COLORS = ["brown", "blue", "green", "gray", "amber", "red", "purple", "black", "hazel"] as const;
+const POVS: POV[] = ["top-down", "side-scroller", "isometric"];
+
+function OptionalSelect({ id, label, value, onValueChange, options, disabled }: {
+  id: string;
+  label: string;
+  value: string;
+  onValueChange: (v: string) => void;
+  options: readonly string[];
+  disabled?: boolean;
+}) {
+  return (
+    <div className="space-y-1">
+      <Label htmlFor={id} className="text-[9px] font-mono font-semibold text-muted-foreground uppercase tracking-widest">{label}</Label>
+      <Select value={value} onValueChange={(v) => v && onValueChange(v)} disabled={disabled}>
+        <SelectTrigger id={id} className="bg-background border-border text-foreground font-mono text-[11px] h-7">
+          <SelectValue />
+        </SelectTrigger>
+        <SelectContent className="bg-popover border-border max-h-48">
+          <SelectItem value="__none__" className="text-muted-foreground font-mono text-[11px] focus:bg-secondary">— Any —</SelectItem>
+          {options.map((opt) => (
+            <SelectItem key={opt} value={opt} className="text-foreground font-mono text-[11px] focus:bg-secondary capitalize">{opt}</SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </div>
+  );
+}
 
 export default function CreateCharacterPage() {
   const router = useRouter();
@@ -19,6 +58,18 @@ export default function CreateCharacterPage() {
   const [detailLevel, setDetailLevel] = useState("medium");
   const [loading, setLoading] = useState(false);
   const [characterId, setCharacterId] = useState<string | null>(null);
+
+  const [name, setName] = useState("");
+  const [gender, setGender] = useState("__none__");
+  const [race, setRace] = useState("__none__");
+  const [charClass, setCharClass] = useState("__none__");
+  const [hairStyle, setHairStyle] = useState("__none__");
+  const [hairColor, setHairColor] = useState("__none__");
+  const [skinTone, setSkinTone] = useState("__none__");
+  const [eyeColor, setEyeColor] = useState("__none__");
+  const [build, setBuild] = useState("__none__");
+  const [height, setHeight] = useState("__none__");
+  const [pov, setPov] = useState("__none__");
 
   const handleReady = useCallback(() => {
     toast.success("Sprite sheet ready!");
@@ -30,7 +81,25 @@ export default function CreateCharacterPage() {
     if (!prompt.trim()) return;
     setLoading(true);
     try {
-      const result = await createCharacter(prompt, artStyle, detailLevel);
+      const details: Record<string, string> = {};
+      if (name.trim()) details.name = name.trim();
+      if (gender !== "__none__") details.gender = gender;
+      if (race !== "__none__") details.race = race;
+      if (charClass !== "__none__") details.class = charClass;
+      if (hairStyle !== "__none__") details.hairStyle = hairStyle;
+      if (hairColor !== "__none__") details.hairColor = hairColor;
+      if (skinTone !== "__none__") details.skinTone = skinTone;
+      if (eyeColor !== "__none__") details.eyeColor = eyeColor;
+      if (build !== "__none__") details.build = build;
+      if (height !== "__none__") details.height = height;
+      if (pov !== "__none__") details.pov = pov;
+
+      const result = await createCharacter(
+        prompt,
+        artStyle,
+        detailLevel,
+        Object.keys(details).length > 0 ? (details as Record<string, string>) : undefined
+      );
       setCharacterId(result.characterId);
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "Failed to create character");
@@ -102,9 +171,54 @@ export default function CreateCharacterPage() {
                 </div>
               </div>
 
+              <div className="border-t border-border pt-4 mt-4">
+                <div className="editor-panel-header flex items-center gap-2 px-3 py-2 -mx-3 rounded-md mb-3">
+                  <UserRound className="h-3.5 w-3.5 text-primary" />
+                  <h3 className="text-foreground font-mono text-xs tracking-wider">CHARACTER DETAILS</h3>
+                  <span className="text-[9px] text-muted-foreground font-mono ml-auto">optional</span>
+                </div>
+
+                <div className="space-y-3">
+                  <div>
+                    <Label htmlFor="charName" className="text-[9px] font-mono font-semibold text-muted-foreground uppercase tracking-widest">Name</Label>
+                    <Input
+                      id="charName"
+                      placeholder='"Shadow Blade"'
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      className="bg-background border-border text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 font-mono text-xs h-7 mt-1"
+                      maxLength={60}
+                      disabled={loading}
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-3 gap-2">
+                    <OptionalSelect id="gender" label="Gender" value={gender} onValueChange={setGender} options={GENDERS} disabled={loading} />
+                    <OptionalSelect id="race" label="Race" value={race} onValueChange={setRace} options={RACES} disabled={loading} />
+                    <OptionalSelect id="class" label="Class" value={charClass} onValueChange={setCharClass} options={CLASSES} disabled={loading} />
+                  </div>
+
+                  <div className="grid grid-cols-3 gap-2">
+                    <OptionalSelect id="hairStyle" label="Hair Style" value={hairStyle} onValueChange={setHairStyle} options={HAIR_STYLES} disabled={loading} />
+                    <OptionalSelect id="hairColor" label="Hair Color" value={hairColor} onValueChange={setHairColor} options={HAIR_COLORS} disabled={loading} />
+                    <OptionalSelect id="skinTone" label="Skin Tone" value={skinTone} onValueChange={setSkinTone} options={SKIN_TONES} disabled={loading} />
+                  </div>
+
+                  <div className="grid grid-cols-3 gap-2">
+                    <OptionalSelect id="eyeColor" label="Eye Color" value={eyeColor} onValueChange={setEyeColor} options={EYE_COLORS} disabled={loading} />
+                    <OptionalSelect id="build" label="Build" value={build} onValueChange={setBuild} options={BUILDS} disabled={loading} />
+                    <OptionalSelect id="height" label="Height" value={height} onValueChange={setHeight} options={HEIGHTS} disabled={loading} />
+                  </div>
+
+                  <div className="grid grid-cols-1">
+                    <OptionalSelect id="pov" label="Point of View" value={pov} onValueChange={setPov} options={POVS} disabled={loading} />
+                  </div>
+                </div>
+              </div>
+
               <Button
                 type="submit"
-                className="w-full bg-primary hover:bg-primary/85 text-primary-foreground border-0 font-heading font-semibold text-[13px] h-10 shadow-sm shadow-primary/10 gap-1.5"
+                className="w-full bg-primary hover:bg-primary/85 text-primary-foreground border-0 font-heading font-semibold text-[13px] h-10 shadow-sm shadow-primary/10 gap-1.5 mt-4"
                 disabled={loading || !prompt.trim()}
               >
                 {loading ? (

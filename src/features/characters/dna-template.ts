@@ -7,6 +7,7 @@ export function createEmptyDNA(overrides: Partial<CharacterDNA> = {}): Character
     race: "human",
     gender: "male",
     class: "adventurer",
+    pov: "top-down",
     physical: {
       hair: { style: "", color: "" },
       eyes: { color: "", shape: "" },

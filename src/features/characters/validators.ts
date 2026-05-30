@@ -6,6 +6,19 @@ export const createCharacterSchema = z.object({
     artStyle: z.enum(["16bit", "32bit", "gbc", "nes"]),
     detailLevel: z.enum(["low", "medium", "high"]),
   }),
+  details: z.object({
+    name: z.string().optional(),
+    gender: z.string().optional(),
+    race: z.string().optional(),
+    class: z.string().optional(),
+    hairStyle: z.string().optional(),
+    hairColor: z.string().optional(),
+    skinTone: z.string().optional(),
+    eyeColor: z.string().optional(),
+    build: z.string().optional(),
+    height: z.string().optional(),
+    pov: z.enum(["top-down", "side-scroller", "isometric"]).optional(),
+  }).optional(),
 });
 
 export const characterDNASchema = z.object({
@@ -14,6 +27,7 @@ export const characterDNASchema = z.object({
   race: z.string().default("human"),
   gender: z.string().default("male"),
   class: z.string().default("warrior"),
+  pov: z.enum(["top-down", "side-scroller", "isometric"]).default("top-down"),
   physical: z.object({
     hair: z.object({ style: z.string().default("short"), color: z.string().default("brown") }),
     eyes: z.object({ color: z.string().default("brown"), shape: z.string().default("round") }),
@@ -46,7 +60,7 @@ export const characterDNASchema = z.object({
 export const paginationSchema = z.object({
   page: z.coerce.number().int().positive().default(1),
   limit: z.coerce.number().int().positive().max(50).default(12),
-  status: z.enum(["DRAFT", "DNA_READY", "GENERATING", "READY", "FAILED"]).optional(),
+  status: z.enum(["DRAFT", "EXTRACTING_DNA", "DNA_READY", "GENERATING_SHEET", "GENERATING", "READY", "FAILED"]).optional(),
   search: z.string().optional(),
   sort: z.string().default("createdAt"),
   order: z.enum(["asc", "desc"]).default("desc"),

@@ -9,7 +9,9 @@ datasource db {
 
 enum CharacterStatus {
   DRAFT
+  EXTRACTING_DNA
   DNA_READY
+  GENERATING_SHEET
   GENERATING
   READY
   FAILED

@@ -12,11 +12,16 @@ export async function processNextJob(): Promise<{ processed: number }> {
 
   try {
     if (job.type === "COMPOSITE") {
+      const existingDNA = character.dna?.directions?.up ? (character.dna as any) : undefined;
+      const details = job.input?.details as any;
+
       const result = await generationPipeline.run({
         prompt: character.dna?.prompt || job.input?.prompt as string,
         artStyle: job.input?.artStyle as any || character.dna?.style?.artStyle || "16bit",
         detailLevel: job.input?.detailLevel as any || character.dna?.style?.detailLevel || "medium",
         characterId: job.characterId,
+        existingDNA,
+        details,
       });
 
       await jobQueue.complete(job.id, { dna: result.dna, sheetUrl: result.sheetUrl });

@@ -1,15 +1,39 @@
-import type { ArtStyle, DetailLevel, Character, CharacterAggregate, PaginationParams, PaginatedResult, SpritePackConfig } from "./types";
+import type { ArtStyle, DetailLevel, Character, CharacterAggregate, PaginationParams, PaginatedResult, SpritePackConfig, CharacterDetailsInput } from "./types";
 import { characterRepository } from "./repository";
 import { createEmptyDNA } from "./dna-template";
 import { enqueueGenerationJob, enqueueSpritePackJob } from "@/features/generation/bull-producer";
 import { storageService } from "@/features/storage/upload";
 
 export const characterService = {
-  async createCharacter(prompt: string, artStyle: ArtStyle, detailLevel: DetailLevel) {
-    const dna = createEmptyDNA({ prompt, style: { ...createEmptyDNA().style, artStyle, detailLevel } });
+  async createCharacter(prompt: string, artStyle: ArtStyle, detailLevel: DetailLevel, details?: CharacterDetailsInput) {
+    const dnaOverrides: Record<string, unknown> = { prompt, style: { artStyle, palette: [], detailLevel } };
+
+    if (details) {
+      if (details.name) dnaOverrides.name = details.name;
+      if (details.gender) dnaOverrides.gender = details.gender;
+      if (details.race) dnaOverrides.race = details.race;
+      if (details.class) dnaOverrides.class = details.class;
+      if (details.pov) dnaOverrides.pov = details.pov;
+      if (details.hairStyle || details.hairColor || details.skinTone || details.eyeColor || details.build || details.height) {
+        const physical: Record<string, unknown> = {};
+        if (details.hairStyle || details.hairColor) {
+          physical.hair = {
+            ...(details.hairStyle ? { style: details.hairStyle } : {}),
+            ...(details.hairColor ? { color: details.hairColor } : {}),
+          };
+        }
+        if (details.eyeColor) physical.eyes = { color: details.eyeColor, shape: "" };
+        if (details.skinTone) physical.skin = { tone: details.skinTone };
+        if (details.build) physical.build = details.build;
+        if (details.height) physical.height = details.height;
+        dnaOverrides.physical = physical;
+      }
+    }
+
+    const dna = createEmptyDNA(dnaOverrides as Partial<import("./types").CharacterDNA>);
 
     const character = await characterRepository.create({
-      name: "Untitled Character",
+      name: dna.name,
       status: "DRAFT" as any,
       dna: dna as any,
     });
@@ -19,6 +43,7 @@ export const characterService = {
       prompt,
       artStyle,
       detailLevel,
+      details: details || undefined,
     });
 
     return { characterId: character.id, jobId: job.id };

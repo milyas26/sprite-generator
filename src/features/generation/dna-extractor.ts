@@ -1,6 +1,6 @@
 import { openai } from "@/lib/openai";
 import { characterDNASchema } from "@/features/characters/validators";
-import type { CharacterDNA, ArtStyle, DetailLevel } from "@/features/characters/types";
+import type { CharacterDNA, ArtStyle, DetailLevel, CharacterDetailsInput } from "@/features/characters/types";
 import { buildDNAExtractionPrompt } from "./prompts/dna-extraction";
 import { AI } from "@/lib/constants";
 
@@ -23,9 +23,10 @@ async function callOpenAI(messages: { role: string; content: string }[]) {
 export async function extractCharacterDNA(
   prompt: string,
   artStyle: ArtStyle,
-  detailLevel: DetailLevel
+  detailLevel: DetailLevel,
+  details?: CharacterDetailsInput
 ): Promise<{ dna: CharacterDNA; tokens: number }> {
-  const systemPrompt = buildDNAExtractionPrompt(prompt, artStyle, detailLevel);
+  const systemPrompt = buildDNAExtractionPrompt(prompt, artStyle, detailLevel, details);
 
   const messages = [
     { role: "system", content: "You are a precise RPG character designer. Output ONLY valid JSON. No markdown, no explanation." },

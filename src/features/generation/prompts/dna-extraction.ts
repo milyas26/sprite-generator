@@ -1,23 +1,43 @@
-import type { ArtStyle, DetailLevel, AnimationType } from "../../characters/types";
+import type { ArtStyle, DetailLevel, AnimationType, CharacterDetailsInput } from "../../characters/types";
 
-export function buildDNAExtractionPrompt(prompt: string, artStyle: ArtStyle, detailLevel: DetailLevel): string {
-  return `You are a pixel-art character designer for top-down RPG games (like Stardew Valley, Pokemon GBA, RPG Maker).
+export function buildDNAExtractionPrompt(prompt: string, artStyle: ArtStyle, detailLevel: DetailLevel, details?: CharacterDetailsInput): string {
+  const constraints: string[] = [];
+
+  if (details) {
+    if (details.name) constraints.push(`- Character name MUST be "${details.name}"`);
+    if (details.gender) constraints.push(`- Gender MUST be "${details.gender}"`);
+    if (details.race) constraints.push(`- Race MUST be "${details.race}"`);
+    if (details.class) constraints.push(`- Class MUST be "${details.class}"`);
+    if (details.hairStyle) constraints.push(`- Hair style MUST be "${details.hairStyle}"`);
+    if (details.hairColor) constraints.push(`- Hair color MUST be "${details.hairColor}"`);
+    if (details.skinTone) constraints.push(`- Skin tone MUST be "${details.skinTone}"`);
+    if (details.eyeColor) constraints.push(`- Eye color MUST be "${details.eyeColor}"`);
+    if (details.build) constraints.push(`- Build MUST be "${details.build}"`);
+    if (details.height) constraints.push(`- Height MUST be "${details.height}"`);
+    if (details.pov) constraints.push(`- Point of view MUST be "${details.pov}"`);
+  }
+
+  const constraintsBlock = constraints.length > 0
+    ? `\nUSER-SPECIFIED CONSTRAINTS — you MUST honor these exactly:\n${constraints.join("\n")}\n`
+    : "";
+
+  return `You are a pixel-art character designer for top-down RPG games (Stardew Valley, Pokemon GBA, RPG Maker).
     Given a user's text description, extract structured Character DNA as JSON.
 
     User prompt: "${prompt}"
-    Art style: ${artStyle}
-    Detail level: ${detailLevel}
-
+    Art style: ${artStyle} pixel art
+    Detail level: ${detailLevel}${constraintsBlock}
     Return ONLY valid JSON matching this structure:
     {
       "name": "descriptive name, 2-4 words max",
       "race": "human|elf|dwarf|orc|undead|robot|demon|angel|beast|fairy|elemental",
       "gender": "male|female|nonbinary",
       "class": "warrior|mage|rogue|ranger|paladin|ninja|samurai|monk|druid|necromancer|berserker|pirate|hunter|cleric|bard|gunslinger|engineer",
+      "pov": "${details?.pov || "top-down"}",
       "physical": {
-        "hair": { "style": "specific hairstyle", "color": "specific color" },
-        "eyes": { "color": "specific eye color", "shape": "almond|round|narrow|large" },
-        "skin": { "tone": "pale|fair|olive|tan|brown|dark|blue|green|etc" },
+        "hair": { "style": "specific hairstyle", "color": "specific color name" },
+        "eyes": { "color": "specific eye color name", "shape": "almond|round|narrow|large" },
+        "skin": { "tone": "pale|fair|olive|tan|brown|dark|blue|green" },
         "build": "slim|athletic|muscular|heavy|petite|stocky",
         "height": "short|average|tall"
       },
@@ -27,118 +47,125 @@ export function buildDNAExtractionPrompt(prompt: string, artStyle: ArtStyle, det
         "legs": "legwear description",
         "mainHand": "weapon or tool name or null",
         "offHand": "shield or secondary item or null",
-        "accessories": ["accessory1", "accessory2"]
+        "accessories": ["accessory1"]
       },
       "style": {
         "artStyle": "${artStyle}",
-        "palette": ["#hexcolor1", "#hexcolor2", "#hexcolor3", "#hexcolor4", "#hexcolor5"],
+        "palette": ["#hex1", "#hex2", "#hex3", "#hex4", "#hex5"],
         "detailLevel": "${detailLevel}"
       },
       "directions": {
-        "up": "Detailed visual description of the character seen from behind in top-down view. Describe what you see: back of head, hair, shoulders, back of armor, back of legs. 25-50 words.",
-        "down": "Detailed visual description of the character seen from front in top-down view. Describe what you see: face, chest armor, belt, front of legs. 25-50 words.",
-        "left": "Detailed visual description of the character facing left in side profile, top-down view. Describe what you see: left side of face, left arm, left side of body, left leg. 25-50 words.",
-        "right": "Detailed visual description of the character facing right in side profile, top-down view. Describe what you see: right side of face, right arm, right side of body, right leg. 25-50 words."
+        "up": "Visual description from behind in top-down view. Back of head, hair, shoulders, back of armor, back of legs. 25-50 words.",
+        "down": "Visual description from front in top-down view. Face, chest armor, belt, front of legs. 25-50 words.",
+        "left": "Visual description facing left in side profile, top-down view. Left side of face, left arm, left side of body, left leg. 25-50 words.",
+        "right": "Visual description facing right in side profile, top-down view. Right side of face, right arm, right side of body, right leg. 25-50 words."
       },
-      "tags": ["relevant", "keyword", "tags"]
+      "tags": ["keyword1", "keyword2"]
     }
 
-    Rules:
-    - Directions MUST describe the character appearance from the specified viewing angle in top-down pixel-art RPG perspective
-    - Keep direction descriptions concise but visually detailed (25-50 words each)
-    - The character MUST be visually consistent across all 4 directions
-    - Use pixel-art relevant vocabulary (sprite, tile, palette, pixel, chibi)
-    - Infer missing details creatively but stay consistent with the user's original prompt
-    - Palette must contain exactly 5 hex colors appropriate for pixel art`;
+    CRITICAL RULES:
+    - artStyle MUST be exactly "${artStyle}" — do not change it.
+    - detailLevel MUST be exactly "${detailLevel}" — do not change it.
+    - pov field MUST be "${details?.pov || "top-down"}" — do not change it.
+    - Palette must contain exactly 5 hex colors suitable for ${artStyle} pixel art. Colors must match the character. NO duplicate colors.
+    - Directions MUST describe the character appearance from the specified viewing angle in ${details?.pov || "top-down"} pixel-art RPG perspective.
+    - Keep direction descriptions concise but visually detailed (25-50 words each).
+    - The character MUST be visually consistent across all 4 directions — same clothing, same colors, same proportions.
+    - Use pixel-art vocabulary (sprite, tile, palette, pixel, chibi).
+    - Infer missing details creatively but stay faithful to the user's original prompt.
+    - Describe physical traits using concrete visual language an image generator can render.`;
 }
 
 export function buildSheetGenerationPrompt(dna: Record<string, unknown>): string {
   const directions = dna.directions as Record<string, string>;
   const physical = dna.physical as Record<string, { style?: string; color?: string; shape?: string; tone?: string }>;
   const equipment = dna.equipment as Record<string, unknown>;
-  const style = dna.style as { artStyle?: string };
+  const style = dna.style as { artStyle?: string; palette?: string[] };
 
-  return `Create a pixel-art character sprite sheet for a top-down RPG game.
-    Arrange the character in a strict 2x2 grid layout:
+  const paletteInfo = style?.palette?.length ? `Color palette: ${style.palette.join(", ")}. Use ONLY these colors.` : "";
 
-    * Top-Left: Character seen from the BACK (facing UP / away from viewer)
-    * Top-Right: Character seen from the FRONT (facing DOWN / toward viewer)
-    * Bottom-Left: Character seen from the LEFT side
-    * Bottom-Right: Character seen from the RIGHT side
+  const skinTone = physical?.skin?.tone ? `Skin: ${physical.skin.tone}` : "";
+  const eyeInfo = physical?.eyes?.color ? `Eyes: ${physical.eyes.color}` : "";
+  const heightInfo = physical?.height ? `Height: ${physical.height}` : "";
+  const headGear = equipment?.head ? `Head: ${equipment.head}` : "";
+  const legGear = equipment?.legs ? `Legs: ${equipment.legs}` : "";
+  const offHand = equipment?.offHand ? `Off-hand: ${equipment.offHand}` : "";
+  const accessories = equipment?.accessories && Array.isArray(equipment.accessories) && equipment.accessories.length > 0
+    ? `Accessories: ${(equipment.accessories as string[]).join(", ")}`
+    : "";
+  const tags = dna.tags && Array.isArray(dna.tags) && (dna.tags as string[]).length > 0
+    ? `Tags: ${(dna.tags as string[]).join(", ")}`
+    : "";
 
-    Character Details:
+  return `Create a ${style?.artStyle || "16bit"} pixel art character sprite sheet.
+    ABSOLUTE RULES — VIOLATING THESE RUINS THE OUTPUT:
+    - This MUST be pure pixel art. Every pixel is intentional.
+    - Sharp pixel edges only — NO anti-aliasing, NO smoothing, NO blur of any kind.
+    - NO soft shading, NO gradients, NO painterly rendering, NO realistic lighting.
+    - ${paletteInfo}
+    - Vibrant, limited-color RPG palette with crisp contrast.
+    - Consistent sprite proportions across all 4 directions.
+
+    Arrange the character in a strict 2x2 grid:
+
+    * Top-Left: Character seen from BACK (facing UP / away from viewer)
+    * Top-Right: Character seen from FRONT (facing DOWN / toward viewer)
+    * Bottom-Left: Character seen from LEFT side
+    * Bottom-Right: Character seen from RIGHT side
+
+    CHARACTER — visual consistency is mandatory:
 
     Name: ${dna.name}
-
-    Race: ${dna.race} - ${dna.gender} ${dna.class}
-
+    Race: ${dna.race} — ${dna.gender} ${dna.class}
     Hair: ${physical?.hair?.color || ""} ${physical?.hair?.style || ""}
-
     Build: ${physical?.build || ""} build
-
-    Body Equipment: ${equipment?.body}
-
+    ${heightInfo}
+    ${skinTone}
+    ${eyeInfo}
+    Body: ${equipment?.body || "none"}
+    ${legGear}
+    ${headGear}
     Weapon: ${equipment?.mainHand || "none"}
+    ${offHand}
+    ${accessories}
+    ${tags}
 
-    Directional Appearance:
+    DIRECTIONAL APPEARANCE — use these exact descriptions for each cell:
 
-    * BACK (Top-Left): ${directions?.up || "Character from behind"}
-    * FRONT (Top-Right): ${directions?.down || "Character from front"}
-    * LEFT (Bottom-Left): ${directions?.left || "Character facing left"}
-    * RIGHT (Bottom-Right): ${directions?.right || "Character facing right"}
+    BACK (Top-Left): ${directions?.up || "Character from behind"}
+    FRONT (Top-Right): ${directions?.down || "Character from front"}
+    LEFT (Bottom-Left): ${directions?.left || "Character facing left"}
+    RIGHT (Bottom-Right): ${directions?.right || "Character facing right"}
 
-    Style:
+    CONSISTENCY — non-negotiable:
 
-    * ${style?.artStyle || "16bit"} pixel art RPG style
-    * Clean pixel art
-    * Sharp pixel edges
-    * No anti-aliasing
-    * No smoothing
-    * No motion blur
-    * No painterly rendering
-    * No soft shading
-    * Consistent sprite proportions across all directions
-    * Vibrant RPG palette
+    - All 4 cells contain the EXACT SAME character — same face, hair, body, build, clothing, armor, weapon, colors.
+    - Only the viewing angle changes. Nothing else.
+    - Character scale identical in all 4 directions.
+    - Equipment identical in every pose.
 
-    Consistency Requirements:
+    LAYOUT:
 
-    * All 4 cells must contain the EXACT SAME character
-    * Same face, hair, body proportions, clothing, armor, weapon, and colors
-    * Only the viewing angle changes
-    * Character scale must remain identical in all directions
-    * Equipment must remain identical in every pose
+    - Single image, strict 2x2 grid
+    - Equal-sized quadrants, equal spacing
+    - Character centered inside each quadrant
+    - Each sprite fills its quadrant evenly
+    - No cropped body parts, no overlapping between quadrants
 
-    Layout Requirements:
+    BACKGROUND — fully transparent:
 
-    * Single image
-    * Strict 2x2 grid
-    * Equal-sized quadrants
-    * Equal spacing
-    * Character centered inside each quadrant
-    * Each sprite fills its quadrant evenly
-    * No cropped body parts
-    * No overlapping between quadrants
+    - Alpha channel transparency only — PNG sprite sheet
+    - NO green screen, NO solid background color
+    - NO floor, NO environment, NO scenery, NO shadows
+    - NO lighting effects outside the character
+    - All empty space must be completely transparent
 
-    Background Requirements:
+    OUTPUT:
 
-    * Fully transparent background (alpha channel)
-    * Transparent PNG sprite sheet
-    * No green screen
-    * No solid background color
-    * No floor
-    * No environment
-    * No scenery
-    * No shadows
-    * No lighting effects outside the character
-    * All empty space must be completely transparent
-
-    Important:
-
-    * Character must be clearly readable at game-sprite scale
-    * Strong silhouette from all directions
-    * Clean separation between character and transparent background
-    * Do not use green tones in the character design itself
-    * Output as a professional RPG sprite sheet ready for game development
+    - Character clearly readable at game-sprite scale
+    - Strong silhouette from all directions
+    - Clean separation between character and transparent background
+    - Professional RPG sprite sheet ready for game engine import
    `;
 }
 
@@ -158,10 +185,18 @@ export function buildSpritePackPrompt(dna: Record<string, unknown>, animation: A
   const style = dna.style as { artStyle?: string; palette?: string[] };
 
   const animDesc = animationDescriptions[animation] || "Animation cycle";
-  const paletteInfo = style?.palette?.length ? `Color Palette: ${style.palette.join(", ")}` : "";
+  const paletteInfo = style?.palette?.length ? `Color palette: ${style.palette.join(", ")}. Use ONLY these colors.` : "";
 
-  return `Create a pixel-art character ${animation.toUpperCase()} animation sprite sheet for a top-down RPG game.
-    Arrange the character in a strict grid layout: 4 rows × ${frameCount} columns.
+  return `Create a ${style?.artStyle || "16bit"} pixel art ${animation.toUpperCase()} animation sprite sheet.
+    ABSOLUTE RULES — VIOLATING THESE RUINS THE OUTPUT:
+    - This MUST be pure pixel art. Every pixel is intentional.
+    - Sharp pixel edges only — NO anti-aliasing, NO smoothing, NO blur of any kind.
+    - NO soft shading, NO gradients, NO painterly rendering, NO realistic lighting.
+    - ${paletteInfo}
+    - Vibrant, limited-color RPG palette with crisp contrast.
+    - Consistent sprite proportions across ALL frames and directions.
+
+    Arrange the character in a strict grid: 4 rows × ${frameCount} columns.
 
     Grid Layout:
     * Row 1 (top): Character facing UP / away from viewer — ${frameCount} frames of ${animation} animation from behind
@@ -169,63 +204,52 @@ export function buildSpritePackPrompt(dna: Record<string, unknown>, animation: A
     * Row 3: Character facing LEFT — ${frameCount} frames of ${animation} animation from left side
     * Row 4 (bottom): Character facing RIGHT — ${frameCount} frames of ${animation} animation from right side
 
-    Each column represents one frame of the animation sequence, progressing from left to right.
+    Each column is one frame of the animation, progressing left to right.
 
     Animation: ${animation.toUpperCase()}
     Description: ${animDesc}
     Frames per direction: ${frameCount}
 
-    Character Details:
+    CHARACTER:
     Name: ${dna.name}
     Race: ${dna.race} — ${dna.gender} ${dna.class}
     Hair: ${physical?.hair?.color || ""} ${physical?.hair?.style || ""}
     Build: ${physical?.build || ""} build
-    Body Equipment: ${equipment?.body}
+    Body: ${equipment?.body || "none"}
     Weapon: ${equipment?.mainHand || "none"}
 
-    Directional Appearance:
-    * UP (Row 1): ${directions?.up || "Character from behind"}
-    * DOWN (Row 2): ${directions?.down || "Character from front"}
-    * LEFT (Row 3): ${directions?.left || "Character facing left"}
-    * RIGHT (Row 4): ${directions?.right || "Character facing right"}
+    DIRECTIONAL APPEARANCE:
+    UP (Row 1): ${directions?.up || "Character from behind"}
+    DOWN (Row 2): ${directions?.down || "Character from front"}
+    LEFT (Row 3): ${directions?.left || "Character facing left"}
+    RIGHT (Row 4): ${directions?.right || "Character facing right"}
 
-    Style:
-    * ${style?.artStyle || "16bit"} pixel art RPG style
-    * Clean pixel art, sharp pixel edges
-    * No anti-aliasing, no smoothing, no motion blur, no painterly rendering, no soft shading
-    * ${paletteInfo}
-    * Vibrant RPG palette
-    * Consistent sprite proportions across ALL frames and directions
+    CONSISTENCY — non-negotiable:
+    - All frames contain the EXACT SAME character — same face, hair, body, clothing, armor, weapon, colors.
+    - Each row shows a smooth, coherent ${frameCount}-frame ${animation} cycle.
+    - Animation reads clearly left-to-right within each row.
+    - Character scale identical across all frames.
+    - Equipment identical in every frame.
+    - Only the pose/animation frame changes.
 
-    Consistency Requirements:
-    * All frames must contain the EXACT SAME character — same face, hair, body, clothing, armor, weapon, colors
-    * Each row must show a smooth, coherent ${frameCount}-frame ${animation} cycle
-    * Animation should read clearly left-to-right within each row
-    * Character scale must remain identical across all frames
-    * Equipment must remain identical in every frame
-    * Only the pose/animation frame changes
+    GRID LAYOUT:
+    - Single image, strict 4×${frameCount} grid
+    - Equal-sized cells, equal spacing
+    - Character centered inside each cell
+    - Each sprite fills its cell evenly
+    - No cropped body parts, no overlapping between cells
 
-    Grid Layout Requirements:
-    * Single image, strict 4×${frameCount} grid
-    * Equal-sized cells, equal spacing between cells
-    * Character centered inside each cell
-    * Each sprite fills its cell evenly
-    * No cropped body parts
-    * No overlapping between cells
+    BACKGROUND — fully transparent:
+    - Alpha channel transparency only
+    - NO green screen, NO solid background color
+    - NO floor, NO environment, NO scenery
+    - NO shadows, NO lighting effects outside character
+    - All empty space must be completely transparent
 
-    Background Requirements:
-    * Fully transparent background (alpha channel)
-    * Transparent PNG sprite sheet
-    * No green screen, no solid background color
-    * No floor, no environment, no scenery
-    * No shadows, no lighting effects outside character
-    * All empty space must be completely transparent
-
-    Important:
-    * Character must be clearly readable at game-sprite scale
-    * Strong silhouette from all directions in all frames
-    * Clean separation between character and transparent background
-    * Do not use green tones in the character design itself
-    * Output as a professional RPG animation sprite sheet ready for game development
+    OUTPUT:
+    - Character clearly readable at game-sprite scale
+    - Strong silhouette from all directions in all frames
+    - Clean separation between character and transparent background
+    - Professional RPG animation sprite sheet ready for game engine import
    `;
 }

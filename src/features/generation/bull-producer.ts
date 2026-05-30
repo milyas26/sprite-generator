@@ -1,5 +1,5 @@
 import { Queue } from "bullmq";
-import type { ArtStyle, DetailLevel, SpritePackConfig } from "@/features/characters/types";
+import type { ArtStyle, DetailLevel, SpritePackConfig, CharacterDetailsInput } from "@/features/characters/types";
 import { prisma } from "@/lib/prisma";
 
 const REDIS_URL = process.env.REDIS_URL || "redis://localhost:6379";
@@ -29,6 +29,7 @@ interface EnqueueInput {
   prompt: string;
   artStyle: ArtStyle;
   detailLevel: DetailLevel;
+  details?: CharacterDetailsInput;
 }
 
 interface EnqueueSpritePackInput {
@@ -46,7 +47,8 @@ export async function enqueueGenerationJob(input: EnqueueInput) {
         prompt: input.prompt,
         artStyle: input.artStyle,
         detailLevel: input.detailLevel,
-      },
+        ...(input.details ? { details: { ...input.details } } : {}),
+      } as any,
       maxAttempts: 3,
     },
   });
@@ -57,6 +59,7 @@ export async function enqueueGenerationJob(input: EnqueueInput) {
     prompt: input.prompt,
     artStyle: input.artStyle,
     detailLevel: input.detailLevel,
+    details: input.details ? { ...input.details } : undefined,
   }, {
     jobId: dbJob.id,
   });

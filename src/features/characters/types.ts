@@ -4,7 +4,9 @@ export type ArtStyle = "16bit" | "32bit" | "gbc" | "nes";
 
 export type DetailLevel = "low" | "medium" | "high";
 
-export type CharacterStatus = "DRAFT" | "DNA_READY" | "GENERATING" | "READY" | "FAILED";
+export type POV = "top-down" | "side-scroller" | "isometric";
+
+export type CharacterStatus = "DRAFT" | "EXTRACTING_DNA" | "DNA_READY" | "GENERATING_SHEET" | "GENERATING" | "READY" | "FAILED";
 
 export type JobType = "DNA_EXTRACTION" | "SHEET_GENERATION" | "COMPOSITE" | "SPRITE_PACK";
 
@@ -30,6 +32,7 @@ export interface CharacterDNA {
   race: string;
   gender: string;
   class: string;
+  pov: POV;
   physical: {
     hair: { style: string; color: string };
     eyes: { color: string; shape: string };
@@ -64,9 +67,24 @@ export interface CharacterStyleInput {
   detailLevel: DetailLevel;
 }
 
+export interface CharacterDetailsInput {
+  name?: string;
+  gender?: string;
+  race?: string;
+  class?: string;
+  hairStyle?: string;
+  hairColor?: string;
+  skinTone?: string;
+  eyeColor?: string;
+  build?: string;
+  height?: string;
+  pov?: POV;
+}
+
 export interface CreateCharacterInput {
   prompt: string;
   style: CharacterStyleInput;
+  details?: CharacterDetailsInput;
 }
 
 export interface Character {

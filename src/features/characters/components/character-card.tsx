@@ -5,7 +5,9 @@ import Link from "next/link";
 
 const statusConfig: Record<string, { label: string; colors: string; dot: string }> = {
   DRAFT: { label: "Draft", colors: "text-amber-400 border-amber-500/20 bg-amber-500/5", dot: "bg-amber-500" },
+  EXTRACTING_DNA: { label: "Extracting DNA", colors: "text-sky-400 border-sky-500/20 bg-sky-500/5", dot: "bg-sky-500 animate-sprite-pulse" },
   DNA_READY: { label: "DNA Ready", colors: "text-sky-400 border-sky-500/20 bg-sky-500/5", dot: "bg-sky-500" },
+  GENERATING_SHEET: { label: "Generating Sheet", colors: "text-violet-400 border-violet-500/20 bg-violet-500/5", dot: "bg-violet-500 animate-sprite-pulse" },
   GENERATING: { label: "Generating", colors: "text-primary border-primary/20 bg-primary/5", dot: "bg-primary animate-sprite-pulse" },
   READY: { label: "Ready", colors: "text-emerald-400 border-emerald-500/20 bg-emerald-500/5", dot: "bg-emerald-500" },
   FAILED: { label: "Failed", colors: "text-red-400 border-red-500/20 bg-red-500/5", dot: "bg-red-500" },
@@ -23,7 +25,7 @@ export function CharacterCard({ character }: CharacterCardProps) {
   };
 
   return (
-    <Link href={`/dashboard/characters/${character.id}`}>
+    <Link href={`/dashboard/editor?select=${character.id}`}>
       <Card className="group overflow-hidden border-border bg-card card-hover py-0">
         <div className="aspect-square bg-[#0c0c12] relative overflow-hidden editor-grid-sm">
           {character.sheetUrl ? (
