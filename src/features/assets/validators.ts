@@ -30,7 +30,7 @@ export const assetDNASchema = z.object({
     down: z.string().default(""),
     left: z.string().default(""),
     right: z.string().default(""),
-  }).optional(),
+  }),
   tags: z.array(z.string()).default([]),
 });
 

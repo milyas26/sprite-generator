@@ -26,7 +26,7 @@ export interface AssetDNA {
     scale: string;
     aesthetic: string;
   };
-  directions?: {
+  directions: {
     up: string;
     down: string;
     left: string;
@@ -43,14 +43,14 @@ export interface AssetCategoryConfig {
 }
 
 export const ASSET_CATEGORIES: AssetCategoryConfig[] = [
-  { category: "TILE", label: "Tile", description: "Ground/floor tiles for building levels", hasDirections: false },
+  { category: "TILE", label: "Tile", description: "Ground/floor tiles for building levels", hasDirections: true },
   { category: "WALL", label: "Wall", description: "Wall segments and barriers", hasDirections: true },
   { category: "FURNITURE", label: "Furniture", description: "Tables, chairs, beds, shelves", hasDirections: true },
-  { category: "DECORATION", label: "Decoration", description: "Paintings, rugs, torches, banners", hasDirections: false },
-  { category: "ITEM", label: "Item", description: "Pickups, weapons, potions, treasure", hasDirections: false },
-  { category: "VEGETATION", label: "Vegetation", description: "Trees, bushes, grass, flowers", hasDirections: false },
+  { category: "DECORATION", label: "Decoration", description: "Paintings, rugs, torches, banners", hasDirections: true },
+  { category: "ITEM", label: "Item", description: "Pickups, weapons, potions, treasure", hasDirections: true },
+  { category: "VEGETATION", label: "Vegetation", description: "Trees, bushes, grass, flowers", hasDirections: true },
   { category: "BUILDING", label: "Building", description: "Houses, castles, shops, towers", hasDirections: true },
-  { category: "TERRAIN", label: "Terrain", description: "Mountains, rivers, cliffs, paths", hasDirections: false },
+  { category: "TERRAIN", label: "Terrain", description: "Mountains, rivers, cliffs, paths", hasDirections: true },
 ];
 
 export interface CharacterStyleInput {

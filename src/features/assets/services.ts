@@ -11,6 +11,7 @@ export const assetService = {
       pov: details?.pov || "top-down",
       style: { artStyle, palette: [], detailLevel },
       visual: { colors: [], material: "", scale: "", aesthetic: "" },
+      directions: { up: "", down: "", left: "", right: "" },
       tags: [],
     };
 

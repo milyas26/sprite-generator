@@ -6,8 +6,6 @@ export function buildAssetDNAExtractionPrompt(
   artStyle: ArtStyle,
   detailLevel: DetailLevel
 ): string {
-  const needDirections = ["WALL", "FURNITURE", "BUILDING"].includes(category);
-
   return `You are a pixel-art game asset designer for top-down RPG games (Stardew Valley, Pokemon GBA, RPG Maker, Zelda).
 Given a user's text description, extract structured Asset DNA as JSON.
 
@@ -26,13 +24,13 @@ Return ONLY valid JSON matching this structure:
     "material": "wood|stone|metal|fabric|glass|organic|crystal|magic",
     "scale": "tiny|small|medium|large|huge",
     "aesthetic": "rustic|medieval|futuristic|fantasy|industrial|natural|ancient|modern"
-  },${needDirections ? `
+  },
   "directions": {
-    "up": "description of how this asset looks when viewed from above (back side)",
-    "down": "description of how this asset looks when viewed from below (front side)",
-    "left": "description of how this asset looks when viewed from left side",
-    "right": "description of how this asset looks when viewed from right side"
-  },` : ""}
+    "up": "description of how this asset looks when viewed from above (belakang/back side)",
+    "down": "description of how this asset looks when viewed from below (depan/front side)",
+    "left": "description of how this asset looks when viewed from left side (kiri)",
+    "right": "description of how this asset looks when viewed from right side (kanan)"
+  },
   "style": {
     "artStyle": "${artStyle}",
     "palette": ["#hex1", "#hex2", "#hex3", "#hex4", "#hex5"],
@@ -48,10 +46,7 @@ Guidelines:
 - scale: estimate the asset's size relative to a 1-tile grid cell
 - aesthetic: choose the best-fitting aesthetic era/genre
 - tags: relevant keywords for filtering (theme, biome, style)
-
-${needDirections
-  ? "- directions: describe what this asset looks like from each of the 4 cardinal directions (up/north, down/south, left/west, right/east). Be specific about visual elements that would differ across directions."
-  : ""}
+- directions: describe what this asset looks like from each of the 4 cardinal directions. "up" = belakang (back), "down" = depan (front), "left" = kiri (left), "right" = kanan (right). Be specific about visual elements that would differ across directions.
 
 Output ONLY the JSON object, no markdown wrapping, no explanation.`;
 }
@@ -67,30 +62,17 @@ export function buildAssetSheetGenerationPrompt(dna: Record<string, unknown>): s
   const aesthetic = visual?.aesthetic as string || "";
   const colors = (visual?.colors as string[])?.join(", ") || "";
 
-  const needDirections = ["WALL", "FURNITURE", "BUILDING"].includes(category);
-
-  if (needDirections && directions) {
-    return `Create a pixel-art game asset sprite sheet for "${name}" (${category}).
+  return `Create a pixel-art game asset sprite sheet for "${name}" (${category}).
 Art style: ${artStyle} pixel art (clean outlines, limited palette, flat shading).
 Material: ${material}. Aesthetic: ${aesthetic}. Colors: ${colors}.
 
-Layout: 2x2 grid of 4 directional views (UP/DOWN/LEFT/RIGHT), each tile is exactly 64x64 pixels.
-- Top-left (UP): ${directions.up}
-- Bottom-left (DOWN): ${directions.down} 
-- Bottom-right (LEFT): ${directions.left}
-- Top-right (RIGHT): ${directions.right}
+Layout: 2x2 grid of 4 directional views, each tile is exactly 64x64 pixels.
+- Top-left (UP/belakang): ${directions?.up || "view from above/back"}
+- Bottom-left (DOWN/depan): ${directions?.down || "view from below/front"}
+- Bottom-right (LEFT/kiri): ${directions?.left || "view from left side"}
+- Top-right (RIGHT/kanan): ${directions?.right || "view from right side"}
 
 Grid must be precise — 4 equal quadrants, no gaps, no labels. Transparent background.
 Each direction view should be a distinct sprite based on what you'd see from that perspective.
 Consistent size and proportion across all 4 frames.`;
-  }
-
-  return `Create a pixel-art game asset for "${name}" (${category}).
-Art style: ${artStyle} pixel art (clean outlines, limited palette, flat shading).
-Material: ${material}. Aesthetic: ${aesthetic}. Colors: ${colors}.
-
-Create a single, centered asset image on a transparent background.
-The asset should fill most of the frame with clean pixel edges.
-No text, no labels, no UI elements. Just the pixel art asset.
-Consistent pixel size — no anti-aliasing, no gradients.`;
 }
