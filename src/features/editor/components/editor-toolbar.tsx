@@ -1,6 +1,6 @@
 "use client";
 
-import type { Character } from "@/features/characters/types";
+import type { Character } from "@/features/sprites/types";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import {
@@ -80,7 +80,7 @@ export function EditorToolbar({
         size="xs"
         variant="ghost"
         className="toolbar-btn text-[11px] gap-1.5 h-7"
-        onClick={() => router.push("/dashboard/characters/new")}
+        onClick={() => router.push("/dashboard/sprites/new")}
       >
         <Plus className="h-3 w-3" />
         <span className="hidden sm:inline">Generate</span>

@@ -1,12 +1,11 @@
 import { openai } from "@/lib/openai";
-import type { CharacterDNA } from "@/features/sprites/types";
-import { buildSheetGenerationPrompt } from "./prompts/dna-extraction";
+import { buildAssetSheetGenerationPrompt } from "./prompts/asset-dna-extraction";
 import { AI } from "@/lib/constants";
 
-export async function generateCharacterSheet(
-  dna: CharacterDNA
+export async function generateAssetSheet(
+  dna: Record<string, unknown>
 ): Promise<{ imageUrl?: string; imageBuffer?: Buffer; revisedPrompt: string }> {
-  const imagePrompt = buildSheetGenerationPrompt(dna as unknown as Record<string, unknown>);
+  const imagePrompt = buildAssetSheetGenerationPrompt(dna);
 
   const response = await openai.images.generate({
     model: 'gpt-image-1.5',

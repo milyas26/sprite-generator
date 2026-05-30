@@ -1,5 +1,5 @@
 import { openai } from "@/lib/openai";
-import type { CharacterDNA, AnimationType, SpritePackConfig } from "@/features/characters/types";
+import type { CharacterDNA, AnimationType, SpritePackConfig } from "@/features/sprites/types";
 import { buildSpritePackPrompt } from "./prompts/dna-extraction";
 import { AI } from "@/lib/constants";
 

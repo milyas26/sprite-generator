@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback, useEffect } from "react";
-import type { Character, CharacterAsset } from "@/features/characters/types";
+import type { Character, CharacterAsset } from "@/features/sprites/types";
 import { EditorToolbar } from "./editor-toolbar";
 import { SpritePackPanel } from "./sprite-pack-panel";
 import { CharacterInspector } from "./character-inspector";
@@ -9,7 +9,7 @@ import { MasterPreview } from "./master-preview";
 import { GeneratedPacksList } from "./generated-packs-list";
 import { PipelineProgress } from "@/features/generation/components/pipeline-progress";
 import { toast } from "sonner";
-import { regenerateCharacter, getCharacter } from "@/features/characters/actions";
+import { regenerateCharacter, getCharacter } from "@/features/sprites/actions";
 
 interface EditorLayoutProps {
   characters: Character[];

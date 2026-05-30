@@ -1,4 +1,4 @@
-import type { ArtStyle, DetailLevel, AnimationType, CharacterDetailsInput } from "../../characters/types";
+import type { ArtStyle, DetailLevel, AnimationType, CharacterDetailsInput } from "@/features/sprites/types";
 
 export function buildDNAExtractionPrompt(prompt: string, artStyle: ArtStyle, detailLevel: DetailLevel, details?: CharacterDetailsInput): string {
   const constraints: string[] = [];

@@ -1,9 +1,9 @@
-import { getCharacter } from "@/features/characters/actions";
-import { CharacterSheetViewer } from "@/features/characters/components/character-sheet-viewer";
-import { SpritePackGenerator } from "@/features/characters/components/sprite-pack-generator";
-import { SpritePackViewer } from "@/features/characters/components/sprite-pack-viewer";
-import { DNAViewer } from "@/features/characters/components/dna-viewer";
-import { DeleteCharacterButton } from "@/features/characters/components/delete-character-dialog";
+import { getCharacter } from "@/features/sprites/actions";
+import { CharacterSheetViewer } from "@/features/sprites/components/character-sheet-viewer";
+import { SpritePackGenerator } from "@/features/sprites/components/sprite-pack-generator";
+import { SpritePackViewer } from "@/features/sprites/components/sprite-pack-viewer";
+import { DNAViewer } from "@/features/sprites/components/dna-viewer";
+import { DeleteCharacterButton } from "@/features/sprites/components/delete-character-dialog";
 import { RegenerateSection } from "@/features/generation/components/regenerate-section";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -25,7 +25,7 @@ const statusConfig: Record<string, { colors: string; label: string; dot: string 
   FAILED: { colors: "text-red-400 border-red-500/20 bg-red-500/5", label: "Failed", dot: "bg-red-500" },
 };
 
-export default async function CharacterDetailPage({ params }: Props) {
+export default async function SpriteDetailPage({ params }: Props) {
   const { id } = await params;
   const aggregate = await getCharacter(id);
 
@@ -115,7 +115,7 @@ export default async function CharacterDetailPage({ params }: Props) {
             <Card className="border-border bg-card overflow-hidden">
               <div className="editor-panel-header flex items-center gap-2 px-4 py-2.5">
                 <Info className="h-3.5 w-3.5 text-primary" />
-                <CardTitle className="text-foreground font-mono text-xs tracking-wider">CHARACTER DNA</CardTitle>
+                <CardTitle className="text-foreground font-mono text-xs tracking-wider">SPRITE DNA</CardTitle>
               </div>
               <CardContent className="p-3">
                 <DNAViewer dna={character.dna} />

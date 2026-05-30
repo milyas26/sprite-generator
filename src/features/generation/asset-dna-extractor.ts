@@ -1,7 +1,7 @@
 import { openai } from "@/lib/openai";
-import { characterDNASchema } from "@/features/sprites/validators";
-import type { CharacterDNA, ArtStyle, DetailLevel, CharacterDetailsInput } from "@/features/sprites/types";
-import { buildDNAExtractionPrompt } from "./prompts/dna-extraction";
+import { assetDNASchema } from "@/features/assets/validators";
+import type { AssetCategory, ArtStyle, DetailLevel } from "@/features/assets/types";
+import { buildAssetDNAExtractionPrompt } from "./prompts/asset-dna-extraction";
 import { AI } from "@/lib/constants";
 
 const MAX_VALIDATION_RETRIES = 2;
@@ -20,16 +20,16 @@ async function callOpenAI(messages: { role: string; content: string }[]) {
   return { content, tokens: response.usage?.total_tokens || 0 };
 }
 
-export async function extractCharacterDNA(
+export async function extractAssetDNA(
   prompt: string,
+  category: AssetCategory,
   artStyle: ArtStyle,
-  detailLevel: DetailLevel,
-  details?: CharacterDetailsInput
-): Promise<{ dna: CharacterDNA; tokens: number }> {
-  const systemPrompt = buildDNAExtractionPrompt(prompt, artStyle, detailLevel, details);
+  detailLevel: DetailLevel
+): Promise<{ dna: Record<string, unknown>; tokens: number }> {
+  const systemPrompt = buildAssetDNAExtractionPrompt(prompt, category, artStyle, detailLevel);
 
   const messages = [
-    { role: "system", content: "You are a precise RPG character designer. Output ONLY valid JSON. No markdown, no explanation." },
+    { role: "system", content: "You are a precise game asset designer. Output ONLY valid JSON. No markdown, no explanation." },
     { role: "user", content: systemPrompt },
   ];
 
@@ -51,8 +51,8 @@ export async function extractCharacterDNA(
     try {
       const parsed = JSON.parse(content);
       parsed.prompt = prompt;
-      const validated = characterDNASchema.parse(parsed);
-      return { dna: validated, tokens: totalTokens };
+      const validated = assetDNASchema.parse(parsed);
+      return { dna: validated as Record<string, unknown>, tokens: totalTokens };
     } catch (err: any) {
       if (err instanceof SyntaxError) {
         lastError = `Invalid JSON: ${err.message}`;
@@ -65,7 +65,7 @@ export async function extractCharacterDNA(
       }
 
       if (attempt === MAX_VALIDATION_RETRIES) {
-        throw new Error(`DNA extraction failed after ${MAX_VALIDATION_RETRIES + 1} attempts:\n${lastError}`);
+        throw new Error(`Asset DNA extraction failed after ${MAX_VALIDATION_RETRIES + 1} attempts:\n${lastError}`);
       }
     }
   }

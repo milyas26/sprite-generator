@@ -47,12 +47,12 @@ export async function regenerateCharacter(characterId: string) {
 
 export async function generateSpritePack(characterId: string, animations: SpritePackConfig[]) {
   const result = await characterService.generateSpritePack(characterId, animations);
-  revalidatePath(`/dashboard/characters/${characterId}`);
+  revalidatePath(`/dashboard/sprites/${characterId}`);
   return result;
 }
 
 export async function deleteSpritePack(assetId: string, characterId: string) {
   await characterService.deleteSpritePack(assetId);
-  revalidatePath(`/dashboard/characters/${characterId}`);
+  revalidatePath(`/dashboard/sprites/${characterId}`);
   revalidatePath(`/dashboard/editor`);
 }

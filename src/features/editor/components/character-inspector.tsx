@@ -1,6 +1,6 @@
 "use client";
 
-import type { Character } from "@/features/characters/types";
+import type { Character } from "@/features/sprites/types";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
@@ -16,7 +16,7 @@ import {
   Copy,
 } from "lucide-react";
 import { useState } from "react";
-import { DeleteCharacterButton } from "@/features/characters/components/delete-character-dialog";
+import { DeleteCharacterButton } from "@/features/sprites/components/delete-character-dialog";
 
 const statusConfig: Record<string, { label: string; colors: string; dot: string }> = {
   DRAFT: { label: "Draft", colors: "text-amber-400 border-amber-500/20 bg-amber-500/5", dot: "bg-amber-500" },

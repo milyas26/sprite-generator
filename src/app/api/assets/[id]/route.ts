@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { characterService } from "@/features/characters/services";
+import { assetService } from "@/features/assets/services";
 
 export async function GET(
   request: NextRequest,
@@ -7,12 +7,12 @@ export async function GET(
 ) {
   const { id } = await params;
 
-  const character = await characterService.getCharacter(id);
-  if (!character) {
-    return NextResponse.json({ error: "Character not found" }, { status: 404 });
+  const asset = await assetService.getAsset(id);
+  if (!asset) {
+    return NextResponse.json({ error: "Asset not found" }, { status: 404 });
   }
 
-  return NextResponse.json(character);
+  return NextResponse.json(asset);
 }
 
 export async function DELETE(
@@ -22,11 +22,11 @@ export async function DELETE(
   const { id } = await params;
 
   try {
-    await characterService.deleteCharacter(id);
+    await assetService.deleteAsset(id);
     return NextResponse.json({ success: true });
   } catch (error: any) {
-    if (error.message === "Character not found") {
-      return NextResponse.json({ error: "Character not found" }, { status: 404 });
+    if (error.message === "Asset not found") {
+      return NextResponse.json({ error: "Asset not found" }, { status: 404 });
     }
     return NextResponse.json({ error: error.message || "Internal error" }, { status: 500 });
   }

@@ -7,7 +7,7 @@ import {
   DialogContent,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { generateSpritePack, deleteSpritePack } from "@/features/characters/actions";
+import { generateSpritePack, deleteSpritePack } from "@/features/sprites/actions";
 import { toast } from "sonner";
 import {
   Loader2,
@@ -30,7 +30,7 @@ import {
   X,
   Trash2,
 } from "lucide-react";
-import type { AnimationType, SpritePackConfig, CharacterAsset } from "@/features/characters/types";
+import type { AnimationType, SpritePackConfig, CharacterAsset } from "@/features/sprites/types";
 
 interface Props {
   characterId: string;

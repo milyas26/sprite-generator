@@ -1,4 +1,4 @@
-import type { Character } from "@/features/characters/types";
+import type { Character } from "@/features/sprites/types";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";

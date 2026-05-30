@@ -1,4 +1,4 @@
-import { characterService } from "@/features/characters/services";
+import { characterService } from "@/features/sprites/services";
 
 interface GetCharacterGridProps {
   status?: string;

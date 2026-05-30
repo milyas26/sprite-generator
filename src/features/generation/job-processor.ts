@@ -34,6 +34,16 @@ export async function processNextJob(): Promise<{ processed: number }> {
         type: "SPRITE_PACK",
         results: result.results,
       });
+    } else if (job.type === "ASSET_GENERATION") {
+      const result = await generationPipeline.runAsset({
+        assetId: job.characterId,
+        prompt: (job.input?.prompt as string) || "a game asset",
+        category: (job.input?.category as any) || "TILE",
+        artStyle: (job.input?.artStyle as any) || "16bit",
+        detailLevel: (job.input?.detailLevel as any) || "medium",
+      });
+
+      await jobQueue.complete(job.id, { dna: result.dna, sheetUrl: result.sheetUrl });
     }
 
     return { processed: 1 };

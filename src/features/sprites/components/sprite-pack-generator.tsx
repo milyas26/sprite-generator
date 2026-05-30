@@ -8,7 +8,7 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
-import { generateSpritePack } from "@/features/characters/actions";
+import { generateSpritePack } from "@/features/sprites/actions";
 import { toast } from "sonner";
 import {
   Loader2,
@@ -28,7 +28,7 @@ import {
   ArrowRight,
   X,
 } from "lucide-react";
-import type { AnimationType, SpritePackConfig } from "@/features/characters/types";
+import type { AnimationType, SpritePackConfig } from "@/features/sprites/types";
 
 interface Props {
   characterId: string;

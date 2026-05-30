@@ -12,7 +12,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { deleteCharacter } from "@/features/characters/actions";
+import { deleteCharacter } from "@/features/sprites/actions";
 import { toast } from "sonner";
 import { Trash2, AlertTriangle } from "lucide-react";
 

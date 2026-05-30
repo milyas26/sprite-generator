@@ -1,4 +1,4 @@
-import type { Character, PaginatedResult } from "@/features/characters/types";
+import type { Character, PaginatedResult } from "@/features/sprites/types";
 import { CharacterCard } from "./character-card";
 import { EmptyState } from "@/features/library/components/empty-state";
 import { PaginationControls } from "@/features/library/components/pagination-controls";

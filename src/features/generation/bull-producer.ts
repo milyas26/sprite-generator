@@ -1,6 +1,9 @@
 import { Queue } from "bullmq";
-import type { ArtStyle, DetailLevel, SpritePackConfig, CharacterDetailsInput } from "@/features/characters/types";
+import type { ArtStyle, DetailLevel, SpritePackConfig, CharacterDetailsInput } from "@/features/sprites/types";
+import type { AssetCategory } from "@/features/assets/types";
 import { prisma } from "@/lib/prisma";
+import { generationPipeline } from "./pipeline";
+import { jobQueue } from "./job-queue";
 
 const REDIS_URL = process.env.REDIS_URL || "redis://localhost:6379";
 
@@ -35,6 +38,14 @@ interface EnqueueInput {
 interface EnqueueSpritePackInput {
   characterId: string;
   animations: SpritePackConfig[];
+}
+
+interface EnqueueAssetInput {
+  characterId: string;
+  prompt: string;
+  category: AssetCategory;
+  artStyle: ArtStyle;
+  detailLevel: DetailLevel;
 }
 
 export async function enqueueGenerationJob(input: EnqueueInput) {
@@ -106,4 +117,54 @@ export async function enqueueSpritePackJob(input: EnqueueSpritePackInput) {
   );
 
   return dbJob;
+}
+
+export async function enqueueAssetGenerationJob(input: EnqueueAssetInput) {
+  const dbJob = await prisma.generationJob.create({
+    data: {
+      characterId: input.characterId,
+      type: "ASSET_GENERATION",
+      status: "PROCESSING",
+      input: {
+        prompt: input.prompt,
+        category: input.category,
+        artStyle: input.artStyle,
+        detailLevel: input.detailLevel,
+      } as any,
+      maxAttempts: 3,
+      startedAt: new Date(),
+    },
+  });
+
+  try {
+    const result = await generationPipeline.runAsset({
+      assetId: input.characterId,
+      prompt: input.prompt,
+      category: input.category,
+      artStyle: input.artStyle,
+      detailLevel: input.detailLevel,
+    });
+
+    await jobQueue.complete(dbJob.id, { dna: result.dna, sheetUrl: result.sheetUrl });
+
+    return dbJob;
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : String(error);
+
+    await prisma.generationJob.update({
+      where: { id: dbJob.id },
+      data: {
+        status: "FAILED",
+        error: errorMessage,
+        completedAt: new Date(),
+      },
+    });
+
+    await prisma.character.updateMany({
+      where: { id: input.characterId },
+      data: { status: "FAILED" },
+    });
+
+    throw error;
+  }
 }

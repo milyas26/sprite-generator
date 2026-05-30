@@ -22,6 +22,12 @@ enum JobType {
   SHEET_GENERATION
   COMPOSITE
   SPRITE_PACK
+  ASSET_GENERATION
+}
+
+enum EntityType {
+  SPRITE
+  ASSET
 }
 
 enum JobStatus {
@@ -48,6 +54,8 @@ enum DirectionEnum {
 model Character {
   id        String          @id @default(cuid())
   name      String
+  type      EntityType      @default(SPRITE)
+  category  String?
   dna       Json            @db.JsonB
   status    CharacterStatus @default(DRAFT)
   sheetUrl  String?
@@ -59,6 +67,8 @@ model Character {
   jobs   GenerationJob[]
 
   @@index([status])
+  @@index([type, status])
+  @@index([type, category])
   @@index([createdAt(sort: Desc)])
   @@map("characters")
 }

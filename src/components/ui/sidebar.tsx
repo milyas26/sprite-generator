@@ -4,13 +4,18 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
-import { Library, PlusCircle, PenLine } from "lucide-react";
+import { Library, PlusCircle, PenLine, Boxes } from "lucide-react";
 import { ProcessJobsButton } from "@/features/generation/components/process-jobs-button";
 
-const navItems = [
-  { href: "/dashboard", label: "Library", icon: Library },
-  { href: "/dashboard/editor", label: "Asset Editor", icon: PenLine },
-  { href: "/dashboard/characters/new", label: "New Character", icon: PlusCircle },
+const spriteItems = [
+  { href: "/dashboard", label: "Sprite Library", icon: Library },
+  { href: "/dashboard/editor", label: "Sprite Editor", icon: PenLine },
+  { href: "/dashboard/sprites/new", label: "New Sprite", icon: PlusCircle },
+];
+
+const assetItems = [
+  { href: "/dashboard/assets", label: "Asset Library", icon: Boxes },
+  { href: "/dashboard/assets/new", label: "New Asset", icon: PlusCircle },
 ];
 
 export function Sidebar() {
@@ -24,21 +29,51 @@ export function Sidebar() {
         </div>
         <div className="flex flex-col leading-none">
           <span className="text-[13px] font-bold text-foreground font-heading tracking-tight">SpritePixelart</span>
-          <span className="text-[9px] text-muted-foreground font-mono">AI Character Studio</span>
+          <span className="text-[9px] text-muted-foreground font-mono">AI Sprite & Asset Studio</span>
         </div>
       </div>
 
       <nav className="flex-1 overflow-y-auto px-2.5 py-3">
         <p className="mb-1.5 px-2.5 text-[9px] font-mono font-semibold tracking-widest text-muted-foreground uppercase">
-          Navigation
+          Sprites
         </p>
         <ul className="space-y-0.5">
-          {navItems.map((item) => {
+          {spriteItems.map((item) => {
             const isActive =
               pathname === item.href ||
               (item.href === "/dashboard" && pathname === "/dashboard") ||
-              (item.href === "/dashboard/characters/new" && pathname.startsWith("/dashboard/characters/new")) ||
+              (item.href === "/dashboard/sprites/new" && pathname.startsWith("/dashboard/sprites/new")) ||
               (item.href === "/dashboard/editor" && pathname.startsWith("/dashboard/editor"));
+            return (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  className={cn(
+                    "flex items-center gap-2.5 rounded-md px-2.5 py-2 text-[13px] font-medium transition-all duration-150",
+                    isActive
+                      ? "bg-primary/8 text-primary border border-primary/15"
+                      : "text-sidebar-foreground/60 border border-transparent hover:bg-sidebar-accent hover:text-sidebar-foreground"
+                  )}
+                >
+                  <item.icon className={cn(
+                    "h-3.5 w-3.5 flex-shrink-0",
+                    isActive ? "text-primary" : "text-muted-foreground group-hover:text-foreground"
+                  )} />
+                  {item.label}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+
+        <Separator className="my-4 opacity-40" />
+
+        <p className="mb-1.5 px-2.5 text-[9px] font-mono font-semibold tracking-widest text-muted-foreground uppercase">
+          Assets
+        </p>
+        <ul className="space-y-0.5">
+          {assetItems.map((item) => {
+            const isActive = pathname === item.href || (item.href === "/dashboard/assets" && pathname.startsWith("/dashboard/assets")) || (item.href === "/dashboard/assets/new" && pathname.startsWith("/dashboard/assets/new"));
             return (
               <li key={item.href}>
                 <Link

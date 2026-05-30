@@ -8,11 +8,11 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { createCharacter } from "@/features/characters/actions";
+import { createCharacter } from "@/features/sprites/actions";
 import { PipelineProgress } from "@/features/generation/components/pipeline-progress";
 import { toast } from "sonner";
 import { PlusCircle, Palette, UserRound } from "lucide-react";
-import type { POV } from "@/features/characters/types";
+import type { POV } from "@/features/sprites/types";
 
 const GENDERS = ["male", "female", "nonbinary"] as const;
 const RACES = ["human", "elf", "dwarf", "orc", "undead", "robot", "demon", "angel", "beast", "fairy", "elemental"] as const;
@@ -73,7 +73,7 @@ export default function CreateCharacterPage() {
 
   const handleReady = useCallback(() => {
     toast.success("Sprite sheet ready!");
-    setTimeout(() => router.push(`/dashboard/characters/${characterId}`), 800);
+    setTimeout(() => router.push(`/dashboard/sprites/${characterId}`), 800);
   }, [characterId, router]);
 
   async function handleSubmit(e: React.FormEvent) {
@@ -102,7 +102,7 @@ export default function CreateCharacterPage() {
       );
       setCharacterId(result.characterId);
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : "Failed to create character");
+      toast.error(error instanceof Error ? error.message : "Failed to create sprite");
       setLoading(false);
     }
   }
@@ -115,15 +115,15 @@ export default function CreateCharacterPage() {
             <PlusCircle className="h-4 w-4 text-primary" />
           </div>
           <div>
-            <h1 className="text-lg font-bold tracking-tight text-foreground font-heading">New Character</h1>
-            <p className="text-[11px] text-muted-foreground font-mono mt-0.5">Describe your character — AI generates a 4-direction sprite sheet</p>
+            <h1 className="text-lg font-bold tracking-tight text-foreground font-heading">New Sprite</h1>
+            <p className="text-[11px] text-muted-foreground font-mono mt-0.5">Describe your sprite — AI generates a 4-direction sprite sheet</p>
           </div>
         </div>
 
         <Card className="border-border bg-card overflow-hidden">
           <div className="editor-panel-header flex items-center gap-2 px-4 py-2.5">
             <Palette className="h-3.5 w-3.5 text-primary" />
-            <CardTitle className="text-foreground font-mono text-xs tracking-wider">CHARACTER PROMPT</CardTitle>
+            <CardTitle className="text-foreground font-mono text-xs tracking-wider">SPRITE PROMPT</CardTitle>
           </div>
           <CardContent className="p-4">
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -174,7 +174,7 @@ export default function CreateCharacterPage() {
               <div className="border-t border-border pt-4 mt-4">
                 <div className="editor-panel-header flex items-center gap-2 px-3 py-2 -mx-3 rounded-md mb-3">
                   <UserRound className="h-3.5 w-3.5 text-primary" />
-                  <h3 className="text-foreground font-mono text-xs tracking-wider">CHARACTER DETAILS</h3>
+                  <h3 className="text-foreground font-mono text-xs tracking-wider">SPRITE DETAILS</h3>
                   <span className="text-[9px] text-muted-foreground font-mono ml-auto">optional</span>
                 </div>
 

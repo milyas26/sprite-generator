@@ -35,6 +35,7 @@ interface JobData {
 interface Props {
   characterId: string;
   onReady?: () => void;
+  type?: "sprite" | "asset";
 }
 
 const jobLabels: Record<string, string> = {
@@ -42,6 +43,7 @@ const jobLabels: Record<string, string> = {
   SHEET_GENERATION: "Generating Sprite Sheet",
   COMPOSITE: "Full Generation Pipeline",
   SPRITE_PACK: "Sprite Pack Generation",
+  ASSET_GENERATION: "Asset Generation Pipeline",
 };
 
 const jobDescriptions: Record<string, string> = {
@@ -49,6 +51,7 @@ const jobDescriptions: Record<string, string> = {
   SHEET_GENERATION: "AI rendering pixel art sprite sheet",
   COMPOSITE: "DNA extraction + sprite rendering pipeline",
   SPRITE_PACK: "Generating animation frames",
+  ASSET_GENERATION: "DNA extraction + asset rendering pipeline",
 };
 
 type PipelinePhase = "QUEUED" | "EXTRACTING_DNA" | "GENERATING_SHEET" | "UPLOADING" | "DONE" | "FAILED";
@@ -119,7 +122,7 @@ function getPhaseIndex(phase: PipelinePhase): number {
   return idx >= 0 ? idx : 0;
 }
 
-export function PipelineProgress({ characterId, onReady }: Props) {
+export function PipelineProgress({ characterId, onReady, type = "sprite" }: Props) {
   const [jobs, setJobs] = useState<JobData[]>([]);
   const [characterStatus, setCharacterStatus] = useState<string>("DRAFT");
   const [retrying, setRetrying] = useState<string | null>(null);
@@ -136,7 +139,8 @@ export function PipelineProgress({ characterId, onReady }: Props) {
 
   const fetchJobs = useCallback(async () => {
     try {
-      const res = await fetch(`/api/characters/${characterId}`);
+      const apiPath = type === "asset" ? `/api/assets/${characterId}` : `/api/sprites/${characterId}`;
+      const res = await fetch(apiPath);
       if (!res.ok) return;
 
       const data = await res.json();
@@ -152,7 +156,7 @@ export function PipelineProgress({ characterId, onReady }: Props) {
     } catch {
       // silently ignore fetch errors
     }
-  }, [characterId, onReady]);
+  }, [characterId, onReady, type]);
 
   useEffect(() => {
     if (!initializedRef.current) {
@@ -318,7 +322,7 @@ export function PipelineProgress({ characterId, onReady }: Props) {
         {isDone && (
           <div className="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-emerald-500/5 border border-emerald-500/10">
             <CheckCircle2 className="h-4 w-4 text-emerald-400 flex-shrink-0" />
-            <p className="text-xs text-emerald-400 font-mono">Sprite sheet generated successfully</p>
+            <p className="text-xs text-emerald-400 font-mono">{type === "asset" ? "Asset generated successfully" : "Sprite sheet generated successfully"}</p>
           </div>
         )}
 

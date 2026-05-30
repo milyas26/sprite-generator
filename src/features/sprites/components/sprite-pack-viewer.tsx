@@ -16,8 +16,8 @@ import {
   Trash2,
   Loader2,
 } from "lucide-react";
-import type { CharacterAsset } from "@/features/characters/types";
-import { deleteSpritePack } from "@/features/characters/actions";
+import type { CharacterAsset } from "@/features/sprites/types";
+import { deleteSpritePack } from "@/features/sprites/actions";
 import { toast } from "sonner";
 
 interface Props {

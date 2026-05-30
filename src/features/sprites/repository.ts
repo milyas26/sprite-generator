@@ -7,6 +7,7 @@ export const characterRepository = {
     return prisma.character.create({
       data: {
         name: data.name,
+        type: "SPRITE",
         status: data.status as any,
         dna: data.dna as Prisma.InputJsonValue,
       },
@@ -24,7 +25,7 @@ export const characterRepository = {
   },
 
   async findMany(params: PaginationParams) {
-    const where: Record<string, unknown> = {};
+    const where: Record<string, unknown> = { type: "SPRITE" };
 
     if (params.status) where.status = params.status;
     if (params.search) {

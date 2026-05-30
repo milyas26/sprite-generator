@@ -1,6 +1,6 @@
 "use client";
 
-import type { Character } from "@/features/characters/types";
+import type { Character } from "@/features/sprites/types";
 import { cn } from "@/lib/utils";
 import { ImageOff } from "lucide-react";
 

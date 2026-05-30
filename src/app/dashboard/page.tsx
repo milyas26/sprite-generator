@@ -1,5 +1,5 @@
 import { getCharacterGridProps } from "@/features/library/suspense-wrapper";
-import { CharacterGrid } from "@/features/characters/components/character-grid";
+import { CharacterGrid } from "@/features/sprites/components/character-grid";
 import { SearchBar } from "@/features/library/components/search-bar";
 import { StatusFilter } from "@/features/library/components/status-filter";
 import { Suspense } from "react";
@@ -18,8 +18,8 @@ export default function DashboardPage({
           <Library className="h-4 w-4 text-primary" />
         </div>
         <div>
-          <h1 className="text-lg font-bold tracking-tight text-foreground font-heading">Character Library</h1>
-          <p className="text-[11px] text-muted-foreground font-mono mt-0.5">Browse and manage pixel art characters</p>
+          <h1 className="text-lg font-bold tracking-tight text-foreground font-heading">Sprite Library</h1>
+          <p className="text-[11px] text-muted-foreground font-mono mt-0.5">Browse and manage pixel art sprites</p>
         </div>
       </div>
 

@@ -1,6 +1,6 @@
 "use client";
 
-import type { Character } from "@/features/characters/types";
+import type { Character } from "@/features/sprites/types";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -64,7 +64,7 @@ export function CharacterExplorer({
           size="xs"
           variant="ghost"
           className="w-full justify-start h-7 text-[10px] font-mono text-muted-foreground hover:text-foreground hover:bg-[#1a1a28] border border-dashed border-border/50 gap-1.5"
-          onClick={() => router.push("/dashboard/characters/new")}
+          onClick={() => router.push("/dashboard/sprites/new")}
         >
           <Plus className="h-3 w-3" />
           New Character

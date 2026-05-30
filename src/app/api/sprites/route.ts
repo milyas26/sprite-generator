@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { characterService } from "@/features/characters/services";
-import { createCharacterSchema, paginationSchema } from "@/features/characters/validators";
+import { characterService } from "@/features/sprites/services";
+import { createCharacterSchema, paginationSchema } from "@/features/sprites/validators";
 import { rateLimit } from "@/lib/rate-limit";
 
 export async function POST(request: NextRequest) {

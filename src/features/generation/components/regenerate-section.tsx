@@ -3,7 +3,7 @@
 import { useState, useCallback, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { PipelineProgress } from "./pipeline-progress";
-import { regenerateCharacter } from "@/features/characters/actions";
+import { regenerateCharacter } from "@/features/sprites/actions";
 import { toast } from "sonner";
 import { RefreshCw } from "lucide-react";
 

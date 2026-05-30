@@ -13,7 +13,7 @@ export function EmptyState() {
       <p className="text-muted-foreground mb-6 max-w-md">
         Create your first pixel-art character. Describe your character and AI will generate a 4-direction sprite sheet.
       </p>
-      <Link href="/dashboard/characters/new">
+      <Link href="/dashboard/sprites/new">
         <Button size="lg" className="bg-primary hover:bg-primary/85 text-primary-foreground border-0 font-heading font-semibold shadow-sm shadow-primary/15">
           + Create Your First Character
         </Button>

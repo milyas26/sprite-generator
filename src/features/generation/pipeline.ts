@@ -1,7 +1,10 @@
-import type { ArtStyle, DetailLevel, CharacterDNA, CharacterStatus, SpritePackConfig, CharacterDetailsInput } from "@/features/characters/types";
+import type { ArtStyle, DetailLevel, CharacterDNA, CharacterStatus, SpritePackConfig, CharacterDetailsInput } from "@/features/sprites/types";
+import type { AssetCategory } from "@/features/assets/types";
 import { extractCharacterDNA } from "./dna-extractor";
 import { generateCharacterSheet } from "./sheet-generator";
 import { generateSpritePack, generateAnimationSheet, analyzeMasterSheet } from "./sprite-pack-generator";
+import { extractAssetDNA } from "./asset-dna-extractor";
+import { generateAssetSheet } from "./asset-sheet-generator";
 
 import { storageService } from "@/features/storage/upload";
 import { buildSheetKey, buildMetadataKey, buildSpritePackKey } from "@/features/storage/naming";
@@ -102,6 +105,75 @@ export const generationPipeline = {
     const durationMs = Date.now() - startTime;
 
     return { dna, sheetUrl, sheetKey, tokens: 0 };
+  },
+
+  async runAsset(input: { assetId: string; prompt: string; category: AssetCategory; artStyle: ArtStyle; detailLevel: DetailLevel }): Promise<{ dna: Record<string, unknown>; sheetUrl: string; sheetKey: string }> {
+    const startTime = Date.now();
+
+    const updateStatus = async (status: CharacterStatus) => {
+      await prisma.character.update({
+        where: { id: input.assetId },
+        data: { status },
+      });
+    };
+
+    await updateStatus("EXTRACTING_DNA");
+
+    const { dna } = await extractAssetDNA(input.prompt, input.category, input.artStyle, input.detailLevel);
+
+    await updateStatus("GENERATING_SHEET");
+
+    const result = await generateAssetSheet(dna);
+
+    let imageBuffer: Buffer;
+    if (result.imageBuffer) {
+      imageBuffer = result.imageBuffer;
+    } else if (result.imageUrl) {
+      const imageResponse = await fetch(result.imageUrl);
+      imageBuffer = Buffer.from(await imageResponse.arrayBuffer());
+    } else {
+      throw new Error("No image generated");
+    }
+
+    const sheetKey = buildSheetKey(input.assetId, 1);
+    const sheetUrl = await storageService.upload(sheetKey, imageBuffer, "image/png");
+
+    const metadataKey = buildMetadataKey(input.assetId);
+    const metadata = {
+      dna,
+      generatedAt: new Date().toISOString(),
+      model: "gpt-4o + dall-e-3",
+    };
+    await storageService.upload(metadataKey, Buffer.from(JSON.stringify(metadata, null, 2)), "application/json");
+
+    const dims = readPngDimensions(imageBuffer);
+
+    await prisma.character.update({
+      where: { id: input.assetId },
+      data: {
+        name: (dna as any).name || "Untitled Asset",
+        dna: dna as any,
+        sheetUrl,
+        sheetKey,
+        status: "READY",
+      },
+    });
+
+    await prisma.characterAsset.create({
+      data: {
+        characterId: input.assetId,
+        type: "SHEET",
+        url: sheetUrl,
+        storageKey: sheetKey,
+        mimeType: "image/png",
+        width: dims.width,
+        height: dims.height,
+        fileSize: imageBuffer.length,
+        version: 1,
+      },
+    });
+
+    return { dna, sheetUrl, sheetKey };
   },
 
   async generateSpritePack(characterId: string, configs: SpritePackConfig[]): Promise<{ results: { animation: string; frameCount: number; storageKey: string; url: string }[] }> {
