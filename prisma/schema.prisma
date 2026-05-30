@@ -75,6 +75,7 @@ model CharacterAsset {
   width       Int           @default(0)
   height      Int           @default(0)
   fileSize    Int           @default(0) @map("file_size")
+  frameCount  Int?          @map("frame_count")
   version     Int           @default(1)
   createdAt   DateTime      @default(now()) @map("created_at")
 

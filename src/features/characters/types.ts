@@ -110,6 +110,7 @@ export interface CharacterAsset {
   width: number;
   height: number;
   fileSize: number;
+  frameCount: number | null;
   version: number;
   createdAt: string;
 }

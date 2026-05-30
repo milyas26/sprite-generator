@@ -1,13 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { generateSpritePack } from "@/features/characters/actions";
+import { generateSpritePack, deleteSpritePack } from "@/features/characters/actions";
 import { toast } from "sonner";
 import {
   Loader2,
@@ -28,6 +28,7 @@ import {
   Maximize2,
   ImageOff,
   X,
+  Trash2,
 } from "lucide-react";
 import type { AnimationType, SpritePackConfig, CharacterAsset } from "@/features/characters/types";
 
@@ -102,6 +103,8 @@ export function SpritePackPanel({ characterId, assets, characterName, onGenerate
   });
   const [activeAnim, setActiveAnim] = useState<AnimationType | null>(null);
   const [zoomAsset, setZoomAsset] = useState<CharacterAsset | null>(null);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [isPending, startTransition] = useTransition();
 
   function toggleAnimation(key: AnimationType) {
     setSelected((prev) => {
@@ -154,6 +157,23 @@ export function SpritePackPanel({ characterId, assets, characterName, onGenerate
     } finally {
       setLoading(false);
     }
+  }
+
+  function handleDeleteAsset(assetId: string, e: React.MouseEvent) {
+    e.stopPropagation();
+    e.preventDefault();
+    setDeletingId(assetId);
+    startTransition(async () => {
+      try {
+        await deleteSpritePack(assetId, characterId);
+        toast.success("Sprite pack deleted");
+        onGenerated?.();
+      } catch (error) {
+        toast.error(error instanceof Error ? error.message : "Failed to delete sprite pack");
+      } finally {
+        setDeletingId(null);
+      }
+    });
   }
 
   function renderFrameGrid(frames: number) {
@@ -383,16 +403,31 @@ export function SpritePackPanel({ characterId, assets, characterName, onGenerate
                       <span className="text-[8px] font-mono text-muted-foreground/40">
                         {fileSizeLabel(asset.fileSize)}
                       </span>
-                      <a
-                        href={asset.url}
-                        download={`${characterName.replace(/\s+/g, "_")}_${animName}.png`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-1 px-1.5 py-0.5 rounded text-[8px] font-mono text-muted-foreground/50 hover:text-foreground hover:bg-white/5 transition-colors"
-                      >
-                        <Download className="h-2.5 w-2.5" />
-                        PNG
-                      </a>
+                      <div className="flex items-center gap-1">
+                        <a
+                          href={asset.url}
+                          download={`${characterName.replace(/\s+/g, "_")}_${animName}.png`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-1 px-1.5 py-0.5 rounded text-[8px] font-mono text-muted-foreground/50 hover:text-foreground hover:bg-white/5 transition-colors"
+                        >
+                          <Download className="h-2.5 w-2.5" />
+                          PNG
+                        </a>
+                        <button
+                          type="button"
+                          onClick={(e) => handleDeleteAsset(asset.id, e)}
+                          disabled={isPending}
+                          className="flex items-center justify-center w-5 h-5 rounded text-muted-foreground/30 hover:text-red-400 hover:bg-red-400/10 transition-colors"
+                          title={`Delete ${meta.label} sprite pack`}
+                        >
+                          {deletingId === asset.id ? (
+                            <Loader2 className="h-2.5 w-2.5 animate-spin" />
+                          ) : (
+                            <Trash2 className="h-2.5 w-2.5" />
+                          )}
+                        </button>
+                      </div>
                     </div>
                   </div>
                 );

@@ -28,6 +28,7 @@ export const STORAGE = {
 export const AI = {
   DNA_EXTRACTION_MODEL: "gpt-5.4-mini",
   SHEET_GENERATION_MODEL: "gpt-image-1.5",
+  VISION_MODEL: "gpt-4o-mini",
   SHEET_SIZE: "1024x1024",
   MAX_PROMPT_LENGTH: 2000,
   DNA_TEMPERATURE: 0.2,

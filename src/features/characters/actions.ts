@@ -50,3 +50,9 @@ export async function generateSpritePack(characterId: string, animations: Sprite
   revalidatePath(`/dashboard/characters/${characterId}`);
   return result;
 }
+
+export async function deleteSpritePack(assetId: string, characterId: string) {
+  await characterService.deleteSpritePack(assetId);
+  revalidatePath(`/dashboard/characters/${characterId}`);
+  revalidatePath(`/dashboard/editor`);
+}

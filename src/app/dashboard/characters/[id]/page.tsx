@@ -90,7 +90,7 @@ export default async function CharacterDetailPage({ params }: Props) {
             </Card>
           )}
 
-          <SpritePackViewer assets={assets || []} characterName={character.name} />
+          <SpritePackViewer assets={assets || []} characterName={character.name} characterId={character.id} />
 
           {character.status === "GENERATING" && (
             <Card className="border-primary/20 bg-card">

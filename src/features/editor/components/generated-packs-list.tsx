@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import {
   Dialog,
   DialogContent,
@@ -17,11 +17,16 @@ import {
   Skull,
   Package,
   X,
+  Trash2,
+  Loader2,
 } from "lucide-react";
 import type { CharacterAsset } from "@/features/characters/types";
+import { deleteSpritePack } from "@/features/characters/actions";
+import { toast } from "sonner";
 
 interface Props {
   assets: CharacterAsset[];
+  characterId: string;
 }
 
 const ANIMATION_META: Record<string, { label: string; icon: React.ReactNode }> = {
@@ -38,12 +43,30 @@ function getAnimationName(key: string): string {
   return fileName.replace(".png", "");
 }
 
-export function GeneratedPacksList({ assets }: Props) {
+export function GeneratedPacksList({ assets, characterId }: Props) {
   const [zoomAsset, setZoomAsset] = useState<CharacterAsset | null>(null);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [isPending, startTransition] = useTransition();
 
   const packAssets = assets.filter(
     (a) => a.type === "SPRITE" && a.storageKey.includes("sprite_packs")
   );
+
+  function handleDelete(assetId: string, e: React.MouseEvent) {
+    e.stopPropagation();
+    e.preventDefault();
+    setDeletingId(assetId);
+    startTransition(async () => {
+      try {
+        await deleteSpritePack(assetId, characterId);
+        toast.success("Sprite pack deleted");
+      } catch (error) {
+        toast.error(error instanceof Error ? error.message : "Failed to delete sprite pack");
+      } finally {
+        setDeletingId(null);
+      }
+    });
+  }
 
   if (packAssets.length === 0) {
     return (
@@ -123,6 +146,19 @@ export function GeneratedPacksList({ assets }: Props) {
                 >
                   <Download className="h-2.5 w-2.5" />
                 </a>
+                <button
+                  type="button"
+                  onClick={(e) => handleDelete(asset.id, e)}
+                  disabled={isPending}
+                  className="flex items-center justify-center w-5 h-5 rounded text-muted-foreground/20 hover:text-red-400 hover:bg-red-400/10 transition-colors flex-shrink-0 opacity-0 group-hover:opacity-100"
+                  title={`Delete ${meta.label} sprite pack`}
+                >
+                  {deletingId === asset.id ? (
+                    <Loader2 className="h-2.5 w-2.5 animate-spin" />
+                  ) : (
+                    <Trash2 className="h-2.5 w-2.5" />
+                  )}
+                </button>
               </div>
             );
           })}

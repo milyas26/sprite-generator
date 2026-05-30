@@ -142,7 +142,7 @@ export function EditorLayout({ characters, initialSelectedId = null }: EditorLay
             characterName={selectedCharacter?.name ?? ""}
           />
 
-          <GeneratedPacksList assets={assets} />
+          <GeneratedPacksList assets={assets} characterId={selectedId ?? ""} />
 
           <div className="flex-1 overflow-y-auto">
             <CharacterInspector

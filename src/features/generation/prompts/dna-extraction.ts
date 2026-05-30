@@ -178,7 +178,12 @@ const animationDescriptions: Record<AnimationType, string> = {
   death: "Death sequence. Character collapses, falls to ground, final pose. Melodramatic RPG death sprite",
 };
 
-export function buildSpritePackPrompt(dna: Record<string, unknown>, animation: AnimationType, frameCount: number): string {
+export function buildSpritePackPrompt(
+  dna: Record<string, unknown>,
+  animation: AnimationType,
+  frameCount: number,
+  masterSheetReference?: string | null
+): string {
   const directions = dna.directions as Record<string, string>;
   const physical = dna.physical as Record<string, { style?: string; color?: string; shape?: string; tone?: string }>;
   const equipment = dna.equipment as Record<string, unknown>;
@@ -187,7 +192,24 @@ export function buildSpritePackPrompt(dna: Record<string, unknown>, animation: A
   const animDesc = animationDescriptions[animation] || "Animation cycle";
   const paletteInfo = style?.palette?.length ? `Color palette: ${style.palette.join(", ")}. Use ONLY these colors.` : "";
 
-  return `Create a ${style?.artStyle || "16bit"} pixel art ${animation.toUpperCase()} animation sprite sheet.
+  const skinTone = physical?.skin?.tone ? `Skin: ${physical.skin.tone}` : "";
+  const eyeInfo = physical?.eyes?.color ? `Eyes: ${physical.eyes.color} (${physical.eyes.shape || "almond"})` : "";
+  const heightInfo = physical?.height ? `Height: ${physical.height}` : "";
+  const headGear = equipment?.head ? `Head: ${equipment.head}` : "";
+  const legGear = equipment?.legs ? `Legs: ${equipment.legs}` : "";
+  const offHand = equipment?.offHand ? `Off-hand: ${equipment.offHand}` : "";
+  const accessories = equipment?.accessories && Array.isArray(equipment.accessories) && equipment.accessories.length > 0
+    ? `Accessories: ${(equipment.accessories as string[]).join(", ")}`
+    : "";
+  const tags = dna.tags && Array.isArray(dna.tags) && (dna.tags as string[]).length > 0
+    ? `Tags: ${(dna.tags as string[]).join(", ")}`
+    : "";
+
+  const referenceBlock = masterSheetReference
+    ? `\nMASTER SHEET REFERENCE — this is the EXACT character you must recreate in animation form:\n${masterSheetReference}\n\nCRITICAL: Match EVERY visual detail from the reference above. Same colors, same proportions, same outfit, same face, same silhouette. The master sheet IS the ground truth.`
+    : "";
+
+  return `Create a ${style?.artStyle || "16bit"} pixel art ${animation.toUpperCase()} animation sprite sheet.${referenceBlock}
     ABSOLUTE RULES — VIOLATING THESE RUINS THE OUTPUT:
     - This MUST be pure pixel art. Every pixel is intentional.
     - Sharp pixel edges only — NO anti-aliasing, NO smoothing, NO blur of any kind.
@@ -210,25 +232,36 @@ export function buildSpritePackPrompt(dna: Record<string, unknown>, animation: A
     Description: ${animDesc}
     Frames per direction: ${frameCount}
 
-    CHARACTER:
+    CHARACTER — visual consistency is mandatory:
+
     Name: ${dna.name}
     Race: ${dna.race} — ${dna.gender} ${dna.class}
     Hair: ${physical?.hair?.color || ""} ${physical?.hair?.style || ""}
     Build: ${physical?.build || ""} build
+    ${heightInfo}
+    ${skinTone}
+    ${eyeInfo}
     Body: ${equipment?.body || "none"}
+    ${legGear}
+    ${headGear}
     Weapon: ${equipment?.mainHand || "none"}
+    ${offHand}
+    ${accessories}
+    ${tags}
 
-    DIRECTIONAL APPEARANCE:
-    UP (Row 1): ${directions?.up || "Character from behind"}
-    DOWN (Row 2): ${directions?.down || "Character from front"}
+    DIRECTIONAL APPEARANCE — use these exact descriptions for each row:
+
+    UP (Row 1 / Back): ${directions?.up || "Character from behind"}
+    DOWN (Row 2 / Front): ${directions?.down || "Character from front"}
     LEFT (Row 3): ${directions?.left || "Character facing left"}
     RIGHT (Row 4): ${directions?.right || "Character facing right"}
 
     CONSISTENCY — non-negotiable:
-    - All frames contain the EXACT SAME character — same face, hair, body, clothing, armor, weapon, colors.
+    - All frames contain the EXACT SAME character — same face, hair, body, build, clothing, armor, weapon, colors.
+    - Only the viewing angle and animation frame change. Nothing else.
     - Each row shows a smooth, coherent ${frameCount}-frame ${animation} cycle.
     - Animation reads clearly left-to-right within each row.
-    - Character scale identical across all frames.
+    - Character scale identical across all frames and directions.
     - Equipment identical in every frame.
     - Only the pose/animation frame changes.
 
@@ -240,10 +273,10 @@ export function buildSpritePackPrompt(dna: Record<string, unknown>, animation: A
     - No cropped body parts, no overlapping between cells
 
     BACKGROUND — fully transparent:
-    - Alpha channel transparency only
+    - Alpha channel transparency only — PNG sprite sheet
     - NO green screen, NO solid background color
-    - NO floor, NO environment, NO scenery
-    - NO shadows, NO lighting effects outside character
+    - NO floor, NO environment, NO scenery, NO shadows
+    - NO lighting effects outside the character
     - All empty space must be completely transparent
 
     OUTPUT:

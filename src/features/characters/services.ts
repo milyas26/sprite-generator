@@ -97,4 +97,12 @@ export const characterService = {
 
     return { characterId, jobId: job.id };
   },
+
+  async deleteSpritePack(assetId: string) {
+    const asset = await characterRepository.findAssetById(assetId);
+    if (!asset) throw new Error("Asset not found");
+
+    await storageService.delete(asset.storageKey);
+    await characterRepository.deleteAsset(assetId);
+  },
 };

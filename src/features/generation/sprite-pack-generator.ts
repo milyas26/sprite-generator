@@ -10,12 +10,51 @@ export interface AnimationSheetResult {
   revisedPrompt: string;
 }
 
+export async function analyzeMasterSheet(imageUrl: string): Promise<string | null> {
+  try {
+    const response = await openai.chat.completions.create({
+      model: AI.VISION_MODEL,
+      messages: [
+        {
+          role: "system",
+          content: "You are a pixel-art sprite analyst. Examine the master sheet image and extract every visual detail needed to faithfully reproduce the character in animation frames. Output a dense, structured description. NO markdown, NO fluff.",
+        },
+        {
+          role: "user",
+          content: [
+            {
+              type: "text",
+              text: "Analyze this pixel-art RPG character master sheet (2×2 grid: up/down/left/right). Extract: hair (style + color), face/eyes, skin tone, body build, clothing/armor (head, body, legs, accessories), weapon(s), any unique marks or details, overall silhouette, exact color palette (list hex codes), art style, character scale/proportions. Describe what the character looks like from each direction — back (facing up), front (facing down), left, right. Be specific enough that an image generator can recreate this EXACT character in animation frames.",
+            },
+            {
+              type: "image_url",
+              image_url: { url: imageUrl, detail: "high" },
+            },
+          ],
+        },
+      ],
+      max_tokens: 800,
+      temperature: 0.1,
+    });
+
+    return response.choices[0]?.message?.content || null;
+  } catch {
+    return null;
+  }
+}
+
 export async function generateAnimationSheet(
   dna: CharacterDNA,
   animation: AnimationType,
-  frameCount: number
+  frameCount: number,
+  masterSheetReference?: string | null
 ): Promise<AnimationSheetResult> {
-  const imagePrompt = buildSpritePackPrompt(dna as unknown as Record<string, unknown>, animation, frameCount);
+  const imagePrompt = buildSpritePackPrompt(
+    dna as unknown as Record<string, unknown>,
+    animation,
+    frameCount,
+    masterSheetReference
+  );
 
   const response = await openai.images.generate({
     model: 'gpt-image-1.5',
@@ -46,12 +85,13 @@ export async function generateAnimationSheet(
 
 export async function generateSpritePack(
   dna: CharacterDNA,
-  configs: SpritePackConfig[]
+  configs: SpritePackConfig[],
+  masterSheetReference?: string | null
 ): Promise<AnimationSheetResult[]> {
   const results: AnimationSheetResult[] = [];
 
   for (const config of configs) {
-    const result = await generateAnimationSheet(dna, config.animation, config.frameCount);
+    const result = await generateAnimationSheet(dna, config.animation, config.frameCount, masterSheetReference);
     results.push(result);
   }
 

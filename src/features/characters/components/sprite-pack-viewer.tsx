@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,12 +13,17 @@ import {
   ArrowLeft,
   ArrowRight,
   Info,
+  Trash2,
+  Loader2,
 } from "lucide-react";
 import type { CharacterAsset } from "@/features/characters/types";
+import { deleteSpritePack } from "@/features/characters/actions";
+import { toast } from "sonner";
 
 interface Props {
   assets: CharacterAsset[];
   characterName: string;
+  characterId: string;
 }
 
 const ANIMATION_LABELS: Record<string, { label: string; icon: string }> = {
@@ -37,7 +42,7 @@ function getAnimationName(key: string): string {
   return fileName.replace(".png", "");
 }
 
-export function SpritePackViewer({ assets, characterName }: Props) {
+export function SpritePackViewer({ assets, characterName, characterId }: Props) {
   const packAssets = assets.filter(
     (a) => a.type === "SPRITE" && a.storageKey.includes("sprite_packs")
   );
@@ -45,8 +50,30 @@ export function SpritePackViewer({ assets, characterName }: Props) {
     packAssets.length > 0 ? packAssets[0].id : null
   );
   const [showOverlay, setShowOverlay] = useState(true);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [isPending, startTransition] = useTransition();
 
   const activeAsset = packAssets.find((a) => a.id === activeTab) || null;
+
+  function handleDelete(assetId: string, e: React.MouseEvent) {
+    e.stopPropagation();
+    e.preventDefault();
+    setDeletingId(assetId);
+    startTransition(async () => {
+      try {
+        await deleteSpritePack(assetId, characterId);
+        if (assetId === activeTab) {
+          const remaining = packAssets.filter((a) => a.id !== assetId);
+          setActiveTab(remaining.length > 0 ? remaining[0].id : null);
+        }
+        toast.success("Sprite pack deleted");
+      } catch (error) {
+        toast.error(error instanceof Error ? error.message : "Failed to delete sprite pack");
+      } finally {
+        setDeletingId(null);
+      }
+    });
+  }
 
   if (packAssets.length === 0) {
     return (
@@ -105,21 +132,35 @@ export function SpritePackViewer({ assets, characterName }: Props) {
             const animName = getAnimationName(asset.storageKey);
             const meta = ANIMATION_LABELS[animName] || { label: animName, icon: "🎬" };
             const isActive = asset.id === activeTab;
-            return (
-              <button
-                key={asset.id}
-                type="button"
-                onClick={() => setActiveTab(asset.id)}
-                className={`flex items-center gap-1.5 px-4 py-2.5 text-xs font-mono whitespace-nowrap border-b-2 transition-colors shrink-0 ${
-                  isActive
-                    ? "border-primary text-primary bg-primary/5"
-                    : "border-transparent text-muted-foreground hover:text-foreground hover:bg-white/[0.02]"
-                }`}
-              >
-                <span className="text-sm">{meta.icon}</span>
-                <span className="font-semibold uppercase tracking-wider">{meta.label}</span>
-              </button>
-            );
+              return (
+               <div key={asset.id} className="flex items-center group/tab shrink-0">
+                 <button
+                   type="button"
+                   onClick={() => setActiveTab(asset.id)}
+                   className={`flex items-center gap-1.5 px-3 py-2.5 text-xs font-mono whitespace-nowrap border-b-2 transition-colors ${
+                     isActive
+                       ? "border-primary text-primary bg-primary/5"
+                       : "border-transparent text-muted-foreground hover:text-foreground hover:bg-white/[0.02]"
+                   }`}
+                 >
+                   <span className="text-sm">{meta.icon}</span>
+                   <span className="font-semibold uppercase tracking-wider">{meta.label}</span>
+                 </button>
+                 <button
+                   type="button"
+                   onClick={(e) => handleDelete(asset.id, e)}
+                   disabled={isPending}
+                   className="flex items-center justify-center w-6 h-6 rounded text-muted-foreground/40 hover:text-red-400 hover:bg-red-400/10 transition-colors opacity-0 group-hover/tab:opacity-100 ml-0.5 shrink-0"
+                   title={`Delete ${meta.label} sprite pack`}
+                 >
+                   {deletingId === asset.id ? (
+                     <Loader2 className="h-3 w-3 animate-spin" />
+                   ) : (
+                     <Trash2 className="h-3 w-3" />
+                   )}
+                 </button>
+               </div>
+              );
           })}
         </div>
       </div>
@@ -136,7 +177,7 @@ export function SpritePackViewer({ assets, characterName }: Props) {
                     <div
                       className="absolute inset-0 z-10 pointer-events-none editor-grid-sm"
                       style={{
-                        backgroundSize: `calc(100% / ${activeAsset.width ? Math.max(1, Math.round(activeAsset.width / activeAsset.height * 4) || 4) : 4}) calc(100% / 4)`,
+                        backgroundSize: `calc(100% / ${activeAsset.frameCount || 4}) calc(100% / 4)`,
                       }}
                     />
                   )}
@@ -168,6 +209,12 @@ export function SpritePackViewer({ assets, characterName }: Props) {
                   <div className="flex justify-between items-center text-[10px] font-mono">
                     <span className="text-muted-foreground">Type</span>
                     <span className="text-foreground">SPRITE</span>
+                  </div>
+                  <div className="flex justify-between items-center text-[10px] font-mono">
+                    <span className="text-muted-foreground">Grid</span>
+                    <span className="text-foreground tabular-nums">
+                      4×{activeAsset.frameCount || "?"}
+                    </span>
                   </div>
                   <div className="flex justify-between items-center text-[10px] font-mono">
                     <span className="text-muted-foreground">Dimensions</span>

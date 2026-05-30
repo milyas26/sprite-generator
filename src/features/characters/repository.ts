@@ -66,4 +66,16 @@ export const characterRepository = {
       where: { id },
     });
   },
+
+  async findAssetById(assetId: string) {
+    return prisma.characterAsset.findUnique({
+      where: { id: assetId },
+    });
+  },
+
+  async deleteAsset(assetId: string) {
+    return prisma.characterAsset.delete({
+      where: { id: assetId },
+    });
+  },
 };

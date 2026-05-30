@@ -1,11 +1,19 @@
 import type { ArtStyle, DetailLevel, CharacterDNA, CharacterStatus, SpritePackConfig, CharacterDetailsInput } from "@/features/characters/types";
 import { extractCharacterDNA } from "./dna-extractor";
 import { generateCharacterSheet } from "./sheet-generator";
-import { generateSpritePack, generateAnimationSheet } from "./sprite-pack-generator";
+import { generateSpritePack, generateAnimationSheet, analyzeMasterSheet } from "./sprite-pack-generator";
 
 import { storageService } from "@/features/storage/upload";
 import { buildSheetKey, buildMetadataKey, buildSpritePackKey } from "@/features/storage/naming";
 import { prisma } from "@/lib/prisma";
+
+function readPngDimensions(buffer: Buffer): { width: number; height: number } {
+  if (buffer.length < 24) return { width: 0, height: 0 };
+  return {
+    width: buffer.readUInt32BE(16),
+    height: buffer.readUInt32BE(20),
+  };
+}
 
 export interface GenerationResult {
   dna: CharacterDNA;
@@ -63,6 +71,8 @@ export const generationPipeline = {
     }
 
     if (input.characterId) {
+      const dims = readPngDimensions(imageBuffer);
+
       await prisma.character.update({
         where: { id: input.characterId },
         data: {
@@ -81,8 +91,8 @@ export const generationPipeline = {
           url: sheetUrl,
           storageKey: sheetKey,
           mimeType: "image/png",
-          width: 0,
-          height: 0,
+          width: dims.width,
+          height: dims.height,
           fileSize: imageBuffer.length,
           version: 1,
         },
@@ -105,13 +115,27 @@ export const generationPipeline = {
     }
 
     const dna = character.dna as unknown as CharacterDNA;
+
+    let masterSheetReference: string | null = null;
+    if (character.sheetKey) {
+      try {
+        const sheetBuffer = await storageService.getBuffer(character.sheetKey);
+        const base64 = sheetBuffer.toString("base64");
+        const dataUrl = `data:image/png;base64,${base64}`;
+        masterSheetReference = await analyzeMasterSheet(dataUrl);
+      } catch {
+        masterSheetReference = null;
+      }
+    }
+
     const results: { animation: string; frameCount: number; storageKey: string; url: string }[] = [];
 
     for (const config of configs) {
-      const sheet = await generateAnimationSheet(dna, config.animation, config.frameCount);
+      const sheet = await generateAnimationSheet(dna, config.animation, config.frameCount, masterSheetReference);
 
       const storageKey = buildSpritePackKey(characterId, config.animation);
       const url = await storageService.upload(storageKey, sheet.imageBuffer, "image/png");
+      const dims = readPngDimensions(sheet.imageBuffer);
 
       await prisma.characterAsset.create({
         data: {
@@ -120,9 +144,10 @@ export const generationPipeline = {
           url,
           storageKey,
           mimeType: "image/png",
-          width: 0,
-          height: 0,
+          width: dims.width,
+          height: dims.height,
           fileSize: sheet.imageBuffer.length,
+          frameCount: config.frameCount,
           version: 1,
         },
       });
