@@ -109,11 +109,11 @@ export function GeneratedPacksList({ assets, characterId }: Props) {
             return (
               <div
                 key={asset.id}
-                className="flex items-center gap-1.5 px-2 py-1 rounded border border-border/30 bg-[#0a0a10] hover:border-primary/30 transition-colors group"
+                className="flex items-center gap-1.5 px-2 py-1 rounded border border-border/30 bg-[#1c1820] hover:border-primary/30 transition-colors group"
               >
                 <button
                   onClick={() => setZoomAsset(asset)}
-                  className="w-6 h-6 rounded border border-border/30 bg-[#0a0a10] overflow-hidden flex-shrink-0 hover:border-primary/40 transition-colors relative group/img"
+                  className="w-6 h-6 rounded border border-border/30 bg-[#1c1820] overflow-hidden flex-shrink-0 hover:border-primary/40 transition-colors relative group/img"
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
@@ -167,7 +167,7 @@ export function GeneratedPacksList({ assets, characterId }: Props) {
 
       <Dialog open={!!zoomAsset} onOpenChange={() => setZoomAsset(null)}>
         <DialogContent
-          className="border-0 bg-[#0a0a10] p-0 gap-0 max-w-[95vw] sm:max-w-none max-h-[90vh] grid-rows-[auto_1fr_auto]"
+          className="border-0 bg-[#1c1820] p-0 gap-0 max-w-[95vw] sm:max-w-none max-h-[90vh] grid-rows-[auto_1fr_auto]"
           showCloseButton={false}
         >
           <div className="flex items-center justify-between px-4 py-2.5 border-b border-border">
@@ -193,7 +193,7 @@ export function GeneratedPacksList({ assets, characterId }: Props) {
               />
             )}
           </div>
-          <div className="flex items-center justify-end px-4 py-2 border-t border-border bg-[#0f0f16]">
+          <div className="flex items-center justify-end px-4 py-2 border-t border-border bg-[#252028]">
             {zoomAsset && (
               <a
                 href={zoomAsset.url}

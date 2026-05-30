@@ -84,7 +84,7 @@ export function SpritePackViewer({ assets, characterName, characterId }: Props) 
           </CardTitle>
         </CardHeader>
         <CardContent className="p-10 flex flex-col items-center justify-center gap-4">
-          <div className="w-16 h-16 rounded-2xl bg-[#1a1a24] border border-border flex items-center justify-center">
+          <div className="w-16 h-16 rounded-2xl bg-[#342e3a] border border-border flex items-center justify-center">
             <Grid3X3 className="h-7 w-7 text-muted-foreground/40" />
           </div>
           <div className="text-center">
@@ -126,7 +126,7 @@ export function SpritePackViewer({ assets, characterName, characterId }: Props) 
         </div>
       </div>
 
-      <div className="border-b border-border bg-[#111118]">
+      <div className="border-b border-border bg-[#27222a]">
         <div className="flex overflow-x-auto scrollbar-none">
           {packAssets.map((asset) => {
             const animName = getAnimationName(asset.storageKey);
@@ -168,7 +168,7 @@ export function SpritePackViewer({ assets, characterName, characterId }: Props) 
       <CardContent className="p-0">
         {activeAsset ? (
           <div className="grid grid-cols-1 lg:grid-cols-4">
-            <div className="lg:col-span-3 p-4 flex items-center justify-center bg-[#0d0d14]">
+            <div className="lg:col-span-3 p-4 flex items-center justify-center bg-[#221e26]">
               <div className={`workshop-grid-fine p-6 rounded-xl w-full flex items-center justify-center ${
                 showOverlay ? "" : ""
               }`}>
@@ -191,7 +191,7 @@ export function SpritePackViewer({ assets, characterName, characterId }: Props) 
               </div>
             </div>
 
-            <div className="border-t lg:border-t-0 lg:border-l border-border bg-[#111118] p-4 space-y-4">
+            <div className="border-t lg:border-t-0 lg:border-l border-border bg-[#27222a] p-4 space-y-4">
               <div>
                 <div className="flex items-center gap-2 mb-3">
                   <Info className="h-3 w-3 text-muted-foreground" />
@@ -246,7 +246,7 @@ export function SpritePackViewer({ assets, characterName, characterId }: Props) 
                   {DIRECTION_ORDER.map((dir) => (
                     <div
                       key={dir}
-                      className="flex flex-col items-center gap-1 p-2 rounded-md bg-[#1a1a24] border border-border"
+                      className="flex flex-col items-center gap-1 p-2 rounded-md bg-[#342e3a] border border-border"
                     >
                       {dir === "UP" && <ArrowUp className="h-3 w-3 text-primary/60" />}
                       {dir === "DOWN" && <ArrowDown className="h-3 w-3 text-primary/60" />}

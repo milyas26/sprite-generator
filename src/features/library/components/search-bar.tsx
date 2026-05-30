@@ -33,7 +33,7 @@ export function SearchBar() {
         placeholder="Search characters..."
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        className="pl-7 bg-[#14141e] border-border text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 font-mono text-xs h-8"
+        className="pl-7 bg-[#2e2833] border-border text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 font-mono text-xs h-8"
       />
     </div>
   );

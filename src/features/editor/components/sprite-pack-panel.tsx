@@ -194,7 +194,7 @@ export function SpritePackPanel({ characterId, assets, characterName, onGenerate
   }
 
   return (
-    <div className="flex-1 bg-[#0a0a10] overflow-y-auto flex flex-col">
+    <div className="flex-1 bg-[#1c1820] overflow-y-auto flex flex-col">
       <div className="p-4 space-y-4 flex-1">
         <div>
           <div className="flex items-center gap-2 mb-3">
@@ -217,11 +217,11 @@ export function SpritePackPanel({ characterId, assets, characterName, onGenerate
                   className={`p-3 rounded-lg border text-left transition-all ${
                     isSel
                       ? "border-primary/60 bg-primary/10 ring-1 ring-primary/30"
-                      : "border-border/30 bg-[#12121a] hover:border-border/60 hover:bg-[#1a1a24]"
+                      : "border-border/30 bg-[#29242d] hover:border-border/60 hover:bg-[#342e3a]"
                   }`}
                 >
                   <div className={`p-1.5 rounded-md inline-flex mb-2 ${
-                    isSel ? "bg-primary/25 text-primary" : "bg-[#1e1e2c] text-muted-foreground"
+                    isSel ? "bg-primary/25 text-primary" : "bg-[#3a3341] text-muted-foreground"
                   }`}>
                     {icon}
                   </div>
@@ -241,7 +241,7 @@ export function SpritePackPanel({ characterId, assets, characterName, onGenerate
         </div>
 
         {activeAnim && selected[activeAnim] && (
-          <div className="flex items-center gap-3 p-3 rounded-lg border border-border/30 bg-[#12121a] flex-wrap">
+          <div className="flex items-center gap-3 p-3 rounded-lg border border-border/30 bg-[#29242d] flex-wrap">
             <span className="text-[10px] font-mono text-muted-foreground uppercase shrink-0 font-semibold">
               {ANIMATION_DEFS.find((a) => a.key === activeAnim)?.label} Frames:
             </span>
@@ -300,7 +300,7 @@ export function SpritePackPanel({ characterId, assets, characterName, onGenerate
 
             <div className="flex gap-4 flex-wrap">
               {selectedList.map(([key]) => (
-                <div key={key} className="p-2 rounded-lg border border-border/30 bg-[#12121a]">
+                <div key={key} className="p-2 rounded-lg border border-border/30 bg-[#29242d]">
                   <div className="flex items-center gap-1.5 mb-1.5">
                     <span className="text-primary/70">
                       {ANIMATION_DEFS.find(a => a.key === key)?.icon}
@@ -375,13 +375,13 @@ export function SpritePackPanel({ characterId, assets, characterName, onGenerate
                 return (
                   <div
                     key={asset.id}
-                    className="p-2 rounded-lg border border-border/30 bg-[#12121a] hover:border-primary/30 transition-colors group"
+                    className="p-2 rounded-lg border border-border/30 bg-[#29242d] hover:border-primary/30 transition-colors group"
                   >
                     <button
                       onClick={() => setZoomAsset(asset)}
                       className="w-full text-left"
                     >
-                      <div className="aspect-square rounded border border-border/20 bg-[#0a0a10] overflow-hidden mb-2 relative group/img">
+                      <div className="aspect-square rounded border border-border/20 bg-[#1c1820] overflow-hidden mb-2 relative group/img">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src={asset.url}
@@ -451,7 +451,7 @@ export function SpritePackPanel({ characterId, assets, characterName, onGenerate
       )}
 
       <Dialog open={!!zoomAsset} onOpenChange={() => setZoomAsset(null)}>
-        <DialogContent className="border-0 bg-[#0a0a10] p-0 gap-0 overflow-hidden w-auto max-w-[95vw] max-h-[90vh] grid-rows-[auto_1fr_auto] sm:max-w-none" showCloseButton={false}>
+        <DialogContent className="border-0 bg-[#1c1820] p-0 gap-0 overflow-hidden w-auto max-w-[95vw] max-h-[90vh] grid-rows-[auto_1fr_auto] sm:max-w-none" showCloseButton={false}>
           <div className="flex items-center justify-between px-4 py-2.5 border-b border-border shrink-0">
             <DialogTitle className="font-mono text-xs text-muted-foreground uppercase tracking-wider flex items-center gap-2">
               <span className="text-primary/60">{zoomMeta?.icon}</span>
@@ -475,7 +475,7 @@ export function SpritePackPanel({ characterId, assets, characterName, onGenerate
               />
             )}
           </div>
-          <div className="flex items-center justify-end px-4 py-2 border-t border-border bg-[#0f0f16] shrink-0">
+          <div className="flex items-center justify-end px-4 py-2 border-t border-border bg-[#252028] shrink-0">
             {zoomAsset && (
               <a
                 href={zoomAsset.url}

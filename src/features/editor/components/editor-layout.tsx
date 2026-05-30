@@ -119,7 +119,7 @@ export function EditorLayout({ characters, initialSelectedId = null }: EditorLay
             onGenerated={handleAssetsRefresh}
           />
         ) : (
-          <div className="flex-1 flex items-center justify-center bg-[#0a0a10] editor-grid">
+          <div className="flex-1 flex items-center justify-center bg-[#1c1820] editor-grid">
             <div className="flex flex-col items-center gap-3 text-center">
               <div className="w-12 h-12 rounded-lg border-2 border-dashed border-border flex items-center justify-center">
                 <span className="text-muted-foreground/20 font-mono text-2xl">SP</span>
@@ -136,7 +136,7 @@ export function EditorLayout({ characters, initialSelectedId = null }: EditorLay
           </div>
         )}
 
-        <div className="w-[320px] flex-shrink-0 flex flex-col border-l border-border bg-[#0d0d14]">
+        <div className="w-[320px] flex-shrink-0 flex flex-col border-l border-border bg-[#221e26]">
           <MasterPreview
             sheetUrl={selectedCharacter?.sheetUrl ?? null}
             characterName={selectedCharacter?.name ?? ""}

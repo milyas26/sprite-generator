@@ -67,7 +67,7 @@ export default async function AssetDetailPage({ params }: Props) {
       <div className="flex items-center gap-4">
         <Link
           href="/dashboard/assets"
-          className="flex items-center justify-center w-7 h-7 rounded border border-border bg-[#1a1a28] text-muted-foreground hover:text-foreground hover:border-primary/30 transition-colors"
+          className="flex items-center justify-center w-7 h-7 rounded border border-border bg-[#342e3a] text-muted-foreground hover:text-foreground hover:border-primary/30 transition-colors"
         >
           <ArrowLeft className="h-3.5 w-3.5" />
         </Link>

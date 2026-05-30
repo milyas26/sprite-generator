@@ -27,7 +27,7 @@ export function CharacterCard({ character }: CharacterCardProps) {
   return (
     <Link href={`/dashboard/editor?select=${character.id}`}>
       <Card className="group overflow-hidden border-border bg-card card-hover py-0">
-        <div className="aspect-square bg-[#0c0c12] relative overflow-hidden editor-grid-sm">
+        <div className="aspect-square bg-[#1f1b23] relative overflow-hidden editor-grid-sm">
           {character.sheetUrl ? (
             <img
               src={character.sheetUrl}

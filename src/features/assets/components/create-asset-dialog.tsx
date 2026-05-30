@@ -82,10 +82,10 @@ export function CreateAssetDialog({ open, onOpenChange }: CreateAssetDialogProps
   return (
     <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent
-        className="sm:max-w-lg border-0 bg-[#14141c] p-0 gap-0 overflow-hidden"
+        className="sm:max-w-lg border-0 bg-[#2e2833] p-0 gap-0 overflow-hidden"
         showCloseButton={false}
       >
-        <DialogHeader className="flex flex-row items-center gap-2.5 px-4 py-3 border-b border-border bg-[#0f0f16]">
+        <DialogHeader className="flex flex-row items-center gap-2.5 px-4 py-3 border-b border-border bg-[#252028]">
           <div className="flex items-center justify-center w-6 h-6 rounded bg-primary/10 border border-primary/15">
             <Boxes className="h-3 w-3 text-primary" />
           </div>

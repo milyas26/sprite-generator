@@ -168,7 +168,7 @@ export function SpritePackGenerator({ characterId, onGenerated }: Props) {
 
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent
-          className="sm:max-w-2xl border-0 bg-[#14141c] p-0 gap-0 overflow-hidden"
+          className="sm:max-w-2xl border-0 bg-[#2e2833] p-0 gap-0 overflow-hidden"
           showCloseButton={false}
         >
           <div className="editor-panel-header flex items-center justify-between px-5 py-3">
@@ -213,12 +213,12 @@ export function SpritePackGenerator({ characterId, onGenerated }: Props) {
                         className={`editor-section p-3 text-left transition-all duration-150 cursor-pointer group ${
                           isSel
                             ? "ring-1 ring-primary/50 bg-primary/8 border-primary/40"
-                            : "hover:bg-[#1e1e2c] hover:border-[#323248]"
+                            : "hover:bg-[#3a3341] hover:border-[#323248]"
                         } ${activeAnim === key ? "ring-1 ring-primary/40" : ""}`}
                       >
                         <div className="flex items-start justify-between mb-2">
                           <div className={`p-1.5 rounded-md transition-colors ${
-                            isSel ? "bg-primary/20 text-primary" : "bg-[#1e1e2c] text-muted-foreground group-hover:text-foreground"
+                            isSel ? "bg-primary/20 text-primary" : "bg-[#3a3341] text-muted-foreground group-hover:text-foreground"
                           }`}>
                             {icon}
                           </div>
@@ -249,7 +249,7 @@ export function SpritePackGenerator({ characterId, onGenerated }: Props) {
               </div>
             </div>
 
-            <div className="lg:col-span-2 p-4 space-y-4 overflow-y-auto bg-[#111118]">
+            <div className="lg:col-span-2 p-4 space-y-4 overflow-y-auto bg-[#27222a]">
               {activeAnim && selected[activeAnim] ? (
                 <>
                   <div>
@@ -273,7 +273,7 @@ export function SpritePackGenerator({ characterId, onGenerated }: Props) {
                           type="button"
                           onClick={() => handleFrameChange(activeAnim, -1)}
                           disabled={frameCounts[activeAnim] <= FRAME_RANGE.min}
-                          className="flex items-center justify-center w-7 h-7 rounded-md border border-border bg-[#1a1a24] text-muted-foreground hover:text-foreground hover:border-primary/40 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                          className="flex items-center justify-center w-7 h-7 rounded-md border border-border bg-[#342e3a] text-muted-foreground hover:text-foreground hover:border-primary/40 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
                         >
                           <Minus className="h-3 w-3" />
                         </button>
@@ -291,7 +291,7 @@ export function SpritePackGenerator({ characterId, onGenerated }: Props) {
                           type="button"
                           onClick={() => handleFrameChange(activeAnim, 1)}
                           disabled={frameCounts[activeAnim] >= FRAME_RANGE.max}
-                          className="flex items-center justify-center w-7 h-7 rounded-md border border-border bg-[#1a1a24] text-muted-foreground hover:text-foreground hover:border-primary/40 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                          className="flex items-center justify-center w-7 h-7 rounded-md border border-border bg-[#342e3a] text-muted-foreground hover:text-foreground hover:border-primary/40 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
                         >
                           <Plus className="h-3 w-3" />
                         </button>
@@ -369,7 +369,7 @@ export function SpritePackGenerator({ characterId, onGenerated }: Props) {
                 </>
               ) : (
                 <div className="flex flex-col items-center justify-center h-full min-h-[200px] text-center gap-3">
-                  <div className="w-12 h-12 rounded-full bg-[#1a1a24] flex items-center justify-center">
+                  <div className="w-12 h-12 rounded-full bg-[#342e3a] flex items-center justify-center">
                     <Package className="h-5 w-5 text-muted-foreground" />
                   </div>
                   <div>
@@ -385,7 +385,7 @@ export function SpritePackGenerator({ characterId, onGenerated }: Props) {
             </div>
           </div>
 
-          <div className="border-t border-border bg-[#0f0f16] px-5 py-3 flex items-center justify-between gap-4">
+          <div className="border-t border-border bg-[#252028] px-5 py-3 flex items-center justify-between gap-4">
             <div className="flex items-center gap-3 text-[10px] font-mono text-muted-foreground">
               {selectedCount > 0 ? (
                 <>

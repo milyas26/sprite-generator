@@ -47,7 +47,7 @@ export function EditorToolbar({
   const [createOpen, setCreateOpen] = useState(false);
 
   return (
-    <div className="flex items-center gap-2 h-10 px-3 bg-[#12121a] border-b border-border shrink-0 select-none">
+    <div className="flex items-center gap-2 h-10 px-3 bg-[#29242d] border-b border-border shrink-0 select-none">
       <div className="flex items-center gap-2.5 min-w-0">
         <div className="flex h-6 w-6 items-center justify-center rounded bg-primary/10 ring-1 ring-primary/20 flex-shrink-0">
           <span className="text-primary text-[8px] font-bold font-mono">SP</span>
@@ -62,11 +62,11 @@ export function EditorToolbar({
             }}
             className="appearance-none bg-transparent text-[12px] font-heading font-semibold text-foreground tracking-tight cursor-pointer pl-2 pr-6 py-0.5 rounded border border-transparent hover:border-border/40 focus:border-primary/30 focus:outline-none max-w-[200px] truncate"
           >
-            <option value="" disabled className="bg-[#12121a] text-muted-foreground font-mono text-[11px]">
+            <option value="" disabled className="bg-[#29242d] text-muted-foreground font-mono text-[11px]">
               Select character...
             </option>
             {characters.map((c) => (
-              <option key={c.id} value={c.id} className="bg-[#12121a] text-foreground font-mono text-[11px]">
+              <option key={c.id} value={c.id} className="bg-[#29242d] text-foreground font-mono text-[11px]">
                 {c.name}
               </option>
             ))}

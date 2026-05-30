@@ -83,7 +83,7 @@ export function CharacterInspector({
 }: CharacterInspectorProps) {
   if (!character) {
     return (
-      <div className="flex flex-col h-full bg-[#0d0d14] border-l border-border">
+      <div className="flex flex-col h-full bg-[#221e26] border-l border-border">
         <div className="flex items-center px-3 h-9 border-b border-border shrink-0">
           <span className="text-[9px] font-mono font-semibold text-muted-foreground uppercase tracking-widest">
             Inspector
@@ -117,7 +117,7 @@ export function CharacterInspector({
   };
 
   return (
-    <div className="flex flex-col h-full bg-[#0d0d14] border-l border-border">
+    <div className="flex flex-col h-full bg-[#221e26] border-l border-border">
       <div className="flex items-center justify-between px-3 h-9 border-b border-border shrink-0">
         <span className="text-[9px] font-mono font-semibold text-muted-foreground uppercase tracking-widest">
           Inspector
@@ -242,7 +242,7 @@ export function CharacterInspector({
                       {dna.tags.map((tag: string) => (
                         <span
                           key={tag}
-                          className="text-[8px] font-mono px-1.5 py-0.5 rounded border border-border/40 bg-[#0a0a10] text-muted-foreground/70"
+                          className="text-[8px] font-mono px-1.5 py-0.5 rounded border border-border/40 bg-[#1c1820] text-muted-foreground/70"
                         >
                           {tag}
                         </span>
@@ -263,7 +263,7 @@ export function CharacterInspector({
               <span className="text-[8px] font-mono font-semibold text-muted-foreground/40 uppercase tracking-wider">
                 User Prompt
               </span>
-              <p className="text-[9px] font-mono text-foreground/70 mt-0.5 leading-relaxed bg-[#0a0a10] p-1.5 rounded border border-border/30">
+              <p className="text-[9px] font-mono text-foreground/70 mt-0.5 leading-relaxed bg-[#1c1820] p-1.5 rounded border border-border/30">
                 {dna?.prompt || "—"}
               </p>
             </div>
@@ -294,7 +294,7 @@ export function CharacterInspector({
         <Button
           size="xs"
           variant="ghost"
-          className="w-full justify-start h-7 text-[10px] font-mono text-muted-foreground hover:text-foreground hover:bg-[#1a1a28] gap-1.5 opacity-50 cursor-not-allowed"
+          className="w-full justify-start h-7 text-[10px] font-mono text-muted-foreground hover:text-foreground hover:bg-[#342e3a] gap-1.5 opacity-50 cursor-not-allowed"
           disabled
         >
           <Copy className="h-3 w-3" />
@@ -303,7 +303,7 @@ export function CharacterInspector({
         <Button
           size="xs"
           variant="ghost"
-          className="w-full justify-start h-7 text-[10px] font-mono text-muted-foreground hover:text-foreground hover:bg-[#1a1a28] gap-1.5"
+          className="w-full justify-start h-7 text-[10px] font-mono text-muted-foreground hover:text-foreground hover:bg-[#342e3a] gap-1.5"
           onClick={onRegenerate}
           disabled={!character}
         >
@@ -313,7 +313,7 @@ export function CharacterInspector({
         <Button
           size="xs"
           variant="ghost"
-          className="w-full justify-start h-7 text-[10px] font-mono text-muted-foreground hover:text-foreground hover:bg-[#1a1a28] gap-1.5"
+          className="w-full justify-start h-7 text-[10px] font-mono text-muted-foreground hover:text-foreground hover:bg-[#342e3a] gap-1.5"
           onClick={handleExport}
           disabled={!character?.sheetUrl}
         >

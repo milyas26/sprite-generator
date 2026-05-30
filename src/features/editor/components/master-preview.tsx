@@ -24,7 +24,7 @@ export function MasterPreview({ sheetUrl, characterName }: Props) {
             Master Sheet
           </span>
         </div>
-        <div className="aspect-square rounded-md border border-dashed border-border/50 bg-[#0a0a10] flex items-center justify-center">
+        <div className="aspect-square rounded-md border border-dashed border-border/50 bg-[#1c1820] flex items-center justify-center">
           <ImageOff className="h-4 w-4 text-muted-foreground/15" />
         </div>
       </div>
@@ -48,7 +48,7 @@ export function MasterPreview({ sheetUrl, characterName }: Props) {
         </div>
         <button
           onClick={() => setOpen(true)}
-          className="w-full aspect-square rounded-md border border-border/30 overflow-hidden bg-[#0a0a10] hover:border-primary/30 transition-colors cursor-pointer group relative"
+          className="w-full aspect-square rounded-md border border-border/30 overflow-hidden bg-[#1c1820] hover:border-primary/30 transition-colors cursor-pointer group relative"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -67,7 +67,7 @@ export function MasterPreview({ sheetUrl, characterName }: Props) {
 
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent
-          className="border-0 bg-[#0a0a10] p-0 gap-0 max-w-[95vw] sm:max-w-2xl max-h-[90vh] grid-rows-[auto_1fr]"
+          className="border-0 bg-[#1c1820] p-0 gap-0 max-w-[95vw] sm:max-w-2xl max-h-[90vh] grid-rows-[auto_1fr]"
           showCloseButton={false}
         >
           <div className="flex items-center justify-between px-4 py-2.5 border-b border-border">

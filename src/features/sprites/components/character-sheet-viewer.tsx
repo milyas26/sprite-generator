@@ -11,7 +11,7 @@ interface CharacterSheetViewerProps {
 export function CharacterSheetViewer({ imageUrl, characterName }: CharacterSheetViewerProps) {
   return (
     <div>
-      <div className="flex items-center gap-1.5 px-3 py-2 bg-[#0e0e14] border-b border-border">
+      <div className="flex items-center gap-1.5 px-3 py-2 bg-[#252028] border-b border-border">
         <a href={imageUrl} download={`${characterName.replace(/\s+/g, "_")}_sheet.png`} target="_blank" rel="noopener noreferrer">
           <Button
             variant="outline"
@@ -33,7 +33,7 @@ export function CharacterSheetViewer({ imageUrl, characterName }: CharacterSheet
           </Button>
         </a>
       </div>
-      <div className="editor-grid-sm bg-[#0c0c12] p-8 flex items-center justify-center">
+      <div className="editor-grid-sm bg-[#1f1b23] p-8 flex items-center justify-center">
         <div className="sprite-glow rounded-lg overflow-hidden">
           <img
             src={imageUrl}

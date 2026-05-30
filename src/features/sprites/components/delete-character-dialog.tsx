@@ -50,7 +50,7 @@ export function DeleteCharacterButton({ characterId, characterName }: DeleteChar
           </Button>
         }
       />
-      <DialogContent className="sm:max-w-sm border-0 bg-[#14141c] p-0 gap-0 overflow-hidden" showCloseButton={false}>
+      <DialogContent className="sm:max-w-sm border-0 bg-[#2e2833] p-0 gap-0 overflow-hidden" showCloseButton={false}>
         <div className="flex items-start gap-3 p-5">
           <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-red-500/10 border border-red-500/20 flex items-center justify-center">
             <AlertTriangle className="h-4 w-4 text-red-400" />
@@ -62,7 +62,7 @@ export function DeleteCharacterButton({ characterId, characterName }: DeleteChar
             </DialogDescription>
           </div>
         </div>
-        <DialogFooter className="border-t border-border bg-[#0f0f16] p-4 flex-row justify-end gap-2">
+        <DialogFooter className="border-t border-border bg-[#252028] p-4 flex-row justify-end gap-2">
           <Button variant="outline" onClick={() => setOpen(false)} disabled={loading} className="h-8 text-[10px] font-mono border-border bg-transparent text-muted-foreground hover:text-foreground">
             Cancel
           </Button>

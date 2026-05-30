@@ -85,7 +85,7 @@ async function AssetsGridWrapper() {
         return (
           <Link key={asset.id} href={`/dashboard/assets/${asset.id}`}>
             <Card className="border-border bg-card hover:border-primary/30 transition-colors h-full overflow-hidden group cursor-pointer py-0">
-              <div className="aspect-square bg-[#0d0d14] flex items-center justify-center border-b border-border overflow-hidden">
+              <div className="aspect-square bg-[#221e26] flex items-center justify-center border-b border-border overflow-hidden">
                 {asset.sheetUrl ? (
                   <img
                     src={asset.sheetUrl}

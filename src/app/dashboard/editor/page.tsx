@@ -10,7 +10,7 @@ export default function EditorPage({
   return (
     <Suspense
       fallback={
-        <div className="flex items-center justify-center h-screen bg-[#0a0a10]">
+        <div className="flex items-center justify-center h-screen bg-[#1c1820]">
           <div className="flex items-center gap-3">
             <div className="w-2 h-2 rounded-full bg-primary animate-sprite-pulse" />
             <span className="text-[11px] font-mono text-muted-foreground">Loading editor...</span>
