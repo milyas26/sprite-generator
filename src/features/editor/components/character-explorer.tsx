@@ -10,8 +10,8 @@ import {
   User,
   ChevronRight,
 } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { CreateSpriteDialog } from "@/features/sprites/components/create-sprite-dialog";
 
 const statusDot: Record<string, string> = {
   DRAFT: "bg-amber-500",
@@ -32,8 +32,8 @@ export function CharacterExplorer({
   selectedId,
   onSelect,
 }: CharacterExplorerProps) {
-  const router = useRouter();
   const [searchQuery, setSearchQuery] = useState("");
+  const [createOpen, setCreateOpen] = useState(false);
 
   const filtered = characters.filter((c) =>
     c.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -64,11 +64,12 @@ export function CharacterExplorer({
           size="xs"
           variant="ghost"
           className="w-full justify-start h-7 text-[10px] font-mono text-muted-foreground hover:text-foreground hover:bg-[#1a1a28] border border-dashed border-border/50 gap-1.5"
-          onClick={() => router.push("/dashboard/sprites/new")}
+          onClick={() => setCreateOpen(true)}
         >
           <Plus className="h-3 w-3" />
           New Character
         </Button>
+        <CreateSpriteDialog open={createOpen} onOpenChange={setCreateOpen} />
       </div>
 
       <div className="flex-1 overflow-y-auto px-1.5 py-0.5">

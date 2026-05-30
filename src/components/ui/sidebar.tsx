@@ -1,25 +1,28 @@
 "use client"
 
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
 import { Library, PlusCircle, PenLine, Boxes } from "lucide-react";
 import { ProcessJobsButton } from "@/features/generation/components/process-jobs-button";
+import { CreateSpriteDialog } from "@/features/sprites/components/create-sprite-dialog";
+import { CreateAssetDialog } from "@/features/assets/components/create-asset-dialog";
 
 const spriteItems = [
   { href: "/dashboard", label: "Sprite Library", icon: Library },
   { href: "/dashboard/editor", label: "Sprite Editor", icon: PenLine },
-  { href: "/dashboard/sprites/new", label: "New Sprite", icon: PlusCircle },
-];
+] as const;
 
 const assetItems = [
   { href: "/dashboard/assets", label: "Asset Library", icon: Boxes },
-  { href: "/dashboard/assets/new", label: "New Asset", icon: PlusCircle },
-];
+] as const;
 
 export function Sidebar() {
   const pathname = usePathname();
+  const [spriteDialogOpen, setSpriteDialogOpen] = useState(false);
+  const [assetDialogOpen, setAssetDialogOpen] = useState(false);
 
   return (
     <aside className="fixed inset-y-0 left-0 z-40 flex w-64 flex-col bg-sidebar border-r border-sidebar-border">
@@ -42,7 +45,6 @@ export function Sidebar() {
             const isActive =
               pathname === item.href ||
               (item.href === "/dashboard" && pathname === "/dashboard") ||
-              (item.href === "/dashboard/sprites/new" && pathname.startsWith("/dashboard/sprites/new")) ||
               (item.href === "/dashboard/editor" && pathname.startsWith("/dashboard/editor"));
             return (
               <li key={item.href}>
@@ -64,6 +66,15 @@ export function Sidebar() {
               </li>
             );
           })}
+          <li>
+            <button
+              onClick={() => setSpriteDialogOpen(true)}
+              className="w-full flex items-center gap-2.5 rounded-md px-2.5 py-2 text-[13px] font-medium transition-all duration-150 text-sidebar-foreground/60 border border-transparent hover:bg-sidebar-accent hover:text-sidebar-foreground cursor-pointer"
+            >
+              <PlusCircle className="h-3.5 w-3.5 flex-shrink-0 text-muted-foreground" />
+              New Sprite
+            </button>
+          </li>
         </ul>
 
         <Separator className="my-4 opacity-40" />
@@ -73,7 +84,7 @@ export function Sidebar() {
         </p>
         <ul className="space-y-0.5">
           {assetItems.map((item) => {
-            const isActive = pathname === item.href || (item.href === "/dashboard/assets" && pathname.startsWith("/dashboard/assets")) || (item.href === "/dashboard/assets/new" && pathname.startsWith("/dashboard/assets/new"));
+            const isActive = pathname === item.href || (item.href === "/dashboard/assets" && pathname.startsWith("/dashboard/assets"));
             return (
               <li key={item.href}>
                 <Link
@@ -94,6 +105,15 @@ export function Sidebar() {
               </li>
             );
           })}
+          <li>
+            <button
+              onClick={() => setAssetDialogOpen(true)}
+              className="w-full flex items-center gap-2.5 rounded-md px-2.5 py-2 text-[13px] font-medium transition-all duration-150 text-sidebar-foreground/60 border border-transparent hover:bg-sidebar-accent hover:text-sidebar-foreground cursor-pointer"
+            >
+              <PlusCircle className="h-3.5 w-3.5 flex-shrink-0 text-muted-foreground" />
+              New Asset
+            </button>
+          </li>
         </ul>
 
         <Separator className="my-4 opacity-40" />
@@ -109,6 +129,9 @@ export function Sidebar() {
       <div className="border-t border-sidebar-border px-4 py-3">
         <p className="text-[9px] text-muted-foreground font-mono text-center">SpritePixelart MVP</p>
       </div>
+
+      <CreateSpriteDialog open={spriteDialogOpen} onOpenChange={setSpriteDialogOpen} />
+      <CreateAssetDialog open={assetDialogOpen} onOpenChange={setAssetDialogOpen} />
     </aside>
   );
 }

@@ -3,11 +3,11 @@
 import { assetService } from "./services";
 import { createAssetSchema } from "./validators";
 import { revalidatePath } from "next/cache";
-import type { AssetCategory } from "./types";
+import type { AssetCategory, POV } from "./types";
 
-export async function createAsset(prompt: string, category: AssetCategory, artStyle: string, detailLevel: string) {
+export async function createAsset(prompt: string, category: AssetCategory, artStyle: string, detailLevel: string, details?: { name?: string; pov?: POV }) {
   const validated = createAssetSchema.parse({ prompt, category, style: { artStyle, detailLevel } });
-  const result = await assetService.createAsset(validated.prompt, validated.category, validated.style.artStyle, validated.style.detailLevel);
+  const result = await assetService.createAsset(validated.prompt, validated.category, validated.style.artStyle, validated.style.detailLevel, details);
   revalidatePath("/dashboard/assets");
   return result;
 }

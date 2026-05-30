@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { NewCharacterButton } from "@/features/sprites/components/new-character-button";
 
 export default function HomePage() {
   return (
@@ -51,14 +52,9 @@ export default function HomePage() {
             </p>
 
             <div className="flex gap-4 justify-center">
-              <Link href="/dashboard/sprites/new">
-                <Button
-                  size="lg"
-                  className="bg-primary hover:bg-primary/85 text-primary-foreground text-base px-8 py-6 rounded-xl shadow-lg shadow-primary/20 border-0 font-heading font-semibold"
-                >
-                  New Character
-                </Button>
-              </Link>
+              <NewCharacterButton className="bg-primary hover:bg-primary/85 text-primary-foreground text-base px-8 py-6 rounded-xl shadow-lg shadow-primary/20 border-0 font-heading font-semibold">
+                New Character
+              </NewCharacterButton>
               <Link href="/dashboard">
                 <Button
                   size="lg"

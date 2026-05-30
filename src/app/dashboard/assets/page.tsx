@@ -1,10 +1,11 @@
 import { getAssets } from "@/features/assets/actions";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Boxes, PlusCircle, ImageIcon } from "lucide-react";
+import { Boxes, ImageIcon } from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { CreateAssetButton } from "@/features/assets/components/create-asset-button";
 import type { AssetStatus, AssetCategory } from "@/features/assets/types";
 import { ASSET_CATEGORIES } from "@/features/assets/types";
 
@@ -36,13 +37,7 @@ export default function AssetsPage() {
             <p className="text-[11px] text-muted-foreground font-mono mt-0.5">Tiles, walls, furniture, and game world objects</p>
           </div>
         </div>
-        <Link
-          href="/dashboard/assets/new"
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-primary/10 border border-primary/15 text-primary hover:bg-primary/15 transition-colors font-mono text-[12px] font-semibold"
-        >
-          <PlusCircle className="h-3.5 w-3.5" />
-          NEW ASSET
-        </Link>
+        <CreateAssetButton variant="header" />
       </div>
 
       <Suspense
@@ -75,13 +70,7 @@ async function AssetsGridWrapper() {
             Create pixel art tiles, walls, furniture, items, vegetation, and buildings for your game worlds.
           </p>
         </div>
-        <Link
-          href="/dashboard/assets/new"
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-primary/10 border border-primary/15 text-primary hover:bg-primary/15 transition-colors font-mono text-xs font-semibold"
-        >
-          <PlusCircle className="h-3.5 w-3.5" />
-          CREATE ASSET
-        </Link>
+        <CreateAssetButton variant="empty" />
       </div>
     );
   }
@@ -95,7 +84,7 @@ async function AssetsGridWrapper() {
         };
         return (
           <Link key={asset.id} href={`/dashboard/assets/${asset.id}`}>
-            <Card className="border-border bg-card hover:border-primary/30 transition-colors h-full overflow-hidden group cursor-pointer">
+            <Card className="border-border bg-card hover:border-primary/30 transition-colors h-full overflow-hidden group cursor-pointer py-0">
               <div className="aspect-square bg-[#0d0d14] flex items-center justify-center border-b border-border overflow-hidden">
                 {asset.sheetUrl ? (
                   <img

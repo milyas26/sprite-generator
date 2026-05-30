@@ -1,14 +1,14 @@
-import type { ArtStyle, DetailLevel, Asset, AssetCategory, PaginationParams, PaginatedResult, AssetDNA } from "./types";
+import type { ArtStyle, DetailLevel, Asset, AssetCategory, POV, PaginationParams, PaginatedResult, AssetDNA } from "./types";
 import { assetRepository } from "./repository";
 import { enqueueAssetGenerationJob } from "@/features/generation/bull-producer";
 
 export const assetService = {
-  async createAsset(prompt: string, category: AssetCategory, artStyle: ArtStyle, detailLevel: DetailLevel) {
+  async createAsset(prompt: string, category: AssetCategory, artStyle: ArtStyle, detailLevel: DetailLevel, details?: { name?: string; pov?: POV }) {
     const dna: AssetDNA = {
       prompt,
-      name: "Untitled Asset",
+      name: details?.name || "Untitled Asset",
       category,
-      pov: "top-down",
+      pov: details?.pov || "top-down",
       style: { artStyle, palette: [], detailLevel },
       visual: { colors: [], material: "", scale: "", aesthetic: "" },
       tags: [],

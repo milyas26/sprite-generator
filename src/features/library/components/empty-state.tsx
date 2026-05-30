@@ -1,7 +1,12 @@
-import Link from "next/link";
+"use client";
+
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { CreateSpriteDialog } from "@/features/sprites/components/create-sprite-dialog";
 
 export function EmptyState() {
+  const [open, setOpen] = useState(false);
+
   return (
     <div className="flex flex-col items-center justify-center py-24 text-center">
       <div className="w-24 h-24 mb-6 rounded-2xl border-2 border-dashed border-border flex items-center justify-center bg-card">
@@ -13,11 +18,15 @@ export function EmptyState() {
       <p className="text-muted-foreground mb-6 max-w-md">
         Create your first pixel-art character. Describe your character and AI will generate a 4-direction sprite sheet.
       </p>
-      <Link href="/dashboard/sprites/new">
-        <Button size="lg" className="bg-primary hover:bg-primary/85 text-primary-foreground border-0 font-heading font-semibold shadow-sm shadow-primary/15">
-          + Create Your First Character
-        </Button>
-      </Link>
+      <Button
+        size="lg"
+        className="bg-primary hover:bg-primary/85 text-primary-foreground border-0 font-heading font-semibold shadow-sm shadow-primary/15"
+        onClick={() => setOpen(true)}
+      >
+        + Create Your First Character
+      </Button>
+
+      <CreateSpriteDialog open={open} onOpenChange={setOpen} />
     </div>
   );
 }

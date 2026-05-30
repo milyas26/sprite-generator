@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import type { Character } from "@/features/sprites/types";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -13,8 +14,8 @@ import {
   Grid3X3,
   ChevronDown,
 } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { CreateSpriteDialog } from "@/features/sprites/components/create-sprite-dialog";
 
 interface EditorToolbarProps {
   characters: Character[];
@@ -43,7 +44,7 @@ export function EditorToolbar({
   onExport,
   onRegenerate,
 }: EditorToolbarProps) {
-  const router = useRouter();
+  const [createOpen, setCreateOpen] = useState(false);
 
   return (
     <div className="flex items-center gap-2 h-10 px-3 bg-[#12121a] border-b border-border shrink-0 select-none">
@@ -80,7 +81,7 @@ export function EditorToolbar({
         size="xs"
         variant="ghost"
         className="toolbar-btn text-[11px] gap-1.5 h-7"
-        onClick={() => router.push("/dashboard/sprites/new")}
+        onClick={() => setCreateOpen(true)}
       >
         <Plus className="h-3 w-3" />
         <span className="hidden sm:inline">Generate</span>
@@ -164,6 +165,7 @@ export function EditorToolbar({
         <Sparkles className="h-3 w-3" />
         <span className="hidden sm:inline">Regenerate</span>
       </Button>
+      <CreateSpriteDialog open={createOpen} onOpenChange={setCreateOpen} />
     </div>
   );
 }
