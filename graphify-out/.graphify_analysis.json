@@ -1,0 +1,437 @@
+{
+  "communities": {
+    "0": [
+      "app_page_homepage",
+      "auth_auth_client_authclient",
+      "components_character_card_charactercard",
+      "components_character_card_statuscolors",
+      "components_character_detail_characterdetailview",
+      "components_sign_in_form_signinform",
+      "components_sign_up_form_signupform",
+      "id_page_props",
+      "lib_utils_cn",
+      "login_page_loginpage",
+      "new_page_generationstep",
+      "signup_page_signuppage",
+      "src_app_auth_login_page_tsx",
+      "src_app_auth_signup_page_tsx",
+      "src_app_dashboard_characters_id_page_tsx",
+      "src_app_dashboard_characters_new_page_tsx",
+      "src_app_page_tsx",
+      "src_components_ui_badge_tsx",
+      "src_components_ui_card_tsx",
+      "src_components_ui_input_tsx",
+      "src_components_ui_label_tsx",
+      "src_components_ui_select_tsx",
+      "src_components_ui_separator_tsx",
+      "src_components_ui_textarea_tsx",
+      "src_features_characters_components_character_detail_tsx",
+      "src_lib_utils_ts",
+      "ui_badge_badge",
+      "ui_badge_badgevariants",
+      "ui_card_card",
+      "ui_card_cardaction",
+      "ui_card_cardcontent",
+      "ui_card_carddescription",
+      "ui_card_cardfooter",
+      "ui_card_cardheader",
+      "ui_card_cardtitle",
+      "ui_input_input",
+      "ui_label_label",
+      "ui_select_selectcontent",
+      "ui_select_selectgroup",
+      "ui_select_selectitem",
+      "ui_select_selectlabel",
+      "ui_select_selectscrolldownbutton",
+      "ui_select_selectscrollupbutton",
+      "ui_select_selectseparator",
+      "ui_select_selecttrigger",
+      "ui_select_selectvalue",
+      "ui_separator_separator",
+      "ui_textarea_textarea"
+    ],
+    "1": [
+      "characters_types_artstyle",
+      "characters_types_characterdna",
+      "characters_types_detaillevel",
+      "characters_validators_characterdnaschema",
+      "characters_validators_createcharacterinput",
+      "characters_validators_createcharacterschema",
+      "characters_validators_paginationinput",
+      "characters_validators_paginationschema",
+      "generation_dna_extractor_extractcharacterdna",
+      "generation_job_processor_processnextjob",
+      "generation_job_queue_jobqueue",
+      "generation_pipeline_generationpipeline",
+      "generation_pipeline_generationresult",
+      "generation_pipeline_getimagedimensions",
+      "generation_sheet_generator_generatecharactersheet",
+      "lib_constants_ai",
+      "lib_constants_job",
+      "lib_constants_pagination",
+      "lib_constants_rate_limits",
+      "lib_constants_storage",
+      "lib_rate_limit_now",
+      "lib_rate_limit_store",
+      "prompts_dna_extraction_builddnaextractionprompt",
+      "prompts_dna_extraction_buildsheetgenerationprompt",
+      "src_features_characters_validators_ts",
+      "src_features_generation_dna_extractor_ts",
+      "src_features_generation_job_processor_ts",
+      "src_features_generation_pipeline_ts",
+      "src_features_generation_prompts_dna_extraction_ts",
+      "src_features_generation_sheet_generator_ts",
+      "src_features_storage_naming_ts",
+      "src_lib_constants_ts",
+      "src_lib_rate_limit_ts",
+      "storage_naming_buildanimationframekey",
+      "storage_naming_buildlayerkey",
+      "storage_naming_buildmetadatakey",
+      "storage_naming_buildsheetkey",
+      "storage_naming_buildspritekey",
+      "storage_naming_buildstoragekey",
+      "storage_naming_parsecharacteridfromkey"
+    ],
+    "2": [
+      "auth_auth_auth",
+      "characters_dna_template_createemptydna",
+      "characters_repository_characterrepository",
+      "characters_types_assettype",
+      "characters_types_character",
+      "characters_types_characteraggregate",
+      "characters_types_characterasset",
+      "characters_types_characterstatus",
+      "characters_types_characterstyleinput",
+      "characters_types_direction",
+      "characters_types_generationjob",
+      "characters_types_jobstatus",
+      "characters_types_jobtype",
+      "characters_types_paginatedresult",
+      "characters_types_paginationparams",
+      "components_character_card_charactercardprops",
+      "components_character_grid_charactergrid",
+      "components_character_grid_charactergridprops",
+      "lib_env_env",
+      "lib_env_envschema",
+      "lib_env_getenv",
+      "lib_openai_globalforopenai",
+      "lib_prisma_globalforprisma",
+      "src_features_auth_auth_ts",
+      "src_features_characters_dna_template_ts",
+      "src_features_characters_repository_ts",
+      "src_features_characters_services_ts",
+      "src_features_characters_types_ts",
+      "src_features_storage_r2_client_ts",
+      "src_features_storage_upload_ts",
+      "src_lib_env_ts",
+      "src_lib_openai_ts",
+      "src_lib_prisma_ts",
+      "storage_r2_client_globalforr2",
+      "storage_upload_storageservice"
+    ],
+    "3": [
+      "game_pixelart_package_dependencies",
+      "game_pixelart_package_dependencies_aws_sdk_client_s3",
+      "game_pixelart_package_dependencies_aws_sdk_s3_request_presigner",
+      "game_pixelart_package_dependencies_base_ui_react",
+      "game_pixelart_package_dependencies_better_auth",
+      "game_pixelart_package_dependencies_better_auth_prisma_adapter",
+      "game_pixelart_package_dependencies_class_variance_authority",
+      "game_pixelart_package_dependencies_clsx",
+      "game_pixelart_package_dependencies_hookform_resolvers",
+      "game_pixelart_package_dependencies_lucide_react",
+      "game_pixelart_package_dependencies_next",
+      "game_pixelart_package_dependencies_openai",
+      "game_pixelart_package_dependencies_prisma",
+      "game_pixelart_package_dependencies_prisma_client",
+      "game_pixelart_package_dependencies_react",
+      "game_pixelart_package_dependencies_react_dom",
+      "game_pixelart_package_dependencies_react_hook_form",
+      "game_pixelart_package_dependencies_shadcn",
+      "game_pixelart_package_dependencies_sonner",
+      "game_pixelart_package_dependencies_tailwind_merge",
+      "game_pixelart_package_dependencies_tanstack_react_query",
+      "game_pixelart_package_dependencies_tanstack_react_query_devtools",
+      "game_pixelart_package_dependencies_tw_animate_css",
+      "game_pixelart_package_dependencies_zod",
+      "game_pixelart_package_name",
+      "game_pixelart_package_private",
+      "game_pixelart_package_scripts",
+      "game_pixelart_package_scripts_build",
+      "game_pixelart_package_scripts_dev",
+      "game_pixelart_package_scripts_lint",
+      "game_pixelart_package_scripts_start",
+      "game_pixelart_package_version",
+      "package_json"
+    ],
+    "4": [
+      "auth_middleware_getcurrentuserid",
+      "auth_middleware_getsession",
+      "auth_middleware_requireauth",
+      "characters_actions_deletecharacter",
+      "characters_actions_getcharacter",
+      "characters_services_characterservice",
+      "components_character_sheet_viewer_charactersheetviewer",
+      "components_empty_state_emptystate",
+      "components_logout_button_logoutbutton",
+      "components_pagination_controls_paginationcontrols",
+      "dashboard_layout_dashboardlayout",
+      "dashboard_page_charactergridwrapper",
+      "dashboard_page_dashboardpage",
+      "id_page_characterdetailpage",
+      "library_suspense_wrapper_getcharactergridprops",
+      "new_page_createcharacterpage",
+      "src_app_dashboard_layout_tsx",
+      "src_app_dashboard_page_tsx",
+      "src_components_ui_button_tsx",
+      "src_features_auth_middleware_ts",
+      "src_features_characters_actions_ts",
+      "src_features_library_suspense_wrapper_ts",
+      "ui_button_button",
+      "ui_button_buttonvariants",
+      "ui_skeleton_skeleton"
+    ],
+    "5": [
+      "components_json",
+      "game_pixelart_components_aliases",
+      "game_pixelart_components_aliases_components",
+      "game_pixelart_components_aliases_hooks",
+      "game_pixelart_components_aliases_lib",
+      "game_pixelart_components_aliases_ui",
+      "game_pixelart_components_aliases_utils",
+      "game_pixelart_components_iconlibrary",
+      "game_pixelart_components_menuaccent",
+      "game_pixelart_components_menucolor",
+      "game_pixelart_components_registries",
+      "game_pixelart_components_rsc",
+      "game_pixelart_components_rtl",
+      "game_pixelart_components_schema",
+      "game_pixelart_components_style",
+      "game_pixelart_components_tailwind",
+      "game_pixelart_components_tailwind_basecolor",
+      "game_pixelart_components_tailwind_config",
+      "game_pixelart_components_tailwind_css",
+      "game_pixelart_components_tailwind_cssvariables",
+      "game_pixelart_components_tailwind_prefix",
+      "game_pixelart_components_tsx"
+    ],
+    "6": [
+      "game_pixelart_tsconfig_compileroptions",
+      "game_pixelart_tsconfig_compileroptions_allowjs",
+      "game_pixelart_tsconfig_compileroptions_esmoduleinterop",
+      "game_pixelart_tsconfig_compileroptions_incremental",
+      "game_pixelart_tsconfig_compileroptions_isolatedmodules",
+      "game_pixelart_tsconfig_compileroptions_jsx",
+      "game_pixelart_tsconfig_compileroptions_lib",
+      "game_pixelart_tsconfig_compileroptions_module",
+      "game_pixelart_tsconfig_compileroptions_moduleresolution",
+      "game_pixelart_tsconfig_compileroptions_noemit",
+      "game_pixelart_tsconfig_compileroptions_paths",
+      "game_pixelart_tsconfig_compileroptions_plugins",
+      "game_pixelart_tsconfig_compileroptions_resolvejsonmodule",
+      "game_pixelart_tsconfig_compileroptions_skiplibcheck",
+      "game_pixelart_tsconfig_compileroptions_strict",
+      "game_pixelart_tsconfig_compileroptions_target",
+      "game_pixelart_tsconfig_exclude",
+      "game_pixelart_tsconfig_include",
+      "game_pixelart_tsconfig_paths",
+      "tsconfig_json"
+    ],
+    "7": [
+      "src_components_ui_dialog_tsx",
+      "ui_dialog_dialog",
+      "ui_dialog_dialogclose",
+      "ui_dialog_dialogcontent",
+      "ui_dialog_dialogdescription",
+      "ui_dialog_dialogfooter",
+      "ui_dialog_dialogheader",
+      "ui_dialog_dialogoverlay",
+      "ui_dialog_dialogportal",
+      "ui_dialog_dialogtitle",
+      "ui_dialog_dialogtrigger"
+    ],
+    "8": [
+      "eslint_config_mjs",
+      "game_pixelart_package_devdependencies",
+      "game_pixelart_package_devdependencies_eslint",
+      "game_pixelart_package_devdependencies_tailwindcss",
+      "game_pixelart_package_devdependencies_tailwindcss_postcss",
+      "game_pixelart_package_devdependencies_tsx",
+      "game_pixelart_package_devdependencies_types_node",
+      "game_pixelart_package_devdependencies_types_react",
+      "game_pixelart_package_devdependencies_typescript"
+    ],
+    "9": [
+      "game_pixelart_skills_lock_frontend_design_computedhash",
+      "game_pixelart_skills_lock_frontend_design_skillpath",
+      "game_pixelart_skills_lock_frontend_design_source",
+      "game_pixelart_skills_lock_frontend_design_sourcetype",
+      "game_pixelart_skills_lock_skills",
+      "game_pixelart_skills_lock_skills_frontend_design",
+      "game_pixelart_skills_lock_version",
+      "skills_lock_json"
+    ],
+    "10": [
+      "app_layout_geistmono",
+      "app_layout_geistsans",
+      "app_layout_metadata",
+      "app_layout_rootlayout",
+      "src_app_layout_tsx",
+      "src_app_providers_tsx"
+    ],
+    "11": [
+      "readme_create_next_app",
+      "readme_geist_font",
+      "readme_next_font",
+      "readme_nextjs"
+    ],
+    "12": [
+      "game_pixelart_postcss_config_config",
+      "postcss_config_mjs"
+    ],
+    "13": [
+      "next_config_ts"
+    ],
+    "14": [
+      "agents_nextjs_agent_rules"
+    ],
+    "15": [
+      "frontend_design_skill"
+    ],
+    "16": [
+      "docs_implementation_plan"
+    ]
+  },
+  "cohesion": {
+    "0": 0.11524822695035461,
+    "1": 0.08076923076923077,
+    "2": 0.08907563025210084,
+    "3": 0.06060606060606061,
+    "4": 0.15,
+    "5": 0.09090909090909091,
+    "6": 0.1,
+    "7": 0.18181818181818182,
+    "8": 0.2222222222222222,
+    "9": 0.25,
+    "10": 0.3333333333333333,
+    "11": 0.5,
+    "12": 1.0,
+    "13": 1.0,
+    "14": 1.0,
+    "15": 1.0,
+    "16": 1.0
+  },
+  "gods": [
+    {
+      "id": "lib_utils_cn",
+      "label": "cn()",
+      "degree": 39
+    },
+    {
+      "id": "game_pixelart_tsconfig_compileroptions",
+      "label": "compilerOptions",
+      "degree": 16
+    },
+    {
+      "id": "components_sign_in_form_signinform",
+      "label": "SignInForm()",
+      "degree": 14
+    },
+    {
+      "id": "components_sign_up_form_signupform",
+      "label": "SignUpForm()",
+      "degree": 14
+    },
+    {
+      "id": "ui_button_button",
+      "label": "Button()",
+      "degree": 14
+    },
+    {
+      "id": "components_character_card_charactercard",
+      "label": "CharacterCard()",
+      "degree": 11
+    },
+    {
+      "id": "auth_middleware_requireauth",
+      "label": "requireAuth()",
+      "degree": 9
+    },
+    {
+      "id": "components_character_grid_charactergrid",
+      "label": "CharacterGrid()",
+      "degree": 8
+    },
+    {
+      "id": "ui_card_card",
+      "label": "Card()",
+      "degree": 8
+    },
+    {
+      "id": "ui_card_cardcontent",
+      "label": "CardContent()",
+      "degree": 8
+    }
+  ],
+  "surprises": [
+    {
+      "source": "DialogOverlay()",
+      "target": "cn()",
+      "source_files": [
+        "src/components/ui/dialog.tsx",
+        "src/lib/utils.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities; peripheral node `DialogOverlay()` unexpectedly reaches hub `cn()`"
+    },
+    {
+      "source": "DialogContent()",
+      "target": "cn()",
+      "source_files": [
+        "src/components/ui/dialog.tsx",
+        "src/lib/utils.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities; peripheral node `DialogContent()` unexpectedly reaches hub `cn()`"
+    },
+    {
+      "source": "DialogHeader()",
+      "target": "cn()",
+      "source_files": [
+        "src/components/ui/dialog.tsx",
+        "src/lib/utils.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities; peripheral node `DialogHeader()` unexpectedly reaches hub `cn()`"
+    },
+    {
+      "source": "DialogFooter()",
+      "target": "cn()",
+      "source_files": [
+        "src/components/ui/dialog.tsx",
+        "src/lib/utils.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities; peripheral node `DialogFooter()` unexpectedly reaches hub `cn()`"
+    },
+    {
+      "source": "DialogTitle()",
+      "target": "cn()",
+      "source_files": [
+        "src/components/ui/dialog.tsx",
+        "src/lib/utils.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities; peripheral node `DialogTitle()` unexpectedly reaches hub `cn()`"
+    }
+  ],
+  "tokens": {
+    "input": 7087,
+    "output": 712
+  }
+}

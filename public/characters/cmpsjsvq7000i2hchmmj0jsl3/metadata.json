@@ -1,0 +1,66 @@
+{
+  "dna": {
+    "prompt": "karakter lelaki kantoran umur 25 dengan stelan formal",
+    "name": "Office Formal Man",
+    "race": "human",
+    "gender": "male",
+    "class": "engineer",
+    "physical": {
+      "hair": {
+        "style": "short side-parted hair",
+        "color": "black"
+      },
+      "eyes": {
+        "color": "dark brown",
+        "shape": "almond"
+      },
+      "skin": {
+        "tone": "fair"
+      },
+      "build": "slim",
+      "height": "average"
+    },
+    "equipment": {
+      "head": null,
+      "body": "formal office suit with white dress shirt, dark navy blazer, and red tie",
+      "legs": "matching dark navy dress pants with black dress shoes",
+      "mainHand": null,
+      "offHand": null,
+      "accessories": [
+        "black leather belt",
+        "silver wristwatch"
+      ]
+    },
+    "style": {
+      "artStyle": "16bit",
+      "palette": [
+        "#1F2A44",
+        "#3B4A66",
+        "#F2D6C9",
+        "#FFFFFF",
+        "#5A5A5A"
+      ],
+      "detailLevel": "medium"
+    },
+    "directions": {
+      "up": "Back-view sprite in top-down pixel art: short black side-parted hair visible above a neat navy blazer collar. The shoulders are squared and formal, with a clean back seam and subtle shading. Dark dress pants fall straight to black shoes, giving a tidy office silhouette.",
+      "down": "Front-view sprite in top-down pixel art: a fair-skinned young man with almond dark brown eyes, short side-parted black hair, and a calm neutral expression. He wears a white shirt, red tie, and navy blazer over matching slacks, with a black belt and polished shoes.",
+      "left": "Left-facing side profile sprite in top-down view: the short black hair is neatly combed with a visible part, and the fair face shows a clean jawline. The navy blazer hangs straight over a slim torso, with the red tie peeking at the collar and straight dress pants below.",
+      "right": "Right-facing side profile sprite in top-down view: the same tidy office look is shown with the right side of the short side-parted hair and fair cheek visible. The blazer, white shirt, and red tie remain crisp, while the slim legs end in black dress shoes."
+    },
+    "tags": [
+      "human",
+      "male",
+      "office worker",
+      "formal suit",
+      "young adult",
+      "business attire",
+      "top-down sprite",
+      "16bit",
+      "stardew-like",
+      "rpg maker"
+    ]
+  },
+  "generatedAt": "2026-05-30T16:11:48.451Z",
+  "model": "gpt-4o + dall-e-3"
+}

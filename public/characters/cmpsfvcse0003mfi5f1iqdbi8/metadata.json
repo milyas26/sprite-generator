@@ -1,0 +1,61 @@
+{
+  "dna": {
+    "prompt": "office male character with laptop on hand",
+    "name": "office tech wizard",
+    "race": "human",
+    "gender": "male",
+    "class": "engineer",
+    "physical": {
+      "hair": {
+        "style": "short, neat",
+        "color": "dark brown"
+      },
+      "eyes": {
+        "color": "blue",
+        "shape": "round"
+      },
+      "skin": {
+        "tone": "fair"
+      },
+      "build": "slim",
+      "height": "average"
+    },
+    "equipment": {
+      "head": null,
+      "body": "white shirt with blue tie",
+      "legs": "gray slacks",
+      "mainHand": "laptop",
+      "offHand": null,
+      "accessories": [
+        "glasses",
+        "watch"
+      ]
+    },
+    "style": {
+      "artStyle": "16bit",
+      "palette": [
+        "#3F4A5A",
+        "#9BACCE",
+        "#D3D3D3",
+        "#FFFFFF",
+        "#1E1E1E"
+      ],
+      "detailLevel": "medium"
+    },
+    "directions": {
+      "up": "The character's short, neat hair is visible from behind, with a white shirt and blue tie peeking from under a gray jacket. The laptop in hand is slightly tilted, and gray slacks cover the legs.",
+      "down": "The character's glasses sit on a round face, with a neat blue tie over a white shirt. The laptop is held in one hand, and gray slacks lead to polished black shoes.",
+      "left": "From the side, the character's dark brown hair is neatly styled. The laptop is carried in front, with a visible white shirt cuff and gray slacks flowing into a dress shoe.",
+      "right": "The right profile shows a determined expression, with the laptop securely in hand. The tie is visible on the shirt, and the gray slacks end in a polished shoe."
+    },
+    "tags": [
+      "office",
+      "male",
+      "laptop",
+      "engineer",
+      "16bit"
+    ]
+  },
+  "generatedAt": "2026-05-30T14:33:03.788Z",
+  "model": "gpt-4o + dall-e-3"
+}

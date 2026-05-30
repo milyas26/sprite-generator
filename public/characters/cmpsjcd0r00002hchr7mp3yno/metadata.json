@@ -1,0 +1,64 @@
+{
+  "dna": {
+    "prompt": "karakter lelaki kantoran umur 25 dengan stelan formal",
+    "name": "Kantoran Formal",
+    "race": "human",
+    "gender": "male",
+    "class": "engineer",
+    "physical": {
+      "hair": {
+        "style": "neat side-part short hair",
+        "color": "black"
+      },
+      "eyes": {
+        "color": "dark brown",
+        "shape": "almond"
+      },
+      "skin": {
+        "tone": "fair"
+      },
+      "build": "slim",
+      "height": "average"
+    },
+    "equipment": {
+      "head": null,
+      "body": "dark navy formal office suit with white dress shirt and slim red tie",
+      "legs": "matching navy dress trousers with black belt",
+      "mainHand": null,
+      "offHand": null,
+      "accessories": [
+        "black leather shoes",
+        "silver wristwatch"
+      ]
+    },
+    "style": {
+      "artStyle": "32bit",
+      "palette": [
+        "#1F2430",
+        "#3A4A5A",
+        "#6E7B8B",
+        "#D9C7A3",
+        "#F2F2F2"
+      ],
+      "detailLevel": "medium"
+    },
+    "directions": {
+      "up": "Top-down rear sprite of a slim office man in a neat navy suit, seen from behind. The pixel chibi shows a clean side-part haircut, broad suit shoulders, a straight jacket back, and dark trousers falling to polished black shoes. Small watch glint on one wrist.",
+      "down": "Top-down front sprite of a young office man with a tidy side-part and fair face. He wears a crisp white shirt, slim red tie, and dark navy blazer with matching slacks. The sprite shows a centered belt, clean lapels, and black dress shoes.",
+      "left": "Left-facing side profile sprite in top-down view, showing the man’s neat black hair, almond eye, and straight nose. His navy blazer, white cuff, and red tie are visible, with one arm at his side, slim trousers, and a black shoe stepping forward.",
+      "right": "Right-facing side profile sprite in top-down view, mirroring the formal office look. The chibi shows the side-part hair, fair cheek, navy suit jacket, white shirt edge, and red tie. The right arm hangs neatly, with slim trousers and a polished black shoe."
+    },
+    "tags": [
+      "human",
+      "male",
+      "office worker",
+      "formal suit",
+      "young adult",
+      "business attire",
+      "top-down sprite",
+      "pixel art"
+    ]
+  },
+  "generatedAt": "2026-05-30T15:59:42.997Z",
+  "model": "gpt-4o + dall-e-3"
+}

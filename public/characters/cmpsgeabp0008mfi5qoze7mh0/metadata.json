@@ -1,0 +1,67 @@
+{
+  "dna": {
+    "prompt": "naga api style scandinavia mitologi",
+    "name": "Rune Serpent",
+    "race": "elemental",
+    "gender": "nonbinary",
+    "class": "mage",
+    "physical": {
+      "hair": {
+        "style": "long flowing hair with serpent-like waves",
+        "color": "ember orange"
+      },
+      "eyes": {
+        "color": "glowing gold",
+        "shape": "narrow"
+      },
+      "skin": {
+        "tone": "red-orange scales"
+      },
+      "build": "slim",
+      "height": "tall"
+    },
+    "equipment": {
+      "head": "crown of frozen runes",
+      "body": "scandinavian rune robe with ember trim and scale mantle",
+      "legs": "layered sash skirt over fitted leggings",
+      "mainHand": "flame scepter",
+      "offHand": "null",
+      "accessories": [
+        "wolf-fur cloak clasp",
+        "ancient rune torc"
+      ]
+    },
+    "style": {
+      "artStyle": "32bit",
+      "palette": [
+        "#1B1026",
+        "#4A2C5E",
+        "#C85A2A",
+        "#F2B24A",
+        "#F8E8C8"
+      ],
+      "detailLevel": "medium"
+    },
+    "directions": {
+      "up": "Back view of a tall chibi elemental mage sprite, with long ember-orange hair flowing over a rune-etched mantle. The robe back shows glowing Nordic knot patterns, a wolf-fur clasp at the neck, and a tapered sash over slim legs in a top-down RPG tile style.",
+      "down": "Front view shows a serpentine face with narrow glowing gold eyes and red-orange scaled skin. The chest bears a rune robe with ember trim, a bright torc at the collar, and layered sash fabric over fitted leggings. The flame scepter is held upright in a compact pixel-art pose.",
+      "left": "Left profile shows a slim elemental body with long wavy hair trailing behind the shoulder. The side of the rune robe reveals glowing trim, a fur clasp near the neck, and the scepter shaft angled forward. The left leg is narrow and wrapped in layered cloth.",
+      "right": "Right profile mirrors the sprite with ember hair, a narrow glowing eye, and scaled cheek detail. The robe hangs in clean pixel layers with Nordic rune accents, the scepter is gripped close to the body, and the right leg shows fitted leggings beneath the sash."
+    },
+    "tags": [
+      "naga",
+      "api",
+      "scandinavia",
+      "mitologi",
+      "norse mythology",
+      "rune mage",
+      "serpent",
+      "elemental",
+      "pixel art",
+      "top-down",
+      "32bit"
+    ]
+  },
+  "generatedAt": "2026-05-30T14:41:07.733Z",
+  "model": "gpt-4o + dall-e-3"
+}

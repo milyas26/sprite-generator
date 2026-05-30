@@ -1,0 +1,106 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum CharacterStatus {
+  DRAFT
+  DNA_READY
+  GENERATING
+  READY
+  FAILED
+}
+
+enum JobType {
+  DNA_EXTRACTION
+  SHEET_GENERATION
+  COMPOSITE
+  SPRITE_PACK
+}
+
+enum JobStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+}
+
+enum AssetType {
+  SHEET
+  LAYER
+  SPRITE
+  ANIMATION_FRAME
+}
+
+enum DirectionEnum {
+  UP
+  DOWN
+  LEFT
+  RIGHT
+}
+
+model Character {
+  id        String          @id @default(cuid())
+  name      String
+  dna       Json            @db.JsonB
+  status    CharacterStatus @default(DRAFT)
+  sheetUrl  String?
+  sheetKey  String?
+  createdAt DateTime        @default(now()) @map("created_at")
+  updatedAt DateTime        @updatedAt @map("updated_at")
+
+  assets CharacterAsset[]
+  jobs   GenerationJob[]
+
+  @@index([status])
+  @@index([createdAt(sort: Desc)])
+  @@map("characters")
+}
+
+model CharacterAsset {
+  id          String        @id @default(cuid())
+  characterId String        @map("character_id")
+  type        AssetType     @default(SHEET)
+  direction   DirectionEnum?
+  layerName   String?       @map("layer_name")
+  url         String
+  storageKey  String        @map("storage_key")
+  mimeType    String        @map("mime_type") @default("image/png")
+  width       Int           @default(0)
+  height      Int           @default(0)
+  fileSize    Int           @default(0) @map("file_size")
+  version     Int           @default(1)
+  createdAt   DateTime      @default(now()) @map("created_at")
+
+  character Character @relation(fields: [characterId], references: [id], onDelete: Cascade)
+
+  @@index([characterId, type])
+  @@index([characterId, direction])
+  @@map("character_assets")
+}
+
+model GenerationJob {
+  id          String    @id @default(cuid())
+  characterId String    @map("character_id")
+  type        JobType
+  status      JobStatus @default(PENDING)
+  input       Json      @default("{}") @db.JsonB
+  output      Json?     @db.JsonB
+  error       String?
+  metrics     Json?     @db.JsonB
+  attempts    Int       @default(0)
+  maxAttempts Int       @default(3) @map("max_attempts")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  startedAt   DateTime? @map("started_at")
+  completedAt DateTime? @map("completed_at")
+
+  character Character @relation(fields: [characterId], references: [id], onDelete: Cascade)
+
+  @@index([status, createdAt])
+  @@index([characterId, type])
+  @@map("generation_jobs")
+}

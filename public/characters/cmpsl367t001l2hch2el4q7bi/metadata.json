@@ -1,0 +1,55 @@
+{
+  "dna": {
+    "prompt": "office male character with laptop on hand",
+    "name": "Office Clerk",
+    "race": "human",
+    "gender": "male",
+    "class": "engineer",
+    "physical": {
+      "hair": {
+        "style": "short side-parted",
+        "color": "dark brown"
+      },
+      "eyes": {
+        "color": "brown",
+        "shape": "almond"
+      },
+      "skin": {
+        "tone": "fair"
+      },
+      "build": "slim",
+      "height": "average"
+    },
+    "equipment": {
+      "head": null,
+      "body": "neat white office shirt with rolled sleeves, dark gray tie, navy slacks, and a slim charcoal vest",
+      "legs": "tailored navy dress pants with black shoes",
+      "mainHand": "open laptop",
+      "offHand": null,
+      "accessories": [
+        "black wristwatch",
+        "ID badge lanyard"
+      ]
+    },
+    "style": {
+      "artStyle": "16bit",
+      "palette": [
+        "#2B2D42",
+        "#8D99AE",
+        "#EDF2F4",
+        "#D9A441",
+        "#5C4B3A"
+      ],
+      "detailLevel": "medium"
+    },
+    "directions": {
+      "up": "Back-facing chibi sprite in a top-down RPG view, showing short dark brown side-parted hair and the back of a charcoal vest over a white shirt. The shoulders are squared and neat, with navy slacks and black shoes visible below. One arm bends slightly to hold a slim laptop at his side.",
+      "down": "Front-facing sprite with a calm office look, brown eyes, fair skin, and a tidy side-parted hairstyle. The white shirt, dark tie, and charcoal vest are visible above navy pants. He holds an open laptop in one hand, with a belt line, wristwatch, and simple black shoes.",
+      "left": "Left side profile in top-down view, showing the short side-parted hair, almond brown eye, and clean jawline. The left arm hangs close to the body while the other supports the open laptop. His vest, shirt cuff, and straight navy slacks form a crisp office silhouette.",
+      "right": "Right side profile in top-down view, with the same neat office sprite shape and short dark hair. The right shoulder and vest edge are visible, along with the bent arm carrying the open laptop. Slim slacks, polished shoes, and a tidy business posture complete the sprite."
+    },
+    "tags": []
+  },
+  "generatedAt": "2026-05-30T16:47:48.180Z",
+  "model": "gpt-4o + dall-e-3"
+}

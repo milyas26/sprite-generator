@@ -1,0 +1,67 @@
+{
+  "dna": {
+    "prompt": "karakter naga laki laki style urban legend china",
+    "name": "Urban Dragon Lord",
+    "race": "beast",
+    "gender": "male",
+    "class": "samurai",
+    "physical": {
+      "hair": {
+        "style": "long flowing mane with horn-like strands",
+        "color": "midnight black"
+      },
+      "eyes": {
+        "color": "golden amber",
+        "shape": "narrow"
+      },
+      "skin": {
+        "tone": "emerald green"
+      },
+      "build": "athletic",
+      "height": "tall"
+    },
+    "equipment": {
+      "head": "jade dragon crown",
+      "body": "dark indigo silk robe with red cloud embroidery and scaled shoulder guards",
+      "legs": "matching indigo hakama pants with wrapped calf bindings",
+      "mainHand": "ornate dragon spear",
+      "offHand": "jade talisman",
+      "accessories": [
+        "gold ear hoop",
+        "red silk sash"
+      ]
+    },
+    "style": {
+      "artStyle": "16bit",
+      "palette": [
+        "#0B1020",
+        "#1E2A44",
+        "#2F5D62",
+        "#7A1E1E",
+        "#D4B15A"
+      ],
+      "detailLevel": "medium"
+    },
+    "directions": {
+      "up": "Back view sprite shows a tall dragon-man with a flowing black mane cascading over a jade crown. Indigo robe panels split over broad shoulders, revealing scaled pauldrons and a red sash knot at the waist. Hakama folds and wrapped calves finish the chibi top-down silhouette.",
+      "down": "Front view sprite shows a stern green-scaled dragon face with narrow amber eyes, a jade crown, and a long mane framing the cheeks. The indigo robe opens at the chest, showing scaled trim, a red sash, and the dragon spear held upright with a small jade talisman at the belt.",
+      "left": "Left-facing sprite shows a sharp profile with horn-like hair strands and a glowing amber eye. One scaled shoulder guard sits over the indigo robe, the left arm grips the dragon spear, and the hakama drape over a wrapped leg in a clean 16bit chibi silhouette.",
+      "right": "Right-facing sprite mirrors the left profile with a narrow amber eye, black mane, and jade crown visible above the brow. The right shoulder guard and robe folds are clear, the spear shaft angles forward, and the calf bindings and pant layers stay consistent in top-down view."
+    },
+    "tags": [
+      "dragon",
+      "urban legend",
+      "china",
+      "male",
+      "samurai",
+      "mythic",
+      "jade",
+      "cloud embroidery",
+      "pixel-art",
+      "top-down",
+      "16bit"
+    ]
+  },
+  "generatedAt": "2026-05-30T16:57:35.295Z",
+  "model": "gpt-4o + dall-e-3"
+}

@@ -1,0 +1,64 @@
+{
+  "dna": {
+    "prompt": "karakter lelaki kantoran umur 25 dengan stelan formal",
+    "name": "Office Formal Man",
+    "race": "human",
+    "gender": "male",
+    "class": "engineer",
+    "physical": {
+      "hair": {
+        "style": "neat side-part short hair",
+        "color": "dark brown"
+      },
+      "eyes": {
+        "color": "brown",
+        "shape": "almond"
+      },
+      "skin": {
+        "tone": "fair"
+      },
+      "build": "slim",
+      "height": "average"
+    },
+    "equipment": {
+      "head": null,
+      "body": "formal office suit with navy blazer, white dress shirt, and red tie",
+      "legs": "matching navy slacks with black dress shoes",
+      "mainHand": null,
+      "offHand": null,
+      "accessories": [
+        "black leather belt",
+        "silver wristwatch"
+      ]
+    },
+    "style": {
+      "artStyle": "16bit",
+      "palette": [
+        "#1F2A44",
+        "#3A4A6A",
+        "#F2D6C9",
+        "#6B4E3D",
+        "#E8E8E8"
+      ],
+      "detailLevel": "medium"
+    },
+    "directions": {
+      "up": "Top-down back view sprite of a slim young office man in a tidy navy suit. The short side-part hair forms a dark brown cap on the head, with the blazer shoulders broad and clean. The back of the jacket is smooth, and the slacks taper neatly to black shoes.",
+      "down": "Front-facing top-down chibi sprite showing a fair-skinned office man with neat brown side-part hair and calm expression. He wears a navy blazer over a white shirt with a bright red tie, a black belt at the waist, and straight slacks with polished black dress shoes.",
+      "left": "Left profile top-down sprite with the left side of his face, brown eye, and neat side-part hair visible. The navy blazer hangs straight over a slim torso, one arm resting by his side. The left leg and black shoe are cleanly outlined in the pixel palette.",
+      "right": "Right profile top-down sprite showing the right side of his face and matching short brown hair. The formal suit remains crisp, with the blazer edge, shirt collar, and tie visible from the angle. His right arm, slim leg, and black dress shoe are neatly rendered."
+    },
+    "tags": [
+      "human",
+      "male",
+      "office worker",
+      "formal suit",
+      "young adult",
+      "slim build",
+      "business attire",
+      "top-down sprite"
+    ]
+  },
+  "generatedAt": "2026-05-30T16:03:15.766Z",
+  "model": "gpt-4o + dall-e-3"
+}

@@ -1,10 +1,10 @@
 You are a Staff Software Engineer and Product Architect.
 
-Your task is to create a complete implementation plan for an MVP called "Game Pixelart".
+Your task is to create a complete implementation plan for an MVP called "Sprite Pixelart".
 
 ## Product Overview
 
-Game Pixelart is an AI-powered Character Asset System for top-down RPG games (similar to RPG Maker, Stardew Valley, and Pokémon GBA).
+Sprite Pixelart is an AI-powered Character Asset System for top-down RPG games (similar to RPG Maker, Stardew Valley, and Pokémon GBA).
 
 The goal of V1 is NOT animation.
 

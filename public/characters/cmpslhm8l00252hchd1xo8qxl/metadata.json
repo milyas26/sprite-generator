@@ -1,0 +1,66 @@
+{
+  "dna": {
+    "prompt": "japaneese samurai man holding sword",
+    "name": "Samurai Swordsman",
+    "race": "human",
+    "gender": "male",
+    "class": "samurai",
+    "physical": {
+      "hair": {
+        "style": "topknot",
+        "color": "black"
+      },
+      "eyes": {
+        "color": "dark brown",
+        "shape": "narrow"
+      },
+      "skin": {
+        "tone": "tan"
+      },
+      "build": "athletic",
+      "height": "tall"
+    },
+    "equipment": {
+      "head": "none",
+      "body": "indigo samurai kimono with red sash and light lamellar shoulder plates",
+      "legs": "dark navy hakama pants with wrapped calves",
+      "mainHand": "katana",
+      "offHand": "null",
+      "accessories": [
+        "waist sash",
+        "simple sandal straps"
+      ]
+    },
+    "style": {
+      "artStyle": "16bit",
+      "palette": [
+        "#1A1A1A",
+        "#3B2F2F",
+        "#6B4E2E",
+        "#8B5E34",
+        "#C9A66B"
+      ],
+      "detailLevel": "medium"
+    },
+    "directions": {
+      "up": "Seen from behind in top-down sprite view, the samurai shows a neat black topknot centered on the head and broad shoulders under an indigo kimono. The red sash wraps the waist, with layered hakama folds and wrapped calves visible above simple sandals.",
+      "down": "From the front, the chibi samurai has a stern face with narrow dark eyes, tan skin, and a black topknot. The indigo kimono opens slightly at the chest, showing a red sash and light armor plates, with dark hakama pants and a katana held ready.",
+      "left": "Facing left in side profile, the sprite shows a sharp nose, narrow eye, and black topknot trailing behind the head. One arm holds the katana angled down, while the indigo kimono, red waist sash, and layered pants create a clean samurai silhouette.",
+      "right": "Facing right in side profile, the samurai’s right cheek, narrow eye, and topknot are visible in crisp pixel-art form. The katana is gripped in the forward hand, with the indigo robe, red sash, and dark hakama forming a balanced, disciplined stance."
+    },
+    "tags": [
+      "samurai",
+      "japanese",
+      "swordsman",
+      "human",
+      "male",
+      "katana",
+      "top-down",
+      "16bit",
+      "pixel-art",
+      "rpg"
+    ]
+  },
+  "generatedAt": "2026-05-30T16:58:59.777Z",
+  "model": "gpt-4o + dall-e-3"
+}
