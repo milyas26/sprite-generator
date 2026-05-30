@@ -115,15 +115,6 @@ export function Sidebar() {
             </button>
           </li>
         </ul>
-
-        <Separator className="my-4 opacity-40" />
-
-        <p className="mb-1.5 px-2.5 text-[9px] font-mono font-semibold tracking-widest text-muted-foreground uppercase">
-          Quick Actions
-        </p>
-        <div className="px-2.5">
-          <ProcessJobsButton />
-        </div>
       </nav>
 
       <div className="border-t border-sidebar-border px-4 py-3">

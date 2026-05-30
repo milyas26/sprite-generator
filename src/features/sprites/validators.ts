@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const createCharacterSchema = z.object({
-  prompt: z.string().min(3, "Prompt must be at least 3 characters").max(500, "Prompt must be under 500 characters"),
+  prompt: z.string().min(3, "Prompt must be at least 3 characters").max(2000, "Prompt must be under 2000 characters"),
   style: z.object({
     artStyle: z.enum(["16bit", "32bit", "gbc", "nes"]),
     detailLevel: z.enum(["low", "medium", "high"]),

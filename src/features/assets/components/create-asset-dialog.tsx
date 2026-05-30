@@ -18,7 +18,7 @@ import { createAsset } from "@/features/assets/actions";
 import { PipelineProgress } from "@/features/generation/components/pipeline-progress";
 import { ASSET_CATEGORIES } from "@/features/assets/types";
 import { toast } from "sonner";
-import { Palette, Boxes, ChevronDown, ChevronUp } from "lucide-react";
+import { Palette, Boxes, ChevronDown, ChevronUp, Sparkles } from "lucide-react";
 
 interface CreateAssetDialogProps {
   open: boolean;
@@ -34,6 +34,7 @@ export function CreateAssetDialog({ open, onOpenChange }: CreateAssetDialogProps
   const [loading, setLoading] = useState(false);
   const [assetId, setAssetId] = useState<string | null>(null);
   const [showDetails, setShowDetails] = useState(false);
+  const [enhancing, setEnhancing] = useState(false);
 
   const [name, setName] = useState("");
   const [pov, setPov] = useState("__none__");
@@ -45,6 +46,29 @@ export function CreateAssetDialog({ open, onOpenChange }: CreateAssetDialogProps
       onOpenChange(false);
     }, 800);
   }, [router, onOpenChange]);
+
+  async function handleEnhance() {
+    if (!prompt.trim() || enhancing) return;
+    setEnhancing(true);
+    try {
+      const res = await fetch("/api/enhance-prompt", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt: prompt.trim() }),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || "Enhance failed");
+      }
+      const { enhanced } = await res.json();
+      setPrompt(enhanced);
+      toast.success("Prompt enhanced");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Failed to enhance prompt");
+    } finally {
+      setEnhancing(false);
+    }
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -75,6 +99,7 @@ export function CreateAssetDialog({ open, onOpenChange }: CreateAssetDialogProps
     setLoading(false);
     setAssetId(null);
     setShowDetails(false);
+    setEnhancing(false);
     setName("");
     setPov("__none__");
   }
@@ -118,17 +143,28 @@ export function CreateAssetDialog({ open, onOpenChange }: CreateAssetDialogProps
         ) : (
           <form onSubmit={handleSubmit} className="p-4 space-y-3.5">
             <div className="space-y-1">
-              <Label htmlFor="asset-prompt" className="text-[10px] font-mono font-semibold text-muted-foreground uppercase tracking-widest">Prompt</Label>
+              <div className="flex items-center justify-between">
+                <Label htmlFor="asset-prompt" className="text-[10px] font-mono font-semibold text-muted-foreground uppercase tracking-widest">Prompt</Label>
+                <button
+                  type="button"
+                  onClick={handleEnhance}
+                  disabled={enhancing || !prompt.trim()}
+                  className="flex items-center gap-1 text-[9px] font-mono text-primary/70 hover:text-primary disabled:text-muted-foreground/30 disabled:cursor-not-allowed transition-colors"
+                >
+                  <Sparkles className="h-3 w-3" />
+                  {enhancing ? "Enhancing..." : "Enhance"}
+                </button>
+              </div>
               <Textarea
                 id="asset-prompt"
                 placeholder='"Stone dungeon wall with moss and cracks"'
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
                 className="min-h-20 bg-background border-border text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 font-mono text-xs resize-none"
-                maxLength={500}
+                maxLength={2000}
                 disabled={loading}
               />
-              <p className="text-[9px] text-muted-foreground text-right font-mono">{prompt.length}/500</p>
+              <p className="text-[9px] text-muted-foreground text-right font-mono">{prompt.length}/2000</p>
             </div>
 
             <div className="space-y-1">

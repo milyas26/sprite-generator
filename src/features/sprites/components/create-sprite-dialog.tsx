@@ -17,7 +17,7 @@ import {
 import { createCharacter } from "@/features/sprites/actions";
 import { PipelineProgress } from "@/features/generation/components/pipeline-progress";
 import { toast } from "sonner";
-import { Palette, UserRound, ChevronDown, ChevronUp } from "lucide-react";
+import { Palette, UserRound, ChevronDown, ChevronUp, Sparkles } from "lucide-react";
 import type { POV } from "@/features/sprites/types";
 
 const GENDERS = ["male", "female", "nonbinary"] as const;
@@ -70,6 +70,7 @@ export function CreateSpriteDialog({ open, onOpenChange }: CreateSpriteDialogPro
   const [loading, setLoading] = useState(false);
   const [characterId, setCharacterId] = useState<string | null>(null);
   const [showDetails, setShowDetails] = useState(false);
+  const [enhancing, setEnhancing] = useState(false);
 
   const [name, setName] = useState("");
   const [gender, setGender] = useState("__none__");
@@ -90,6 +91,29 @@ export function CreateSpriteDialog({ open, onOpenChange }: CreateSpriteDialogPro
       onOpenChange(false);
     }, 800);
   }, [characterId, router, onOpenChange]);
+
+  async function handleEnhance() {
+    if (!prompt.trim() || enhancing) return;
+    setEnhancing(true);
+    try {
+      const res = await fetch("/api/enhance-prompt", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt: prompt.trim() }),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || "Enhance failed");
+      }
+      const { enhanced } = await res.json();
+      setPrompt(enhanced);
+      toast.success("Prompt enhanced");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Failed to enhance prompt");
+    } finally {
+      setEnhancing(false);
+    }
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -131,6 +155,7 @@ export function CreateSpriteDialog({ open, onOpenChange }: CreateSpriteDialogPro
     setLoading(false);
     setCharacterId(null);
     setShowDetails(false);
+    setEnhancing(false);
     setName("");
     setGender("__none__");
     setRace("__none__");
@@ -183,17 +208,28 @@ export function CreateSpriteDialog({ open, onOpenChange }: CreateSpriteDialogPro
         ) : (
           <form onSubmit={handleSubmit} className="p-4 space-y-3.5">
             <div className="space-y-1">
-              <Label htmlFor="sprite-prompt" className="text-[10px] font-mono font-semibold text-muted-foreground uppercase tracking-widest">Prompt</Label>
+              <div className="flex items-center justify-between">
+                <Label htmlFor="sprite-prompt" className="text-[10px] font-mono font-semibold text-muted-foreground uppercase tracking-widest">Prompt</Label>
+                <button
+                  type="button"
+                  onClick={handleEnhance}
+                  disabled={enhancing || !prompt.trim()}
+                  className="flex items-center gap-1 text-[9px] font-mono text-primary/70 hover:text-primary disabled:text-muted-foreground/30 disabled:cursor-not-allowed transition-colors"
+                >
+                  <Sparkles className="h-3 w-3" />
+                  {enhancing ? "Enhancing..." : "Enhance"}
+                </button>
+              </div>
               <Textarea
                 id="sprite-prompt"
                 placeholder='"Female cyber ninja with red ponytail and katana"'
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
                 className="min-h-20 bg-background border-border text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 font-mono text-xs resize-none"
-                maxLength={500}
+                maxLength={2000}
                 disabled={loading}
               />
-              <p className="text-[9px] text-muted-foreground text-right font-mono">{prompt.length}/500</p>
+              <p className="text-[9px] text-muted-foreground text-right font-mono">{prompt.length}/2000</p>
             </div>
 
             <div className="grid grid-cols-2 gap-2.5">
