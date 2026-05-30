@@ -3,7 +3,6 @@
 import type { Character } from "@/features/characters/types";
 import { cn } from "@/lib/utils";
 import { ImageOff } from "lucide-react";
-import { useRef, useState, useCallback } from "react";
 
 interface SpriteWorkspaceProps {
   character: Character | null;
@@ -16,34 +15,6 @@ export function SpriteWorkspace({
   zoom,
   gridVisible,
 }: SpriteWorkspaceProps) {
-  const [pan, setPan] = useState({ x: 0, y: 0 });
-  const [isPanning, setIsPanning] = useState(false);
-  const panStart = useRef({ x: 0, y: 0 });
-
-  const handleMouseDown = useCallback(
-    (e: React.MouseEvent) => {
-      if (e.button !== 0) return;
-      setIsPanning(true);
-      panStart.current = { x: e.clientX - pan.x, y: e.clientY - pan.y };
-    },
-    [pan]
-  );
-
-  const handleMouseMove = useCallback(
-    (e: React.MouseEvent) => {
-      if (!isPanning) return;
-      setPan({
-        x: e.clientX - panStart.current.x,
-        y: e.clientY - panStart.current.y,
-      });
-    },
-    [isPanning]
-  );
-
-  const handleMouseUp = useCallback(() => {
-    setIsPanning(false);
-  }, []);
-
   if (!character) {
     return (
       <div className="flex-1 flex items-center justify-center bg-[#0a0a10] editor-grid">
@@ -92,20 +63,15 @@ export function SpriteWorkspace({
     <div
       className={cn(
         "flex-1 flex items-center justify-center overflow-hidden select-none relative",
-        gridVisible ? "editor-grid-sm" : "editor-grid",
-        isPanning ? "cursor-grabbing" : "cursor-grab"
+        gridVisible ? "editor-grid-sm" : "editor-grid"
       )}
       style={{ backgroundColor: "#0a0a10" }}
-      onMouseDown={handleMouseDown}
-      onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUp}
-      onMouseLeave={handleMouseUp}
     >
       <div
         key={character.id}
-        className="relative transition-transform duration-75"
+        className="relative"
         style={{
-          transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoom})`,
+          transform: `scale(${zoom})`,
           transformOrigin: "center center",
         }}
       >
