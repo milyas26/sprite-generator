@@ -131,7 +131,7 @@ export function GeneratedPacksList({ assets }: Props) {
 
       <Dialog open={!!zoomAsset} onOpenChange={() => setZoomAsset(null)}>
         <DialogContent
-          className="border-0 bg-[#0a0a10] p-0 gap-0 max-w-[95vw] sm:max-w-none max-h-[90vh] grid-rows-[auto_1fr]"
+          className="border-0 bg-[#0a0a10] p-0 gap-0 max-w-[95vw] sm:max-w-none max-h-[90vh] grid-rows-[auto_1fr_auto]"
           showCloseButton={false}
         >
           <div className="flex items-center justify-between px-4 py-2.5 border-b border-border">
@@ -146,13 +146,13 @@ export function GeneratedPacksList({ assets }: Props) {
               <X className="h-4 w-4" />
             </button>
           </div>
-          <div className="editor-grid flex items-center justify-center overflow-auto min-h-0">
+          <div className="editor-grid flex items-center justify-center overflow-auto min-h-0 p-4">
             {zoomAsset && (
               /* eslint-disable-next-line @next/next/no-img-element */
               <img
                 src={zoomAsset.url}
                 alt={zoomName}
-                className="max-w-full max-h-full object-contain pixelated"
+                className="aspect-square max-w-full max-h-full object-contain pixelated"
                 style={{ imageRendering: "pixelated" }}
               />
             )}

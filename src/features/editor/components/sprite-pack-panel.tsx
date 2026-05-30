@@ -416,7 +416,7 @@ export function SpritePackPanel({ characterId, assets, characterName, onGenerate
       )}
 
       <Dialog open={!!zoomAsset} onOpenChange={() => setZoomAsset(null)}>
-        <DialogContent className="border-0 bg-[#0a0a10] p-0 overflow-hidden w-auto max-w-[95vw]">
+        <DialogContent className="border-0 bg-[#0a0a10] p-0 gap-0 overflow-hidden w-auto max-w-[95vw] max-h-[90vh] grid-rows-[auto_1fr_auto] sm:max-w-none" showCloseButton={false}>
           <div className="flex items-center justify-between px-4 py-2.5 border-b border-border shrink-0">
             <DialogTitle className="font-mono text-xs text-muted-foreground uppercase tracking-wider flex items-center gap-2">
               <span className="text-primary/60">{zoomMeta?.icon}</span>
@@ -429,18 +429,18 @@ export function SpritePackPanel({ characterId, assets, characterName, onGenerate
               <X className="h-4 w-4" />
             </button>
           </div>
-          <div className="p-6 editor-grid flex items-center justify-center">
+          <div className="editor-grid flex items-center justify-center overflow-auto min-h-0 p-4">
             {zoomAsset && (
               /* eslint-disable-next-line @next/next/no-img-element */
               <img
                 src={zoomAsset.url}
                 alt={zoomName}
-                className="max-w-[85vw] max-h-[80vh] object-contain pixelated rounded-lg"
+                className="aspect-square max-w-full max-h-full object-contain pixelated"
                 style={{ imageRendering: "pixelated" }}
               />
             )}
           </div>
-          <div className="flex items-center justify-end px-4 py-2 border-t border-border bg-[#0f0f16]">
+          <div className="flex items-center justify-end px-4 py-2 border-t border-border bg-[#0f0f16] shrink-0">
             {zoomAsset && (
               <a
                 href={zoomAsset.url}

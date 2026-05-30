@@ -67,7 +67,7 @@ export function MasterPreview({ sheetUrl, characterName }: Props) {
 
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent
-          className="border-0 bg-[#0a0a10] p-0 gap-0 max-w-[95vw] sm:max-w-none max-h-[90vh] grid-rows-[auto_1fr]"
+          className="border-0 bg-[#0a0a10] p-0 gap-0 max-w-[95vw] sm:max-w-2xl max-h-[90vh] grid-rows-[auto_1fr]"
           showCloseButton={false}
         >
           <div className="flex items-center justify-between px-4 py-2.5 border-b border-border">
@@ -81,12 +81,12 @@ export function MasterPreview({ sheetUrl, characterName }: Props) {
               <X className="h-4 w-4" />
             </button>
           </div>
-          <div className="editor-grid flex items-center justify-center overflow-auto min-h-0">
+          <div className="editor-grid flex items-center justify-center overflow-auto min-h-0 p-4">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={sheetUrl}
               alt={`${characterName} master sheet`}
-              className="max-w-full max-h-full object-contain pixelated"
+              className="aspect-square max-w-full max-h-full object-contain pixelated"
               style={{ imageRendering: "pixelated" }}
             />
           </div>
