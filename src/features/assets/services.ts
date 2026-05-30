@@ -45,4 +45,24 @@ export const assetService = {
     if (!asset) throw new Error("Asset not found");
     await assetRepository.delete(id);
   },
+
+  async regenerateAsset(id: string) {
+    const asset = await assetRepository.findById(id);
+    if (!asset) throw new Error("Asset not found");
+
+    const dna = asset.dna as any;
+    if (!dna?.prompt) throw new Error("Asset has no DNA prompt");
+
+    await assetRepository.update(id, { status: "GENERATING" });
+
+    const job = await enqueueAssetGenerationJob({
+      characterId: asset.id,
+      prompt: dna.prompt,
+      category: dna.category,
+      artStyle: dna.style?.artStyle || "16bit",
+      detailLevel: dna.style?.detailLevel || "medium",
+    });
+
+    return { assetId: asset.id, jobId: job.id };
+  },
 };

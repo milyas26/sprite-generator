@@ -32,3 +32,10 @@ export async function deleteAsset(assetId: string) {
   await assetService.deleteAsset(assetId);
   revalidatePath("/dashboard/assets");
 }
+
+export async function regenerateAsset(assetId: string) {
+  const result = await assetService.regenerateAsset(assetId);
+  revalidatePath("/dashboard/assets");
+  revalidatePath(`/dashboard/assets/${assetId}`);
+  return result;
+}
