@@ -59,6 +59,15 @@ export interface CharacterDNA {
     left: string;
     right: string;
   };
+  visualIdentity: {
+    silhouette: string;
+    headShape: string;
+    hairShape: string;
+    recognitionFeatures: string[];
+    dominantColors: string[];
+    weaponCarryStyle: string;
+    bodyProportions: string;
+  };
   tags: string[];
 }
 

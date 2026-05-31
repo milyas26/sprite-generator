@@ -1,4 +1,4 @@
-import type { ArtStyle, DetailLevel, AnimationType, CharacterDetailsInput } from "@/features/sprites/types";
+import type { ArtStyle, DetailLevel, AnimationType, Direction, CharacterDetailsInput } from "@/features/sprites/types";
 
 export function buildDNAExtractionPrompt(prompt: string, artStyle: ArtStyle, detailLevel: DetailLevel, details?: CharacterDetailsInput): string {
   const constraints: string[] = [];
@@ -60,6 +60,15 @@ export function buildDNAExtractionPrompt(prompt: string, artStyle: ArtStyle, det
         "left": "Visual description facing left in side profile, top-down view. Left side of face, left arm, left side of body, left leg. 25-50 words.",
         "right": "Visual description facing right in side profile, top-down view. Right side of face, right arm, right side of body, right leg. 25-50 words."
       },
+      "visualIdentity": {
+        "silhouette": "overall body outline shape in 10-15 words. e.g. 'compact chunky figure with wide shoulders and flowing cape'",
+        "headShape": "head shape description in 5-10 words. e.g. 'round head with pointed helmet'",
+        "hairShape": "silhouette of hair style in 5-10 words. e.g. 'spiky upward hair with side wings'",
+        "recognitionFeatures": ["3-5 unique visual features that identify this character instantly. e.g. 'glowing red eyes', 'gold-trimmed pauldrons', 'flowing red scarf'"],
+        "dominantColors": ["list 3-5 main colors that define this character's appearance. e.g. 'crimson red', 'gold', 'dark steel'"],
+        "weaponCarryStyle": "how the weapon is held or sheathed in 5-10 words. e.g. 'katana sheathed at left hip'",
+        "bodyProportions": "body proportions in 5-10 words. e.g. 'chibi 2-head-tall with large head'"
+      },
       "tags": ["keyword1", "keyword2"]
     }
 
@@ -70,6 +79,8 @@ export function buildDNAExtractionPrompt(prompt: string, artStyle: ArtStyle, det
     - Palette must contain exactly 5 hex colors suitable for ${artStyle} pixel art. Colors must match the character. NO duplicate colors.
     - Directions MUST describe the character appearance from the specified viewing angle in ${details?.pov || "top-down"} pixel-art RPG perspective.
     - Keep direction descriptions concise but visually detailed (25-50 words each).
+    - visualIdentity fields describe what makes this character visually recognizable — focus on SILHOUETTE and SHAPE, not semantic traits.
+    - recognitionFeatures should list 3-5 visual hooks that immediately identify the character (glowing eyes, unique helmet, flowing cape, etc).
     - The character MUST be visually consistent across all 4 directions — same clothing, same colors, same proportions.
     - Use pixel-art vocabulary (sprite, tile, palette, pixel, chibi).
     - Infer missing details creatively but stay faithful to the user's original prompt.
@@ -169,14 +180,386 @@ export function buildSheetGenerationPrompt(dna: Record<string, unknown>): string
    `;
 }
 
-const animationDescriptions: Record<AnimationType, string> = {
-  idle: "Character standing still with a subtle 2-frame idle bob/breathing cycle. Slight body movement, hair sway, or cape flutter",
-  walk: "Full walk cycle. Legs alternate stepping forward, arms swing opposite to legs, body bobs slightly up/down with each step",
-  run: "Fast run cycle. Longer stride, more dynamic arm swing, body leaning forward into the run, legs extended further",
-  attack: "Weapon swing or melee attack cycle. Wind-up, strike, follow-through. If no weapon, a punch or kick combo",
-  hit: "Taking damage reaction. Character flinches, recoils backward, staggers from impact. Brief hurt animation",
-  death: "Death sequence. Character collapses, falls to ground, final pose. Melodramatic RPG death sprite",
+// ─── Reusable Prompt Section Builders ───────────────────────────────────────
+
+interface DNAFields {
+  name?: unknown;
+  race?: unknown;
+  gender?: unknown;
+  class?: unknown;
+  physical?: Record<string, { style?: string; color?: string; shape?: string; tone?: string }>;
+  equipment?: Record<string, unknown>;
+  style?: { artStyle?: string; palette?: string[]; detailLevel?: string };
+  directions?: Record<string, string>;
+  visualIdentity?: {
+    silhouette?: string;
+    headShape?: string;
+    hairShape?: string;
+    recognitionFeatures?: string[];
+    dominantColors?: string[];
+    weaponCarryStyle?: string;
+    bodyProportions?: string;
+  };
+  tags?: string[];
+}
+
+function field(dna: DNAFields, path: string, fallback = ""): string {
+  const parts = path.split(".");
+  let val: unknown = dna;
+  for (const p of parts) {
+    val = (val as Record<string, unknown>)?.[p];
+    if (val === undefined || val === null) return fallback;
+  }
+  if (typeof val === "string") return val;
+  if (Array.isArray(val)) return (val as string[]).join(", ");
+  if (val === true) return "yes";
+  if (val === false) return "no";
+  return String(val);
+}
+
+function join(...parts: string[]): string {
+  return parts.filter(Boolean).join("\n");
+}
+
+export function buildMasterCharacterReference(reference: string | null): string {
+  if (!reference) return "";
+
+  return `MASTER CHARACTER REFERENCE
+──────────────────────────────
+
+This is the CANONICAL version of the character. It is the ground truth.
+
+${reference}
+
+RULES — PRESERVE EXACTLY:
+- Identical silhouette — do not alter body outline shape
+- Identical proportions — head, body, limb ratios unchanged
+- Identical color palette — no hue shifts, no new colors
+- Identical equipment — same armor, same weapon, same accessories
+- Identical hairstyle — same hair shape, same color
+- Identical face design — same eyes, same expression style
+- Identical weapon placement — same carry position, same angle
+
+ALLOWED CHANGES:
+- Limb positions — arms and legs move for animation
+- Body tilt — lean forward/backward for motion
+- Weapon angle — swing arc during attack
+- Head turn — subtle head angle for action
+
+DO NOT:
+- Redesign the character
+- Add or remove equipment
+- Change armor colors
+- Alter body proportions
+- Change the artistic style`;
+}
+
+export function buildCharacterLock(dna: DNAFields): string {
+  const visId = dna.visualIdentity || {};
+  const palette = dna.style?.palette?.length
+    ? dna.style.palette.join(", ")
+    : "";
+
+  return `CHARACTER LOCK
+──────────────────────────────
+
+This character's identity is FIXED. Preserve ALL of the following across every frame:
+
+IDENTITY:
+- Name: ${field(dna, "name")} — ${field(dna, "race")} ${field(dna, "gender")} ${field(dna, "class")}
+- Silhouette: ${field(dna, "visualIdentity.silhouette", "consistent across frames")}
+- Proportions: ${field(dna, "visualIdentity.bodyProportions", "consistent across frames")}
+- Head shape: ${field(dna, "visualIdentity.headShape", "")}
+- Hair silhouette: ${field(dna, "visualIdentity.hairShape", "")}
+${visId.weaponCarryStyle ? `- Weapon carry: ${visId.weaponCarryStyle}` : ""}
+
+PALETTE: ${palette || field(dna, "style.palette")}
+${field(dna, "equipment.body") ? `Body armor: ${field(dna, "equipment.body")}` : ""}
+${field(dna, "equipment.head") ? `Head gear: ${field(dna, "equipment.head")}` : ""}
+${field(dna, "equipment.legs") ? `Leg wear: ${field(dna, "equipment.legs")}` : ""}
+${field(dna, "equipment.mainHand") ? `Weapon: ${field(dna, "equipment.mainHand")}` : ""}
+${field(dna, "equipment.offHand") ? `Off-hand: ${field(dna, "equipment.offHand")}` : ""}
+${field(dna, "equipment.accessories") ? `Accessories: ${field(dna, "equipment.accessories")}` : ""}
+${field(dna, "tags") ? `Tags: ${field(dna, "tags")}` : ""}
+
+DO NOT:
+- Redesign armor, helmet, or weapon
+- Change any color in the palette
+- Invent new equipment or accessories
+- Alter body proportions
+- Change hairstyle or hair color`;
+}
+
+export function buildVisualIdentity(dna: DNAFields): string {
+  const visId = dna.visualIdentity || {};
+  if (!visId.silhouette && !visId.recognitionFeatures?.length) return "";
+
+  const features = (visId.recognitionFeatures || [])
+    .map((f, i) => `${i + 1}. ${f}`)
+    .join("\n");
+
+  const colors = (visId.dominantColors || [])
+    .map((c, i) => `${i + 1}. ${c}`)
+    .join("\n");
+
+  return `VISUAL IDENTITY
+──────────────────────────────
+
+Silhouette: ${visId.silhouette || field(dna, "visualIdentity.silhouette", "N/A")}
+Head/Helmet shape: ${visId.headShape || field(dna, "visualIdentity.headShape", "N/A")}
+Hair silhouette: ${visId.hairShape || field(dna, "visualIdentity.hairShape", "N/A")}
+Proportions: ${visId.bodyProportions || field(dna, "visualIdentity.bodyProportions", "N/A")}
+${visId.weaponCarryStyle ? `Weapon carry: ${visId.weaponCarryStyle}` : ""}
+
+Recognition features (MUST be visible in every frame):
+${features || "N/A"}
+
+Dominant colors:
+${colors || "N/A"}
+
+These visual hooks MUST persist across all animation frames. A viewer should instantly recognize the character from any frame.`;
+}
+
+export function buildDirectionLock(direction: Direction, _dna: DNAFields): string {
+  const locks: Record<Direction, string> = {
+    UP: `DIRECTION LOCK — BACK VIEW
+──────────────────────────────
+
+FIXED elements visible from this angle:
+- Back of head and hair from behind
+- Back of helmet/headgear
+- Back of shoulders and torso armor
+- Back of legs and boots
+- Weapon/cape visible from behind
+
+NOT visible from this angle:
+- Face
+- Front of chest
+- Belt buckle`,
+    DOWN: `DIRECTION LOCK — FRONT VIEW
+──────────────────────────────
+
+FIXED elements visible from this angle:
+- Face (eyes, nose, mouth)
+- Front of chest armor/clothing
+- Belt and waist details
+- Front of legs and boots
+- Weapon held in front
+
+NOT visible from this angle:
+- Back of head
+- Back of armor`,
+    LEFT: `DIRECTION LOCK — LEFT SIDE VIEW
+──────────────────────────────
+
+FIXED elements visible from this angle:
+- Left side of face/head
+- Left arm (entire length)
+- Left side of torso armor
+- Left leg
+- Weapon on left hip or left hand
+
+NOT visible from this angle:
+- Right side of face
+- Right arm details`,
+    RIGHT: `DIRECTION LOCK — RIGHT SIDE VIEW
+──────────────────────────────
+
+FIXED elements visible from this angle:
+- Right side of face/head
+- Right arm (entire length)
+- Right side of torso armor
+- Right leg
+- Weapon on right hip or right hand
+
+NOT visible from this angle:
+- Left side of face
+- Left arm details`,
+  };
+
+  return locks[direction] || "";
+}
+
+interface KeyframeDef {
+  label: string;
+  frames: Record<number, string>;
+  defaultFrames: number;
+}
+
+function generateKeyframes(def: KeyframeDef, frameCount: number): string {
+  const lines: string[] = [];
+  for (let f = 0; f < frameCount; f++) {
+    const idx = f % Object.keys(def.frames).length;
+    const desc = def.frames[idx];
+    lines.push(`  Frame ${f + 1}: ${desc}`);
+  }
+  return lines.join("\n");
+}
+
+const ANIMATION_KEYFRAMES: Record<AnimationType, KeyframeDef> = {
+  idle: {
+    label: "IDLE",
+    defaultFrames: 2,
+    frames: {
+      0: "Neutral standing pose — arms at sides, weapon at rest position, body at normal height, looking forward",
+      1: "Subtle breathing bob — body drops 1-2 pixels, shoulders relax slightly, hair/clothing bounces minimally, weapon unchanged",
+    },
+  },
+  walk: {
+    label: "WALK",
+    defaultFrames: 4,
+    frames: {
+      0: "Left leg extends forward, right leg pushes back behind body. RIGHT arm swings forward, LEFT arm swings back. Body at mid-height. Hips shift slightly with stride.",
+      1: "Right leg passes left leg at center position. Arms near sides in mid-swing. Body rises 1-2 pixels to peak walking height. Transitional passing pose.",
+      2: "Right leg extends forward, left leg pushes back behind body. LEFT arm swings forward, RIGHT arm swings back. Body returns to mid-height. Stride mirrored from Frame 1.",
+      3: "Left leg passes right leg at center position. Arms near sides in mid-swing. Body rises 1-2 pixels. Transitional passing pose. Return to Frame 1 cycle.",
+    },
+  },
+  run: {
+    label: "RUN",
+    defaultFrames: 4,
+    frames: {
+      0: "Body tilts forward 15 degrees. Left leg stretches far forward, right leg pushes off ground behind. RIGHT arm pumps forward high, LEFT arm drives back. Body at mid-height.",
+      1: "Both legs airborne, body at peak height. Arms at maximum pump positions. Forward lean maintained. Dynamic mid-stride pose.",
+      2: "Body tilts forward 15 degrees. Right leg stretches far forward, left leg pushes off ground behind. LEFT arm pumps forward high, RIGHT arm drives back. Mirrored contact pose.",
+      3: "Both legs airborne, body at peak height. Arms at maximum pump positions. Transitional flying pose. Return to Frame 1 cycle.",
+    },
+  },
+  attack: {
+    label: "ATTACK",
+    defaultFrames: 4,
+    frames: {
+      0: "Idle stance — weapon at rest position, neutral body posture, feet shoulder-width apart, weight balanced between both legs",
+      1: "Windup phase — weapon pulled back behind body, body rotates 30 degrees away from target, weight shifts to rear foot, front shoulder drops, weapon arm cocks back",
+      2: "Maximum windup — weapon at furthest back position, body fully coiled, weight fully on rear foot, weapon arm fully extended back, anticipation peak",
+      3: "Strike phase — weapon swings forward in arc, body lunges toward target, weight transfers to front foot, weapon arm extends forward, other arm pulls back for balance",
+    },
+  },
+  hit: {
+    label: "HIT",
+    defaultFrames: 3,
+    frames: {
+      0: "Neutral standing pose before impact — arms at sides, body upright, looking forward",
+      1: "Impact recoil — body snaps backward, arms fling outward and upward, head tilts back, knees bend, chest pushed back by impact force",
+      2: "Stagger recovery — body bent forward slightly, arms dropping back toward sides, knees still bent, head returning to neutral, regaining balance",
+    },
+  },
+  death: {
+    label: "DEATH",
+    defaultFrames: 4,
+    frames: {
+      0: "Stagger from final hit — body flinches, arms drop, knees buckle slightly, head tilts, weapon hand loosens",
+      1: "Collapse begins — body tilts forward/backward, knees fully buckle, arms go limp, weapon drops or falls to side, body descends",
+      2: "Falling — body at 45-degree angle, legs give out completely, arms hang limp, head tilted, body continues descent toward ground",
+      3: "Final collapsed pose — body fully on ground, lying face-down or on side, weapon beside character, arms and legs splayed, motionless",
+    },
+  },
 };
+
+export function buildAnimationKeyframes(animation: AnimationType, frameCount: number): string {
+  const def = ANIMATION_KEYFRAMES[animation];
+  if (!def) return "";
+
+  const keyframeLines = generateKeyframes(def, frameCount);
+
+  return `ANIMATION KEYFRAMES — ${def.label}
+──────────────────────────────
+
+${frameCount}-frame ${animation.toUpperCase()} cycle.
+
+FRAME-BY-FRAME POSES (left to right):
+${keyframeLines}
+
+MOTION NOTES:
+- Each frame is a DISTINCT pose. No two frames should look identical.
+- Motion flows smoothly from Frame 1 through Frame ${frameCount}.
+- Limbs and body change position in every frame.
+- After Frame ${frameCount}, the cycle loops back to Frame 1 seamlessly.`;
+}
+
+export function buildFrameDifferenceRules(frameCount: number): string {
+  return `FRAME DIFFERENCE RULES
+──────────────────────────────
+
+CRITICAL — VIOLATION RUINS THE ANIMATION:
+
+1. Adjacent frames MUST visibly differ.
+   - Frame N must look clearly different from Frame N+1.
+   - If two frames look identical, the animation is BROKEN.
+
+2. Avoid duplicated poses.
+   - No frame may be a copy or near-copy of any other frame.
+   - Each of the ${frameCount} frames must show a UNIQUE pose.
+
+3. Motion must be obvious when comparing neighboring frames.
+   - Arms and legs must change position throughout the cycle.
+   - Body tilt and height must vary across frames.
+
+4. Animation must read clearly left-to-right.
+   - A viewer scanning left-to-right should perceive smooth motion.
+   - Each frame advances the motion by 1/${frameCount} of the full cycle.
+
+5. Limb visibility varies by direction.
+   - FRONT view: both arms visible, both legs visible.
+   - BACK view: arms partially visible from behind, legs from behind.
+   - SIDE view: one arm fully visible, near leg fully visible, far limbs partially obscured.`;
+}
+
+export function buildSpriteSizeLock(frameCount: number): string {
+  return `SPRITE SIZE LOCK
+──────────────────────────────
+
+- Each frame cell must contain a ${32}x${32} pixel sprite.
+- Sprite scale is IDENTICAL across all ${frameCount} frames.
+- Character occupies consistent portion of each cell.
+- Do NOT zoom in/out across frames — maintain absolute pixel scale.
+- Character must stay centered within each cell.
+- Frame-to-frame position shifts should reflect movement, not scale changes.`;
+}
+
+export function buildGridLayout(rows: number, cols: number, directionLabel?: string): string {
+  const directionInfo = directionLabel
+    ? `\nDIRECTION: ${directionLabel} only.`
+    : "";
+
+  return `GRID LAYOUT
+──────────────────────────────
+
+- Strict ${rows} row${rows > 1 ? "s" : ""} × ${cols} column${cols > 1 ? "s" : ""} grid.${directionInfo}
+- Equal-sized cells with equal spacing between all cells.
+- Character perfectly centered inside each cell.
+- Sprite fills its cell evenly — not too small, not cropped.
+- Clear separation between adjacent cells.
+- No overlapping body parts between cells.
+- Reading order: left-to-right within each row, top-to-bottom across rows.`;
+}
+
+export function buildBackgroundRequirements(): string {
+  return `BACKGROUND — 100% TRANSPARENT
+──────────────────────────────
+
+- Alpha channel transparency only — output as PNG with alpha.
+- NO green screen background.
+- NO solid color background of any kind.
+- NO floor, NO ground plane, NO shadow beneath character.
+- NO environment, NO scenery, NO props.
+- NO lighting effects, NO glow outside character silhouette.
+- Every pixel outside the character must be fully transparent (alpha = 0).`;
+}
+
+export function buildPixelArtRules(artStyle: string, palette: string): string {
+  return `PIXEL ART RULES
+──────────────────────────────
+
+- Pure ${artStyle} pixel art style. Every pixel is intentional.
+- Sharp pixel edges — NO anti-aliasing, NO smooth edges, NO blur.
+- NO gradients, NO soft shading, NO painterly rendering.
+- ${palette || "Vibrant limited-color RPG palette with crisp contrast."}
+- Hard-edged pixel clusters. Clean readable shapes.
+- Strong silhouette from all frames — character outline is clear and distinct.`;
+}
+
+// ─── Refactored Prompt Functions ────────────────────────────────────────────
 
 export function buildSpritePackPrompt(
   dna: Record<string, unknown>,
@@ -184,105 +567,71 @@ export function buildSpritePackPrompt(
   frameCount: number,
   masterSheetReference?: string | null
 ): string {
-  const directions = dna.directions as Record<string, string>;
-  const physical = dna.physical as Record<string, { style?: string; color?: string; shape?: string; tone?: string }>;
-  const equipment = dna.equipment as Record<string, unknown>;
-  const style = dna.style as { artStyle?: string; palette?: string[] };
-
-  const animDesc = animationDescriptions[animation] || "Animation cycle";
-  const paletteInfo = style?.palette?.length ? `Color palette: ${style.palette.join(", ")}. Use ONLY these colors.` : "";
-
-  const skinTone = physical?.skin?.tone ? `Skin: ${physical.skin.tone}` : "";
-  const eyeInfo = physical?.eyes?.color ? `Eyes: ${physical.eyes.color} (${physical.eyes.shape || "almond"})` : "";
-  const heightInfo = physical?.height ? `Height: ${physical.height}` : "";
-  const headGear = equipment?.head ? `Head: ${equipment.head}` : "";
-  const legGear = equipment?.legs ? `Legs: ${equipment.legs}` : "";
-  const offHand = equipment?.offHand ? `Off-hand: ${equipment.offHand}` : "";
-  const accessories = equipment?.accessories && Array.isArray(equipment.accessories) && equipment.accessories.length > 0
-    ? `Accessories: ${(equipment.accessories as string[]).join(", ")}`
-    : "";
-  const tags = dna.tags && Array.isArray(dna.tags) && (dna.tags as string[]).length > 0
-    ? `Tags: ${(dna.tags as string[]).join(", ")}`
+  const ref = masterSheetReference ?? null;
+  const dnaFields = dna as unknown as DNAFields;
+  const artStyle = field(dnaFields, "style.artStyle", "16bit");
+  const palette = dnaFields.style?.palette?.length
+    ? `Palette: ${dnaFields.style.palette.join(", ")}. Use ONLY these colors.`
     : "";
 
-  const referenceBlock = masterSheetReference
-    ? `\nMASTER SHEET REFERENCE — this is the EXACT character you must recreate in animation form:\n${masterSheetReference}\n\nCRITICAL: Match EVERY visual detail from the reference above. Same colors, same proportions, same outfit, same face, same silhouette. The master sheet IS the ground truth.`
+  return `TASK: Create ${artStyle} pixel art ${animation.toUpperCase()} animation sprite sheet.
+
+${buildMasterCharacterReference(ref)}
+
+${buildCharacterLock(dnaFields)}
+
+${buildVisualIdentity(dnaFields)}
+
+${buildAnimationKeyframes(animation, frameCount)}
+
+${buildFrameDifferenceRules(frameCount)}
+
+${buildSpriteSizeLock(frameCount)}
+
+${buildGridLayout(4, frameCount)}
+
+${buildBackgroundRequirements()}
+
+${buildPixelArtRules(artStyle, palette)}
+
+OUTPUT: Professional RPG ${animation} sprite sheet (4 directions × ${frameCount} frames) ready for game engine import.`;
+}
+
+export function buildDirectionalSpritePackPrompt(
+  dna: Record<string, unknown>,
+  animation: AnimationType,
+  direction: Direction,
+  frameCount: number,
+  masterSheetReference?: string | null
+): string {
+  const ref = masterSheetReference ?? null;
+  const dnaFields = dna as unknown as DNAFields;
+  const artStyle = field(dnaFields, "style.artStyle", "16bit");
+  const palette = dnaFields.style?.palette?.length
+    ? `Palette: ${dnaFields.style.palette.join(", ")}. Use ONLY these colors.`
     : "";
 
-  return `Create a ${style?.artStyle || "16bit"} pixel art ${animation.toUpperCase()} animation sprite sheet.${referenceBlock}
-    ABSOLUTE RULES — VIOLATING THESE RUINS THE OUTPUT:
-    - This MUST be pure pixel art. Every pixel is intentional.
-    - Sharp pixel edges only — NO anti-aliasing, NO smoothing, NO blur of any kind.
-    - NO soft shading, NO gradients, NO painterly rendering, NO realistic lighting.
-    - ${paletteInfo}
-    - Vibrant, limited-color RPG palette with crisp contrast.
-    - Consistent sprite proportions across ALL frames and directions.
+  return `TASK: Create ${artStyle} pixel art ${animation.toUpperCase()} animation strip — ${direction} VIEW ONLY.
 
-    Arrange the character in a strict grid: 4 rows × ${frameCount} columns.
+${buildMasterCharacterReference(ref)}
 
-    Grid Layout:
-    * Row 1 (top): Character facing UP / away from viewer — ${frameCount} frames of ${animation} animation from behind
-    * Row 2: Character facing DOWN / toward viewer — ${frameCount} frames of ${animation} animation from front
-    * Row 3: Character facing LEFT — ${frameCount} frames of ${animation} animation from left side
-    * Row 4 (bottom): Character facing RIGHT — ${frameCount} frames of ${animation} animation from right side
+${buildCharacterLock(dnaFields)}
 
-    Each column is one frame of the animation, progressing left to right.
+${buildVisualIdentity(dnaFields)}
 
-    Animation: ${animation.toUpperCase()}
-    Description: ${animDesc}
-    Frames per direction: ${frameCount}
+${buildDirectionLock(direction, dnaFields)}
 
-    CHARACTER — visual consistency is mandatory:
+${buildAnimationKeyframes(animation, frameCount)}
 
-    Name: ${dna.name}
-    Race: ${dna.race} — ${dna.gender} ${dna.class}
-    Hair: ${physical?.hair?.color || ""} ${physical?.hair?.style || ""}
-    Build: ${physical?.build || ""} build
-    ${heightInfo}
-    ${skinTone}
-    ${eyeInfo}
-    Body: ${equipment?.body || "none"}
-    ${legGear}
-    ${headGear}
-    Weapon: ${equipment?.mainHand || "none"}
-    ${offHand}
-    ${accessories}
-    ${tags}
+${buildFrameDifferenceRules(frameCount)}
 
-    DIRECTIONAL APPEARANCE — use these exact descriptions for each row:
+${buildSpriteSizeLock(frameCount)}
 
-    UP (Row 1 / Back): ${directions?.up || "Character from behind"}
-    DOWN (Row 2 / Front): ${directions?.down || "Character from front"}
-    LEFT (Row 3): ${directions?.left || "Character facing left"}
-    RIGHT (Row 4): ${directions?.right || "Character facing right"}
+${buildGridLayout(1, frameCount, direction)}
 
-    CONSISTENCY — non-negotiable:
-    - All frames contain the EXACT SAME character — same face, hair, body, build, clothing, armor, weapon, colors.
-    - Only the viewing angle and animation frame change. Nothing else.
-    - Each row shows a smooth, coherent ${frameCount}-frame ${animation} cycle.
-    - Animation reads clearly left-to-right within each row.
-    - Character scale identical across all frames and directions.
-    - Equipment identical in every frame.
-    - Only the pose/animation frame changes.
+${buildBackgroundRequirements()}
 
-    GRID LAYOUT:
-    - Single image, strict 4×${frameCount} grid
-    - Equal-sized cells, equal spacing
-    - Character centered inside each cell
-    - Each sprite fills its cell evenly
-    - No cropped body parts, no overlapping between cells
+${buildPixelArtRules(artStyle, palette)}
 
-    BACKGROUND — fully transparent:
-    - Alpha channel transparency only — PNG sprite sheet
-    - NO green screen, NO solid background color
-    - NO floor, NO environment, NO scenery, NO shadows
-    - NO lighting effects outside the character
-    - All empty space must be completely transparent
-
-    OUTPUT:
-    - Character clearly readable at game-sprite scale
-    - Strong silhouette from all directions in all frames
-    - Clean separation between character and transparent background
-    - Professional RPG animation sprite sheet ready for game engine import
-   `;
+OUTPUT: Professional RPG ${animation} animation strip (${direction} direction, ${frameCount} frames) ready for game engine import.`;
 }

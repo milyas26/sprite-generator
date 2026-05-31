@@ -10,14 +10,14 @@
     "semantic_hash": "239f3ebf717465dc636818a1a619398d"
   },
   "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/package.json": {
-    "mtime": 1780147329.4721398,
-    "ast_hash": "002736f0ba07f98a42ab6fc3e6196c48",
-    "semantic_hash": "002736f0ba07f98a42ab6fc3e6196c48"
+    "mtime": 1780186251.907113,
+    "ast_hash": "f4326bb1d71f364f41769d90a78fb382",
+    "semantic_hash": ""
   },
   "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/components.json": {
-    "mtime": 1780147319.7815452,
-    "ast_hash": "fc5c9e9a7b93eeb2f7b4e1ce0959e4a6",
-    "semantic_hash": "fc5c9e9a7b93eeb2f7b4e1ce0959e4a6"
+    "mtime": 1780156064.835409,
+    "ast_hash": "b9d63dd90fec0b2ec97d7516a28c603c",
+    "semantic_hash": ""
   },
   "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/tsconfig.json": {
     "mtime": 1780147259.0927982,
@@ -35,268 +35,658 @@
     "semantic_hash": "9b77af189a21a7a64e4bd7a426f64176"
   },
   "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/app/layout.tsx": {
-    "mtime": 1780147594.169386,
-    "ast_hash": "0d29bae777751c0e4f5e04631e17bf23",
-    "semantic_hash": "0d29bae777751c0e4f5e04631e17bf23"
+    "mtime": 1780174238.5768006,
+    "ast_hash": "e6dde1a69e5086489b0884e5b2376143",
+    "semantic_hash": ""
   },
   "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/app/page.tsx": {
-    "mtime": 1780147612.3853402,
-    "ast_hash": "eea05f2879e35554344baf280dfb3d22",
-    "semantic_hash": "eea05f2879e35554344baf280dfb3d22"
+    "mtime": 1780174238.5792837,
+    "ast_hash": "e1c78f008749b2a1cad9dfe75426d60f",
+    "semantic_hash": ""
   },
   "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/app/providers.tsx": {
-    "mtime": 1780147598.0544093,
+    "mtime": 1780174238.579769,
     "ast_hash": "0c8d5a3a90e42c62a7a1f14853958253",
     "semantic_hash": "0c8d5a3a90e42c62a7a1f14853958253"
   },
-  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/app/(auth)/signup/page.tsx": {
-    "mtime": 1780147622.581534,
-    "ast_hash": "fb3264876994dc33620ed4214b04766c",
-    "semantic_hash": "fb3264876994dc33620ed4214b04766c"
-  },
-  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/app/(auth)/login/page.tsx": {
-    "mtime": 1780147619.264039,
-    "ast_hash": "c154d15e4ad4a1fa0bcd4b7c1f6489a4",
-    "semantic_hash": "c154d15e4ad4a1fa0bcd4b7c1f6489a4"
-  },
-  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/app/(dashboard)/layout.tsx": {
-    "mtime": 1780147628.9426732,
-    "ast_hash": "170adb678a3e9002df7bf9a9feeaa152",
-    "semantic_hash": "170adb678a3e9002df7bf9a9feeaa152"
-  },
-  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/app/(dashboard)/page.tsx": {
-    "mtime": 1780147641.3841567,
-    "ast_hash": "5a890d592d50bee109163e5748f4ea87",
-    "semantic_hash": "5a890d592d50bee109163e5748f4ea87"
-  },
-  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/app/(dashboard)/characters/new/page.tsx": {
-    "mtime": 1780147706.0903306,
-    "ast_hash": "6d6eb8db4762247a43b4030581dc7932",
-    "semantic_hash": "6d6eb8db4762247a43b4030581dc7932"
-  },
-  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/app/(dashboard)/characters/[id]/page.tsx": {
-    "mtime": 1780147723.1802773,
-    "ast_hash": "008e1bc2167e1b4955b988c289229626",
-    "semantic_hash": "008e1bc2167e1b4955b988c289229626"
-  },
-  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/auth/middleware.ts": {
-    "mtime": 1780147406.8160217,
-    "ast_hash": "768fc84ba023cc63500dca249d2cabcd",
-    "semantic_hash": "768fc84ba023cc63500dca249d2cabcd"
-  },
-  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/auth/auth.ts": {
-    "mtime": 1780147402.8778121,
-    "ast_hash": "1c65353a900b469c2dac83c445943899",
-    "semantic_hash": "1c65353a900b469c2dac83c445943899"
-  },
-  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/auth/auth-client.ts": {
-    "mtime": 1780147429.4140215,
-    "ast_hash": "7e5ffd0852aee321277975c6e0ef14a2",
-    "semantic_hash": "7e5ffd0852aee321277975c6e0ef14a2"
-  },
-  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/auth/components/sign-in-form.tsx": {
-    "mtime": 1780147416.3266184,
-    "ast_hash": "4f3af83c6259560b6823ebb8a6574177",
-    "semantic_hash": "4f3af83c6259560b6823ebb8a6574177"
-  },
-  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/auth/components/logout-button.tsx": {
-    "mtime": 1780147633.0952022,
-    "ast_hash": "b853a30ad062e4f55dff585e52048636",
-    "semantic_hash": "b853a30ad062e4f55dff585e52048636"
-  },
-  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/auth/components/sign-up-form.tsx": {
-    "mtime": 1780147426.4688056,
-    "ast_hash": "f09c1f2d59704f8c3c35d3dd1dab8c8f",
-    "semantic_hash": "f09c1f2d59704f8c3c35d3dd1dab8c8f"
-  },
   "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/library/suspense-wrapper.ts": {
-    "mtime": 1780147646.1246393,
-    "ast_hash": "639d0eb58bb61ec882164d6f0d2f3a32",
-    "semantic_hash": "639d0eb58bb61ec882164d6f0d2f3a32"
+    "mtime": 1780174238.581893,
+    "ast_hash": "3892741f583efadd39f1473a351b1b4e",
+    "semantic_hash": ""
   },
   "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/library/components/empty-state.tsx": {
-    "mtime": 1780147674.1090846,
-    "ast_hash": "21563aa7eca8dfbde9f63ba7d7719236",
-    "semantic_hash": "21563aa7eca8dfbde9f63ba7d7719236"
+    "mtime": 1780174238.5801632,
+    "ast_hash": "94f21bf8f8433d755644301eef8c2563",
+    "semantic_hash": ""
   },
   "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/library/components/pagination-controls.tsx": {
-    "mtime": 1780147680.8731546,
-    "ast_hash": "b2f61cbeacd4c55df1623d22985db407",
-    "semantic_hash": "b2f61cbeacd4c55df1623d22985db407"
-  },
-  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/storage/r2-client.ts": {
-    "mtime": 1780147527.3057296,
-    "ast_hash": "42289dd04fb01329ce215c6abf89cac4",
-    "semantic_hash": "42289dd04fb01329ce215c6abf89cac4"
+    "mtime": 1780174238.5809956,
+    "ast_hash": "ee214f89939edf62c5cf8c91ee4c25b8",
+    "semantic_hash": ""
   },
   "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/storage/naming.ts": {
-    "mtime": 1780147522.7577193,
-    "ast_hash": "9c6fed0868bd35198330d8f204f02f5a",
-    "semantic_hash": "9c6fed0868bd35198330d8f204f02f5a"
+    "mtime": 1780184088.2884223,
+    "ast_hash": "4add2288576ecbca572b9b99efa7b138",
+    "semantic_hash": ""
   },
   "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/storage/upload.ts": {
-    "mtime": 1780147538.4530725,
-    "ast_hash": "b12ccc0dd4d72e758c74a61b5cd0e13b",
-    "semantic_hash": "b12ccc0dd4d72e758c74a61b5cd0e13b"
-  },
-  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/characters/repository.ts": {
-    "mtime": 1780147495.4504628,
-    "ast_hash": "5448147e48cbd1e2e794bcbe51e04a8c",
-    "semantic_hash": "5448147e48cbd1e2e794bcbe51e04a8c"
-  },
-  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/characters/dna-template.ts": {
-    "mtime": 1780147455.0018766,
-    "ast_hash": "f2500e4a2c8951c7b3047c0d6e7df8fd",
-    "semantic_hash": "f2500e4a2c8951c7b3047c0d6e7df8fd"
-  },
-  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/characters/types.ts": {
-    "mtime": 1780147440.1442451,
-    "ast_hash": "22c8fed5413b0167b73ffd449f1aa879",
-    "semantic_hash": "22c8fed5413b0167b73ffd449f1aa879"
-  },
-  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/characters/actions.ts": {
-    "mtime": 1780147507.5179067,
-    "ast_hash": "bca16e6c3c8439038a03949206aff699",
-    "semantic_hash": "bca16e6c3c8439038a03949206aff699"
-  },
-  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/characters/validators.ts": {
-    "mtime": 1780147449.498245,
-    "ast_hash": "ab9af312180bddd24c4d0d5b14969e09",
-    "semantic_hash": "ab9af312180bddd24c4d0d5b14969e09"
-  },
-  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/characters/services.ts": {
-    "mtime": 1780147517.0528517,
-    "ast_hash": "fd04ddb25f3de8eb399033b219690f98",
-    "semantic_hash": "fd04ddb25f3de8eb399033b219690f98"
-  },
-  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/characters/components/character-card.tsx": {
-    "mtime": 1780147665.78439,
-    "ast_hash": "a491d91f9334a40467fe4270a7e3badf",
-    "semantic_hash": "a491d91f9334a40467fe4270a7e3badf"
-  },
-  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/characters/components/character-grid.tsx": {
-    "mtime": 1780147651.9579155,
-    "ast_hash": "689eaf9505e60f938cb324b6401dedf4",
-    "semantic_hash": "689eaf9505e60f938cb324b6401dedf4"
-  },
-  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/characters/components/character-detail.tsx": {
-    "mtime": 1780147726.545354,
-    "ast_hash": "35e0dc1814c93b62606ae9ba9a2cc1cd",
-    "semantic_hash": "35e0dc1814c93b62606ae9ba9a2cc1cd"
-  },
-  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/characters/components/character-sheet-viewer.tsx": {
-    "mtime": 1780147736.5934796,
-    "ast_hash": "3435ae74bc52e6a50df17c65976c171d",
-    "semantic_hash": "3435ae74bc52e6a50df17c65976c171d"
+    "mtime": 1780174238.5826478,
+    "ast_hash": "897947699c78c95f3c5e42c8ee922686",
+    "semantic_hash": ""
   },
   "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/generation/job-processor.ts": {
-    "mtime": 1780147576.4468,
-    "ast_hash": "56a2fddf855e2ea1d78c77441acf651c",
-    "semantic_hash": "56a2fddf855e2ea1d78c77441acf651c"
+    "mtime": 1780174238.6002655,
+    "ast_hash": "ae6df249773919acb522d93352893251",
+    "semantic_hash": ""
   },
   "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/generation/dna-extractor.ts": {
-    "mtime": 1780147544.805166,
-    "ast_hash": "e746e40a0faadfd6a31828b1d5922a17",
-    "semantic_hash": "e746e40a0faadfd6a31828b1d5922a17"
+    "mtime": 1780174238.6005664,
+    "ast_hash": "26e186a33b7008a9b77770867811c4a8",
+    "semantic_hash": ""
   },
   "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/generation/pipeline.ts": {
-    "mtime": 1780147561.178387,
-    "ast_hash": "93cee8a4efa653e2ee80860c0ff1af88",
-    "semantic_hash": "93cee8a4efa653e2ee80860c0ff1af88"
+    "mtime": 1780174238.6015263,
+    "ast_hash": "7af18ceabbd5e02ff20a012fd02f5f02",
+    "semantic_hash": ""
   },
   "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/generation/sheet-generator.ts": {
-    "mtime": 1780147550.5171378,
-    "ast_hash": "e4056545776448156f677a427b0f3bbf",
-    "semantic_hash": "e4056545776448156f677a427b0f3bbf"
+    "mtime": 1780174238.602161,
+    "ast_hash": "6aea08a3cbc041e5807872345dba9726",
+    "semantic_hash": ""
   },
   "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/generation/job-queue.ts": {
-    "mtime": 1780147570.059277,
-    "ast_hash": "f66b2cc99b4eab8cf6bccbe2e3de2411",
-    "semantic_hash": "f66b2cc99b4eab8cf6bccbe2e3de2411"
+    "mtime": 1780174238.605771,
+    "ast_hash": "58a9ce14832f2430b2608f8a2003c7fe",
+    "semantic_hash": ""
   },
   "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/generation/prompts/dna-extraction.ts": {
-    "mtime": 1780147479.6739705,
-    "ast_hash": "b6efcd4422cd0e1ded2cfd7a50f97958",
-    "semantic_hash": "b6efcd4422cd0e1ded2cfd7a50f97958"
+    "mtime": 1780174238.6054637,
+    "ast_hash": "ba7af12eff015d015e057a74c9e3f555",
+    "semantic_hash": ""
   },
   "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/components/ui/card.tsx": {
-    "mtime": 1780147336.6323016,
-    "ast_hash": "77a10bd948ca424972a28e704a3df604",
-    "semantic_hash": "77a10bd948ca424972a28e704a3df604"
+    "mtime": 1780174238.6063635,
+    "ast_hash": "62277f12104e8dc3a3fea6727873904f",
+    "semantic_hash": ""
   },
   "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/components/ui/label.tsx": {
-    "mtime": 1780147336.8094573,
+    "mtime": 1780174238.6065807,
     "ast_hash": "a70440da86bfc6a07f15197cca48cb08",
     "semantic_hash": "a70440da86bfc6a07f15197cca48cb08"
   },
   "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/components/ui/dialog.tsx": {
-    "mtime": 1780147336.8561049,
+    "mtime": 1780174238.6069307,
     "ast_hash": "d9618a63d34473ec512321cc12d43692",
     "semantic_hash": "d9618a63d34473ec512321cc12d43692"
   },
   "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/components/ui/badge.tsx": {
-    "mtime": 1780147336.7347808,
+    "mtime": 1780174238.60726,
     "ast_hash": "e4ec840217040d5630ee6ed7213a1d72",
     "semantic_hash": "e4ec840217040d5630ee6ed7213a1d72"
   },
   "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/components/ui/separator.tsx": {
-    "mtime": 1780147336.7736695,
+    "mtime": 1780174238.6079602,
     "ast_hash": "3de2dca3e47ab29c4b1f632671545628",
     "semantic_hash": "3de2dca3e47ab29c4b1f632671545628"
   },
   "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/components/ui/button.tsx": {
-    "mtime": 1780147330.091845,
+    "mtime": 1780174238.6083214,
     "ast_hash": "e04ce5251d6b0dd04020988126c905e9",
     "semantic_hash": "e04ce5251d6b0dd04020988126c905e9"
   },
   "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/components/ui/select.tsx": {
-    "mtime": 1780147336.7131057,
+    "mtime": 1780174238.6088123,
     "ast_hash": "ab95f478cb74d1906b07425c15b124cc",
     "semantic_hash": "ab95f478cb74d1906b07425c15b124cc"
   },
   "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/components/ui/textarea.tsx": {
-    "mtime": 1780147336.79186,
+    "mtime": 1780174238.609072,
     "ast_hash": "d448d2a90e48542e51b93a1189127bf2",
     "semantic_hash": "d448d2a90e48542e51b93a1189127bf2"
   },
   "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/components/ui/input.tsx": {
-    "mtime": 1780147336.670522,
+    "mtime": 1780174238.6093054,
     "ast_hash": "0607b02d99a2e92f9509223f36ccc6ec",
     "semantic_hash": "0607b02d99a2e92f9509223f36ccc6ec"
   },
   "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/components/ui/skeleton.tsx": {
-    "mtime": 1780147336.7531364,
+    "mtime": 1780174238.609701,
     "ast_hash": "0e6e825c43d858d98c9903f4da975382",
     "semantic_hash": "0e6e825c43d858d98c9903f4da975382"
   },
   "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/lib/prisma.ts": {
-    "mtime": 1780147380.1865244,
+    "mtime": 1780174238.6099718,
     "ast_hash": "a2aec2320deb59a9ae0c672c1f286f08",
     "semantic_hash": "a2aec2320deb59a9ae0c672c1f286f08"
   },
   "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/lib/utils.ts": {
-    "mtime": 1780147330.1263688,
+    "mtime": 1780174238.61017,
     "ast_hash": "5a6fd53fdcf2be529e9cc0b718fde352",
     "semantic_hash": "5a6fd53fdcf2be529e9cc0b718fde352"
   },
   "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/lib/openai.ts": {
-    "mtime": 1780147384.137946,
+    "mtime": 1780174238.6103642,
     "ast_hash": "9b3bca7e37712ff889f976443961cc33",
     "semantic_hash": "9b3bca7e37712ff889f976443961cc33"
   },
   "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/lib/constants.ts": {
-    "mtime": 1780147392.1134942,
-    "ast_hash": "8ae08de1c4c4dfca9a8fc72727dee0f2",
-    "semantic_hash": "8ae08de1c4c4dfca9a8fc72727dee0f2"
+    "mtime": 1780174238.6105819,
+    "ast_hash": "40cd496e284d229108fe59dfc32d75da",
+    "semantic_hash": ""
   },
   "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/lib/env.ts": {
-    "mtime": 1780147376.7073286,
-    "ast_hash": "616c86b077d1eb724141f7afef1a490a",
-    "semantic_hash": "616c86b077d1eb724141f7afef1a490a"
+    "mtime": 1780174238.6107824,
+    "ast_hash": "016bf56303b13bc437fcf466565b16d8",
+    "semantic_hash": ""
   },
   "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/lib/rate-limit.ts": {
-    "mtime": 1780147398.0355787,
+    "mtime": 1780174238.611001,
     "ast_hash": "4f34f0c68d23ba1a9cf9a9e1ab0b1d4a",
     "semantic_hash": "4f34f0c68d23ba1a9cf9a9e1ab0b1d4a"
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/prisma/migrations/20260530181328_add_pipeline_statuses/migration.sql": {
+    "mtime": 1780164808.7186086,
+    "ast_hash": "09ee2e677048ad6506ec4b64390bbf53",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/prisma/migrations/20260530170205_add_sprite_pack_job_type/migration.sql": {
+    "mtime": 1780160525.1481373,
+    "ast_hash": "c27ba7b20f20ed95f1693dcf5890ecf9",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/prisma/migrations/20260530140503_init/migration.sql": {
+    "mtime": 1780149903.719471,
+    "ast_hash": "28e260bf69625d1ffb26ff00699998eb",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/app/dashboard/layout.tsx": {
+    "mtime": 1780174238.5702312,
+    "ast_hash": "a398dfcc2d7f00f5ffbeaea1e4689595",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/app/dashboard/page.tsx": {
+    "mtime": 1780175867.457557,
+    "ast_hash": "bedb583881edc67bc4cc585915e88fe5",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/app/dashboard/rigged-sprites/page.tsx": {
+    "mtime": 1780184403.4911134,
+    "ast_hash": "6f817a5e0e56185c28872fd36a496bfe",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/app/dashboard/rigged-sprites/new/page.tsx": {
+    "mtime": 1780185005.609884,
+    "ast_hash": "e383a6f36279177d51dd94bfef3819a0",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/app/dashboard/rigged-sprites/[id]/regenerate-button.tsx": {
+    "mtime": 1780184471.930861,
+    "ast_hash": "eee8f80d26b932153e2321491aa3e3b9",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/app/dashboard/rigged-sprites/[id]/delete-button.tsx": {
+    "mtime": 1780184467.9470625,
+    "ast_hash": "34a6d052132c4c4039d3d4da9ca00700",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/app/dashboard/rigged-sprites/[id]/page.tsx": {
+    "mtime": 1780186402.5391753,
+    "ast_hash": "5019945d7f8770cd995c768b4db29112",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/app/dashboard/rigged-sprites/[id]/editor/page.tsx": {
+    "mtime": 1780186382.44179,
+    "ast_hash": "d353fb7d1e70558db59d2406e511c1a6",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/app/dashboard/sprites/new/page.tsx": {
+    "mtime": 1780174238.5716019,
+    "ast_hash": "0bb9f63c9c92e7db233eff55bc685ea0",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/app/dashboard/sprites/[id]/page.tsx": {
+    "mtime": 1780174238.5724883,
+    "ast_hash": "eaaad4b423cfa540bd82de6bea31ffc9",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/app/dashboard/assets/page.tsx": {
+    "mtime": 1780175867.4573698,
+    "ast_hash": "578947059568105bfb27bfd24897247d",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/app/dashboard/assets/new/page.tsx": {
+    "mtime": 1780174238.5732648,
+    "ast_hash": "8dd474fcf88f0e39f1e9e74032be5efd",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/app/dashboard/assets/[id]/page.tsx": {
+    "mtime": 1780176593.11685,
+    "ast_hash": "957d7a9207159989d348cdaa6289b8c1",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/app/dashboard/editor/layout.tsx": {
+    "mtime": 1780174238.575808,
+    "ast_hash": "512c96c452d87c5c30255a263cbfb844",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/app/dashboard/editor/page.tsx": {
+    "mtime": 1780174238.5763538,
+    "ast_hash": "66feeabd91a8cd4a07d0680d32f231c7",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/app/api/rigged-sprites/[id]/route.ts": {
+    "mtime": 1780184476.3805757,
+    "ast_hash": "2e7c7b4045387f284d652e690f5cd5ce",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/app/api/enhance-prompt/route.ts": {
+    "mtime": 1780178334.9105644,
+    "ast_hash": "06e965fe87bd68e5460c174ff95b5010",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/app/api/sprites/route.ts": {
+    "mtime": 1780174238.5771961,
+    "ast_hash": "5a1e605511c9fa4e4ff68615842d692c",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/app/api/sprites/[id]/route.ts": {
+    "mtime": 1780174238.5774937,
+    "ast_hash": "09a74b0903746dcbf47c1be3b773a944",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/app/api/jobs/process/route.ts": {
+    "mtime": 1780174238.5778406,
+    "ast_hash": "5986ef988e0066864cdd4f3ed57dc884",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/app/api/assets/route.ts": {
+    "mtime": 1780174238.578177,
+    "ast_hash": "08fe1b17a40975e355f5d02508b8aa28",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/app/api/assets/[id]/route.ts": {
+    "mtime": 1780174238.578444,
+    "ast_hash": "2ff35e9a82409dbdaa74100a15f0b455",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/rigged-sprites/repository.ts": {
+    "mtime": 1780185576.735992,
+    "ast_hash": "6696571329feef87542f6a02e7409f7b",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/rigged-sprites/dna-template.ts": {
+    "mtime": 1780185405.734554,
+    "ast_hash": "a084ff7d8a34671ce538e4952bc23137",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/rigged-sprites/types.ts": {
+    "mtime": 1780186271.6785433,
+    "ast_hash": "d20eb8654b875d0b8f0c69dd12f65d84",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/rigged-sprites/actions.ts": {
+    "mtime": 1780186273.3506653,
+    "ast_hash": "14ff441162656296db20c4298cf0354d",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/rigged-sprites/validators.ts": {
+    "mtime": 1780184071.6245916,
+    "ast_hash": "3f5f8b372e0cf4e0458823ac841a9901",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/rigged-sprites/services.ts": {
+    "mtime": 1780186274.9772742,
+    "ast_hash": "e8f7e14dffcad8afe99b3a2b8a57ea73",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/rigged-sprites/components/rigged-sprite-card.tsx": {
+    "mtime": 1780185506.2614918,
+    "ast_hash": "3b8b687e1885349606dde56243b0b773",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/rigged-sprites/components/rigged-empty-state.tsx": {
+    "mtime": 1780185059.035026,
+    "ast_hash": "f5022d1fa8b29d07e73300818680ae4d",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/rigged-sprites/components/dna-viewer.tsx": {
+    "mtime": 1780184360.3318803,
+    "ast_hash": "2971d152afb05ddb015543c25e15ce72",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/rigged-sprites/components/body-part-viewer.tsx": {
+    "mtime": 1780185455.7890527,
+    "ast_hash": "f0d58bab3a2fb84c09c9f4e74efe3a4b",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/rigged-sprites/components/create-rigged-sprite-dialog.tsx": {
+    "mtime": 1780184974.6608996,
+    "ast_hash": "b691f5bc651d84ae339fc6da42ff130e",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/rigged-sprites/components/rigged-sprite-grid.tsx": {
+    "mtime": 1780185066.8818665,
+    "ast_hash": "332ca8d3003f860de6c04ac744c1f1b7",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/rigged-sprites/components/editor/rigged-canvas.tsx": {
+    "mtime": 1780186320.5776148,
+    "ast_hash": "9ec18bc951a8bb5d6ba993ebdf92f24d",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/rigged-sprites/components/editor/rigged-toolbar.tsx": {
+    "mtime": 1780186357.1864235,
+    "ast_hash": "bfd69c212f5365dce4c43e75091e5aee",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/rigged-sprites/components/editor/rigged-editor-layout.tsx": {
+    "mtime": 1780186376.469065,
+    "ast_hash": "d186e97a6fe5596bb642eb5b80b9a9d3",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/rigged-sprites/components/editor/layers-panel.tsx": {
+    "mtime": 1780186332.2814543,
+    "ast_hash": "e6aacd8b5e063c7c3fbb91d821de2937",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/library/components/search-bar.tsx": {
+    "mtime": 1780185657.6848865,
+    "ast_hash": "575f3b5c8cc220920e631cfd64d898f5",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/library/components/status-filter.tsx": {
+    "mtime": 1780185661.42517,
+    "ast_hash": "8794a4a2ad1522e471ab99d69c5e7e3c",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/sprites/repository.ts": {
+    "mtime": 1780174238.5830257,
+    "ast_hash": "14660b71eb9811a1d4963635ff379870",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/sprites/dna-template.ts": {
+    "mtime": 1780174238.5833113,
+    "ast_hash": "224fc3afb4eaa1f823611cee06ad6888",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/sprites/types.ts": {
+    "mtime": 1780174238.5837827,
+    "ast_hash": "e7908087f2768005c9590e77aa6d4503",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/sprites/actions.ts": {
+    "mtime": 1780174238.5898755,
+    "ast_hash": "dcc2ec43b0bbbdcf0813eb2138d8f573",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/sprites/validators.ts": {
+    "mtime": 1780178320.541938,
+    "ast_hash": "23aeee4228d7e5fee93b251bc5acaa43",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/sprites/services.ts": {
+    "mtime": 1780174238.5906448,
+    "ast_hash": "bb3280426ba0521bc56fc9fbb0a94230",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/sprites/components/create-sprite-dialog.tsx": {
+    "mtime": 1780178327.9263175,
+    "ast_hash": "5a09e28fd98671e20cc1c781a56ee63f",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/sprites/components/delete-character-dialog.tsx": {
+    "mtime": 1780174238.585718,
+    "ast_hash": "ef96f9c81d53c7e35160968bfdb7ce4f",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/sprites/components/character-card.tsx": {
+    "mtime": 1780174238.5861802,
+    "ast_hash": "94435119ddfbff87197415ed78f7f1ab",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/sprites/components/character-grid.tsx": {
+    "mtime": 1780175867.458579,
+    "ast_hash": "d05bd12c7e7c8adec388384245c0fa1c",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/sprites/components/sprite-pack-viewer.tsx": {
+    "mtime": 1780174238.5872006,
+    "ast_hash": "d66762abde23398b0bb2c80378c6201a",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/sprites/components/sprite-pack-generator.tsx": {
+    "mtime": 1780174238.5884504,
+    "ast_hash": "b497cf521fe299abdc1442ef5ecd76ec",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/sprites/components/character-sheet-viewer.tsx": {
+    "mtime": 1780174238.5889707,
+    "ast_hash": "ddf86361df344373cf5803b17bfe2b04",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/sprites/components/dna-viewer.tsx": {
+    "mtime": 1780174238.5893664,
+    "ast_hash": "ae24cb9678aff62b62a3abc452af2bf2",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/sprites/components/new-character-button.tsx": {
+    "mtime": 1780174238.5895991,
+    "ast_hash": "4033acfa954d4df47b67fb7074a65056",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/assets/repository.ts": {
+    "mtime": 1780174238.590986,
+    "ast_hash": "e9ba8c00ffeaf6dfff3d0c44d6a76789",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/assets/types.ts": {
+    "mtime": 1780177285.795209,
+    "ast_hash": "0f951ab4a56be8e0da9ef528fbe5b12e",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/assets/actions.ts": {
+    "mtime": 1780176561.2365327,
+    "ast_hash": "5ced00001cdfc997aade9bb3fcf39b01",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/assets/validators.ts": {
+    "mtime": 1780178321.8441126,
+    "ast_hash": "5ce08274cf91432c24d7620b9db7de74",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/assets/services.ts": {
+    "mtime": 1780177314.573048,
+    "ast_hash": "dd106d0b3f21468dfe5e54377f93984f",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/assets/components/delete-asset-dialog.tsx": {
+    "mtime": 1780174238.5917456,
+    "ast_hash": "40248ff707bd381bfba1f7a85aeb219f",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/assets/components/regenerate-asset-button.tsx": {
+    "mtime": 1780176580.5019011,
+    "ast_hash": "30fc66e75292f6c1d2b0e3236ecbdcc0",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/assets/components/create-asset-button.tsx": {
+    "mtime": 1780174238.5920424,
+    "ast_hash": "aeffdbae657598b8a5b62a10f52673f9",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/assets/components/create-asset-dialog.tsx": {
+    "mtime": 1780178329.5004375,
+    "ast_hash": "1bde99e11be1cecaf554955b922c922a",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/editor/components/master-preview.tsx": {
+    "mtime": 1780174238.594087,
+    "ast_hash": "c6ac53ca3ea3b1493fccb4b33a4f4e94",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/editor/components/sprite-workspace.tsx": {
+    "mtime": 1780174261.043258,
+    "ast_hash": "0b04e8b4148bf87554eef3d893ee8c84",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/editor/components/character-inspector.tsx": {
+    "mtime": 1780174238.5953906,
+    "ast_hash": "2d56da334d6c6021636faea6392ea745",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/editor/components/editor-layout.tsx": {
+    "mtime": 1780174238.595844,
+    "ast_hash": "3e45179cec0ec007a468777c94f4a59a",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/editor/components/character-explorer.tsx": {
+    "mtime": 1780174238.596437,
+    "ast_hash": "27e9f763e153b9f5def21d654a02db2c",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/editor/components/editor-toolbar.tsx": {
+    "mtime": 1780174238.5969727,
+    "ast_hash": "045a537a365fbbf36021f7b8a7e3d1ad",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/editor/components/generated-packs-list.tsx": {
+    "mtime": 1780174238.597597,
+    "ast_hash": "2ec0b0103b0406a43688014174ac8dc2",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/editor/components/sprite-pack-panel.tsx": {
+    "mtime": 1780174238.598972,
+    "ast_hash": "bbf869159eb45f08608c0bdbd21beef5",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/generation/body-part-generator.ts": {
+    "mtime": 1780184750.0737078,
+    "ast_hash": "1f64ddc49f8dac6b93e5924332da94dc",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/generation/asset-sheet-generator.ts": {
+    "mtime": 1780174238.6008043,
+    "ast_hash": "f685247d4f60393e56dd3a09c1ddefae",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/generation/rigged-dna-extractor.ts": {
+    "mtime": 1780185437.943864,
+    "ast_hash": "97b089e3158bf2445db343f16ca83269",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/generation/asset-dna-extractor.ts": {
+    "mtime": 1780174238.6010635,
+    "ast_hash": "bae604b3f6402abc07f7dc910560c5b2",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/generation/rigged-pipeline.ts": {
+    "mtime": 1780185533.5457854,
+    "ast_hash": "4cd792426e52df7645fd1805d9e4c1c4",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/generation/sprite-pack-generator.ts": {
+    "mtime": 1780174238.6019266,
+    "ast_hash": "7bbb147fad3decb33088037ee0d14bdf",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/generation/actions.ts": {
+    "mtime": 1780174238.603734,
+    "ast_hash": "a144fabdc31ddb55e6ea8d2fd9e333d7",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/generation/bull-producer.ts": {
+    "mtime": 1780184785.9176407,
+    "ast_hash": "ac413f3b884fcabcc7b7f32853ee40a6",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/generation/components/process-jobs-button.tsx": {
+    "mtime": 1780174238.6023862,
+    "ast_hash": "b39a1f371f3d0de1da76b71316e40787",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/generation/components/regenerate-section.tsx": {
+    "mtime": 1780174238.6026554,
+    "ast_hash": "832b8f5096f71bfe251cf8d381b255b3",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/generation/components/pipeline-progress.tsx": {
+    "mtime": 1780174238.6034594,
+    "ast_hash": "4ca6ce2b0fe5fa92e6802e97f05c6c47",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/generation/prompts/asset-dna-extraction.ts": {
+    "mtime": 1780177248.129408,
+    "ast_hash": "31c598b27754de21a11a030c60765d2a",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/features/generation/prompts/rigged-dna-extraction.ts": {
+    "mtime": 1780185433.949184,
+    "ast_hash": "6b457c53d734e07b0963a756cd2f268c",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/shared/hooks/use-debounce.ts": {
+    "mtime": 1780174238.6060305,
+    "ast_hash": "33f137bed333e7ca2e9806ee3a89fd31",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/src/components/ui/sidebar.tsx": {
+    "mtime": 1780184500.9779994,
+    "ast_hash": "5e4adc7952df6e34f8346be9a9390821",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/README.md": {
+    "mtime": 1780147259.0907729,
+    "ast_hash": "f15aaa42d5d299d091b1171097ea56ad",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/AGENTS.md": {
+    "mtime": 1780147281.5145416,
+    "ast_hash": "9e09241799026ac05be315a2f0b50055",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/CLAUDE.md": {
+    "mtime": 1780147281.5146198,
+    "ast_hash": "5c27369b226fcf2be8a6cfe52224e767",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/.agents/skills/frontend-design/SKILL.md": {
+    "mtime": 1780147674.7010622,
+    "ast_hash": "06a0520e81f698334258c73ff0de533b",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/.agents/skills/frontend-design/LICENSE.txt": {
+    "mtime": 1780147674.7010508,
+    "ast_hash": "2ee41112a44fe7014dce33e26468ba93",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/docs/IMPLEMENTATION_PLAN.md": {
+    "mtime": 1780152226.372236,
+    "ast_hash": "a7c90f6d2024fe32bd773a40d58d42e5",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/public/file.svg": {
+    "mtime": 1780147259.0906816,
+    "ast_hash": "d09f95206c3fa0bb9bd9fefabfd0ea71",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/public/vercel.svg": {
+    "mtime": 1780147259.0918992,
+    "ast_hash": "c0af2f507b369b085b35ef4bbe3bcf1e",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/public/next.svg": {
+    "mtime": 1780147259.0921068,
+    "ast_hash": "8e061864f388b47f33a1c3780831193e",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/public/globe.svg": {
+    "mtime": 1780147259.0920243,
+    "ast_hash": "2aaafa6a49b6563925fe440891e32717",
+    "semantic_hash": ""
+  },
+  "/Users/muhammadilyas/Documents/PROJECTS/game-pixelart/public/window.svg": {
+    "mtime": 1780147259.091934,
+    "ast_hash": "a2760511c65806022ad20adf74370ff3",
+    "semantic_hash": ""
   }
 }

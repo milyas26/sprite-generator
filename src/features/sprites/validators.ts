@@ -54,6 +54,23 @@ export const characterDNASchema = z.object({
     left: z.string().default(""),
     right: z.string().default(""),
   }),
+  visualIdentity: z.object({
+    silhouette: z.string().default(""),
+    headShape: z.string().default(""),
+    hairShape: z.string().default(""),
+    recognitionFeatures: z.array(z.string()).default([]),
+    dominantColors: z.array(z.string()).default([]),
+    weaponCarryStyle: z.string().default(""),
+    bodyProportions: z.string().default(""),
+  }).default({
+    silhouette: "",
+    headShape: "",
+    hairShape: "",
+    recognitionFeatures: [],
+    dominantColors: [],
+    weaponCarryStyle: "",
+    bodyProportions: "",
+  }),
   tags: z.array(z.string()).default([]),
 });
 

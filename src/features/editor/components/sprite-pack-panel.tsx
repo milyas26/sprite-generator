@@ -73,9 +73,43 @@ const ANIMATION_META: Record<string, { label: string; icon: React.ReactNode }> =
 const FRAME_RANGE = { min: 2, max: 8 };
 
 function getAnimationName(key: string): string {
-  const fileName = key.split("/").pop() || "";
-  return fileName.replace(".png", "");
+  const afterPrefix = key.split("sprite_packs/")[1];
+  if (!afterPrefix) return key.split("/").pop()?.replace(".png", "") || "";
+  const parts = afterPrefix.split("/");
+  return parts[0].replace(".png", "");
 }
+
+function getDirectionFromKey(key: string): string | null {
+  const afterPrefix = key.split("sprite_packs/")[1];
+  if (!afterPrefix) return null;
+  const parts = afterPrefix.split("/");
+  if (parts.length >= 2) {
+    return parts[1].replace(".png", "").toUpperCase();
+  }
+  return null;
+}
+
+  function getDirectionIcon(dir: string): React.ReactNode {
+    switch (dir) {
+      case "UP": return <ArrowUp className="h-2.5 w-2.5" />;
+      case "DOWN": return <ArrowDown className="h-2.5 w-2.5" />;
+      case "LEFT": return <ArrowLeft className="h-2.5 w-2.5" />;
+      case "RIGHT": return <ArrowRight className="h-2.5 w-2.5" />;
+      default: return null;
+    }
+  }
+
+  function groupAssetsByAnimation(assets: CharacterAsset[]) {
+    const groups: Record<string, { animation: string; directions: CharacterAsset[] }> = {};
+    for (const asset of assets) {
+      const anim = getAnimationName(asset.storageKey);
+      if (!groups[anim]) {
+        groups[anim] = { animation: anim, directions: [] };
+      }
+      groups[anim].directions.push(asset);
+    }
+    return Object.values(groups);
+  }
 
 function fileSizeLabel(bytes: number): string {
   if (bytes >= 1024 * 1024) return `${(bytes / (1024 * 1024)).toFixed(1)}M`;
@@ -134,6 +168,7 @@ export function SpritePackPanel({ characterId, assets, characterName, onGenerate
   );
 
   const zoomName = zoomAsset ? getAnimationName(zoomAsset.storageKey) : "";
+  const zoomDirection = zoomAsset ? getDirectionFromKey(zoomAsset.storageKey) : null;
   const zoomMeta = zoomName ? (ANIMATION_META[zoomName] || { label: zoomName, icon: <Package className="h-3 w-3" /> }) : null;
 
   async function handleGenerate() {
@@ -150,7 +185,7 @@ export function SpritePackPanel({ characterId, assets, characterName, onGenerate
     setLoading(true);
     try {
       await generateSpritePack(characterId, configs);
-      toast.success(`${configs.length} animation(s) queued for generation`);
+      toast.success(`${configs.length} animation(s) × 4 directions queued for generation`);
       onGenerated?.();
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "Failed to generate sprite pack");
@@ -174,23 +209,6 @@ export function SpritePackPanel({ characterId, assets, characterName, onGenerate
         setDeletingId(null);
       }
     });
-  }
-
-  function renderFrameGrid(frames: number) {
-    const cols = frames;
-    const rows = 4;
-    const cells: React.ReactNode[] = [];
-    for (let r = 0; r < rows; r++) {
-      for (let c = 0; c < cols; c++) {
-        cells.push(
-          <div
-            key={`${r}-${c}`}
-            className="aspect-square border border-dashed border-muted-foreground/10 bg-primary/3"
-          />
-        );
-      }
-    }
-    return cells;
   }
 
   return (
@@ -289,47 +307,55 @@ export function SpritePackPanel({ characterId, assets, characterName, onGenerate
               <span className="text-[10px] font-mono font-semibold text-muted-foreground uppercase tracking-wider">
                 Preview Layout
               </span>
-              <div className="flex gap-0.5">
-                {DIRECTION_LABELS.map(({ dir, icon }) => (
-                  <span key={dir} className="flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[8px] font-mono bg-primary/10 text-primary border border-primary/20">
-                    {icon} {dir}
-                  </span>
-                ))}
-              </div>
+              <span className="text-[8px] font-mono text-muted-foreground/50">
+                1 direction per API call
+              </span>
             </div>
 
             <div className="flex gap-4 flex-wrap">
-              {selectedList.map(([key]) => (
-                <div key={key} className="p-2 rounded-lg border border-border/30 bg-[#29242d]">
-                  <div className="flex items-center gap-1.5 mb-1.5">
-                    <span className="text-primary/70">
-                      {ANIMATION_DEFS.find(a => a.key === key)?.icon}
-                    </span>
-                    <span className="text-[9px] font-mono font-semibold text-foreground/80 uppercase">
-                      {ANIMATION_DEFS.find(a => a.key === key)?.label}
-                    </span>
-                    <span className="text-[8px] font-mono text-muted-foreground ml-auto">
-                      {frameCounts[key as AnimationType]}f
-                    </span>
-                  </div>
-                  <div className="flex gap-1">
-                    <div className="flex flex-col justify-around text-[7px] font-mono text-muted-foreground py-0.5">
-                      <span>UP</span><span>DN</span><span>LT</span><span>RT</span>
+              {selectedList.map(([key]) => {
+                const frames = frameCounts[key as AnimationType];
+                return (
+                  <div key={key} className="p-2 rounded-lg border border-border/30 bg-[#29242d]">
+                    <div className="flex items-center gap-1.5 mb-1.5">
+                      <span className="text-primary/70">
+                        {ANIMATION_DEFS.find(a => a.key === key)?.icon}
+                      </span>
+                      <span className="text-[9px] font-mono font-semibold text-foreground/80 uppercase">
+                        {ANIMATION_DEFS.find(a => a.key === key)?.label}
+                      </span>
+                      <span className="text-[7px] font-mono text-muted-foreground ml-auto">
+                        {frames}f × 4 directions = {frames * 4} frames
+                      </span>
                     </div>
-                    <div
-                      className="editor-grid grid flex-1 border border-border/40 rounded overflow-hidden"
-                      style={{
-                        gridTemplateColumns: `repeat(${frameCounts[key as AnimationType]}, minmax(0, 1fr))`,
-                        gridTemplateRows: "repeat(4, minmax(0, 1fr))",
-                        width: frameCounts[key as AnimationType] * 14,
-                        height: 56,
-                      }}
-                    >
-                      {renderFrameGrid(frameCounts[key as AnimationType])}
+                    <div className="space-y-1">
+                      {DIRECTION_LABELS.map(({ dir, label, icon }) => (
+                        <div key={dir} className="flex items-center gap-1">
+                          <span className="flex items-center gap-0.5 w-7 text-[7px] font-mono text-muted-foreground">
+                            {icon} <span className="w-3">{dir}</span>
+                          </span>
+                          <div
+                            className="editor-grid grid flex-1 border border-border/40 rounded overflow-hidden"
+                            style={{
+                              gridTemplateColumns: `repeat(${frames}, minmax(0, 1fr))`,
+                              gridTemplateRows: "1fr",
+                              width: frames * 14,
+                              height: 14,
+                            }}
+                          >
+                            {Array.from({ length: frames }, (_, i) => (
+                              <div
+                                key={i}
+                                className="aspect-square border border-dashed border-muted-foreground/10 bg-primary/3"
+                              />
+                            ))}
+                          </div>
+                        </div>
+                      ))}
                     </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         )}
@@ -349,13 +375,13 @@ export function SpritePackPanel({ characterId, assets, characterName, onGenerate
             ) : (
               <>
                 <Package className="h-3.5 w-3.5" />
-                GENERATE PACK{selectedCount > 1 ? ` (${selectedCount})` : ""}
+                GENERATE PACK{selectedCount > 0 ? ` (${selectedCount} anims × 4 dirs)` : ""}
               </>
             )}
           </Button>
           {selectedCount > 0 && (
             <span className="text-[10px] font-mono text-muted-foreground">
-              {selectedCount} animation{selectedCount > 1 ? "s" : ""} selected
+              {selectedCount} animation{selectedCount > 1 ? "s" : ""} · {selectedCount * 4} API calls
             </span>
           )}
         </div>
@@ -366,68 +392,100 @@ export function SpritePackPanel({ characterId, assets, characterName, onGenerate
               <span className="text-[10px] font-mono font-semibold text-muted-foreground uppercase tracking-wider">
                 Generated Packs
               </span>
-              <span className="text-[9px] font-mono text-emerald-400/60">{packAssets.length}</span>
+              <span className="text-[9px] font-mono text-emerald-400/60">
+                {new Set(packAssets.map(a => getAnimationName(a.storageKey))).size} anims / {packAssets.length} dirs
+              </span>
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-2">
-              {packAssets.map((asset) => {
-                const animName = getAnimationName(asset.storageKey);
-                const meta = ANIMATION_META[animName] || { label: animName, icon: <Package className="h-3 w-3" /> };
+            <div className="space-y-3">
+              {groupAssetsByAnimation(packAssets).map((group) => {
+                const meta = ANIMATION_META[group.animation] || { label: group.animation, icon: <Package className="h-3 w-3" /> };
                 return (
-                  <div
-                    key={asset.id}
-                    className="p-2 rounded-lg border border-border/30 bg-[#29242d] hover:border-primary/30 transition-colors group"
-                  >
-                    <button
-                      onClick={() => setZoomAsset(asset)}
-                      className="w-full text-left"
-                    >
-                      <div className="aspect-square rounded border border-border/20 bg-[#1c1820] overflow-hidden mb-2 relative group/img">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                          src={asset.url}
-                          alt={animName}
-                          className="w-full h-full object-contain pixelated"
-                        />
-                        <div className="absolute inset-0 bg-black/0 group-hover/img:bg-black/20 transition-colors flex items-center justify-center">
-                          <Maximize2 className="h-4 w-4 text-white/0 group-hover/img:text-white/60 transition-all" />
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <span className="text-primary/60">{meta.icon}</span>
-                        <span className="text-[9px] font-mono font-semibold text-foreground/80 truncate">
-                          {meta.label}
-                        </span>
-                      </div>
-                    </button>
-                    <div className="flex items-center justify-between mt-1.5 pt-1.5 border-t border-border/10">
-                      <span className="text-[8px] font-mono text-muted-foreground/40">
-                        {fileSizeLabel(asset.fileSize)}
+                  <div key={group.animation} className="p-3 rounded-lg border border-border/30 bg-[#29242d]">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="text-primary/60">{meta.icon}</span>
+                      <span className="text-[10px] font-mono font-semibold text-foreground uppercase">
+                        {meta.label}
                       </span>
-                      <div className="flex items-center gap-1">
-                        <a
-                          href={asset.url}
-                          download={`${characterName.replace(/\s+/g, "_")}_${animName}.png`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-1 px-1.5 py-0.5 rounded text-[8px] font-mono text-muted-foreground/50 hover:text-foreground hover:bg-white/5 transition-colors"
-                        >
-                          <Download className="h-2.5 w-2.5" />
-                          PNG
-                        </a>
-                        <button
-                          type="button"
-                          onClick={(e) => handleDeleteAsset(asset.id, e)}
-                          disabled={isPending}
-                          className="flex items-center justify-center w-5 h-5 rounded text-muted-foreground/30 hover:text-red-400 hover:bg-red-400/10 transition-colors"
-                          title={`Delete ${meta.label} sprite pack`}
-                        >
-                          {deletingId === asset.id ? (
-                            <Loader2 className="h-2.5 w-2.5 animate-spin" />
-                          ) : (
-                            <Trash2 className="h-2.5 w-2.5" />
-                          )}
-                        </button>
-                      </div>
+                      <span className="text-[8px] font-mono text-muted-foreground">
+                        {group.directions.length} directions
+                      </span>
+                    </div>
+                    <div className="grid grid-cols-4 gap-2">
+                      {DIRECTION_LABELS.map(({ dir, label, icon: dirIcon }) => {
+                        const asset = group.directions.find((a) => {
+                          const aDir = a.direction || getDirectionFromKey(a.storageKey);
+                          return aDir === dir;
+                        });
+                        if (!asset) {
+                          return (
+                            <div key={dir} className="p-1.5 rounded-lg border border-dashed border-border/20 bg-[#1c1820]">
+                              <div className="aspect-square rounded border border-border/10 flex items-center justify-center">
+                                <span className="text-[7px] font-mono text-muted-foreground/20">{dir}</span>
+                              </div>
+                              <div className="flex items-center justify-center gap-0.5 mt-1">
+                                {dirIcon}
+                                <span className="text-[7px] font-mono text-muted-foreground/30">{label}</span>
+                              </div>
+                            </div>
+                          );
+                        }
+                        return (
+                          <div
+                            key={asset.id}
+                            className="p-1.5 rounded-lg border border-border/30 bg-[#1c1820] hover:border-primary/30 transition-colors group"
+                          >
+                            <button
+                              onClick={() => setZoomAsset(asset)}
+                              className="w-full text-left"
+                            >
+                              <div className="aspect-square rounded border border-border/20 overflow-hidden relative group/img bg-[#0d0b10]">
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img
+                                  src={asset.url}
+                                  alt={`${meta.label} ${dir}`}
+                                  className="w-full h-full object-contain pixelated"
+                                />
+                                <div className="absolute inset-0 bg-black/0 group-hover/img:bg-black/20 transition-colors flex items-center justify-center">
+                                  <Maximize2 className="h-3 w-3 text-white/0 group-hover/img:text-white/60 transition-all" />
+                                </div>
+                              </div>
+                            </button>
+                            <div className="flex items-center justify-center gap-0.5 mt-1">
+                              {dirIcon}
+                              <span className="text-[7px] font-mono text-muted-foreground/60">{label}</span>
+                            </div>
+                            <div className="flex items-center justify-between mt-1 pt-1 border-t border-border/10">
+                              <span className="text-[7px] font-mono text-muted-foreground/30">
+                                {fileSizeLabel(asset.fileSize)}
+                              </span>
+                              <div className="flex items-center gap-0.5">
+                                <a
+                                  href={asset.url}
+                                  download={`${characterName.replace(/\s+/g, "_")}_${meta.label.toLowerCase()}_${dir.toLowerCase()}.png`}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="flex items-center gap-0.5 p-0.5 rounded text-[7px] font-mono text-muted-foreground/40 hover:text-foreground hover:bg-white/5 transition-colors"
+                                >
+                                  <Download className="h-2 w-2" />
+                                </a>
+                                <button
+                                  type="button"
+                                  onClick={(e) => handleDeleteAsset(asset.id, e)}
+                                  disabled={isPending}
+                                  className="flex items-center justify-center w-4 h-4 rounded text-muted-foreground/30 hover:text-red-400 hover:bg-red-400/10 transition-colors"
+                                  title={`Delete ${meta.label} ${dir} sprite`}
+                                >
+                                  {deletingId === asset.id ? (
+                                    <Loader2 className="h-2 w-2 animate-spin" />
+                                  ) : (
+                                    <Trash2 className="h-2 w-2" />
+                                  )}
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
                 );
@@ -455,7 +513,7 @@ export function SpritePackPanel({ characterId, assets, characterName, onGenerate
           <div className="flex items-center justify-between px-4 py-2.5 border-b border-border shrink-0">
             <DialogTitle className="font-mono text-xs text-muted-foreground uppercase tracking-wider flex items-center gap-2">
               <span className="text-primary/60">{zoomMeta?.icon}</span>
-              {zoomMeta?.label} Sprite Pack
+              {zoomMeta?.label} {zoomDirection && <span className="text-primary">({zoomDirection})</span>}
             </DialogTitle>
             <button
               onClick={() => setZoomAsset(null)}
@@ -479,7 +537,7 @@ export function SpritePackPanel({ characterId, assets, characterName, onGenerate
             {zoomAsset && (
               <a
                 href={zoomAsset.url}
-                download={`${characterName.replace(/\s+/g, "_")}_${zoomName}.png`}
+                download={`${characterName.replace(/\s+/g, "_")}_${zoomName}_${zoomDirection?.toLowerCase() || "sprite"}.png`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded border border-border/50 text-[10px] font-mono text-muted-foreground hover:text-foreground hover:border-primary/30 transition-colors"

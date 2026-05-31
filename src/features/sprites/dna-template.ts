@@ -34,6 +34,15 @@ export function createEmptyDNA(overrides: Partial<CharacterDNA> = {}): Character
       left: "",
       right: "",
     },
+    visualIdentity: {
+      silhouette: "",
+      headShape: "",
+      hairShape: "",
+      recognitionFeatures: [],
+      dominantColors: [],
+      weaponCarryStyle: "",
+      bodyProportions: "",
+    },
     tags: [],
     ...overrides,
   };

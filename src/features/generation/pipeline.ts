@@ -1,13 +1,13 @@
-import type { ArtStyle, DetailLevel, CharacterDNA, CharacterStatus, SpritePackConfig, CharacterDetailsInput } from "@/features/sprites/types";
+import type { ArtStyle, DetailLevel, CharacterDNA, CharacterStatus, Direction, SpritePackConfig, CharacterDetailsInput } from "@/features/sprites/types";
 import type { AssetCategory } from "@/features/assets/types";
 import { extractCharacterDNA } from "./dna-extractor";
 import { generateCharacterSheet } from "./sheet-generator";
-import { generateSpritePack, generateAnimationSheet, analyzeMasterSheet } from "./sprite-pack-generator";
+import { analyzeMasterSheet, generateDirectionalAnimationSheet } from "./sprite-pack-generator";
 import { extractAssetDNA } from "./asset-dna-extractor";
 import { generateAssetSheet } from "./asset-sheet-generator";
 
 import { storageService } from "@/features/storage/upload";
-import { buildSheetKey, buildMetadataKey, buildSpritePackKey } from "@/features/storage/naming";
+import { buildSheetKey, buildMetadataKey, buildDirectionalSpritePackKey } from "@/features/storage/naming";
 import { prisma } from "@/lib/prisma";
 
 function readPngDimensions(buffer: Buffer): { width: number; height: number } {
@@ -176,7 +176,7 @@ export const generationPipeline = {
     return { dna, sheetUrl, sheetKey };
   },
 
-  async generateSpritePack(characterId: string, configs: SpritePackConfig[]): Promise<{ results: { animation: string; frameCount: number; storageKey: string; url: string }[] }> {
+  async generateSpritePack(characterId: string, configs: SpritePackConfig[]): Promise<{ results: { animation: string; direction: Direction; frameCount: number; storageKey: string; url: string }[] }> {
     const character = await prisma.character.findUnique({
       where: { id: characterId },
       include: { assets: true },
@@ -200,36 +200,41 @@ export const generationPipeline = {
       }
     }
 
-    const results: { animation: string; frameCount: number; storageKey: string; url: string }[] = [];
+    const DIRECTIONS: Direction[] = ["UP", "DOWN", "LEFT", "RIGHT"];
+    const results: { animation: string; direction: Direction; frameCount: number; storageKey: string; url: string }[] = [];
 
     for (const config of configs) {
-      const sheet = await generateAnimationSheet(dna, config.animation, config.frameCount, masterSheetReference);
+      for (const direction of DIRECTIONS) {
+        const sheet = await generateDirectionalAnimationSheet(dna, config.animation, direction, config.frameCount, masterSheetReference);
 
-      const storageKey = buildSpritePackKey(characterId, config.animation);
-      const url = await storageService.upload(storageKey, sheet.imageBuffer, "image/png");
-      const dims = readPngDimensions(sheet.imageBuffer);
+        const storageKey = buildDirectionalSpritePackKey(characterId, config.animation, direction);
+        const url = await storageService.upload(storageKey, sheet.imageBuffer, "image/png");
+        const dims = readPngDimensions(sheet.imageBuffer);
 
-      await prisma.characterAsset.create({
-        data: {
-          characterId,
-          type: "SPRITE",
-          url,
-          storageKey,
-          mimeType: "image/png",
-          width: dims.width,
-          height: dims.height,
-          fileSize: sheet.imageBuffer.length,
+        await prisma.characterAsset.create({
+          data: {
+            characterId,
+            type: "SPRITE",
+            direction,
+            url,
+            storageKey,
+            mimeType: "image/png",
+            width: dims.width,
+            height: dims.height,
+            fileSize: sheet.imageBuffer.length,
+            frameCount: config.frameCount,
+            version: 1,
+          },
+        });
+
+        results.push({
+          animation: config.animation,
+          direction,
           frameCount: config.frameCount,
-          version: 1,
-        },
-      });
-
-      results.push({
-        animation: config.animation,
-        frameCount: config.frameCount,
-        storageKey,
-        url,
-      });
+          storageKey,
+          url,
+        });
+      }
     }
 
     return { results };

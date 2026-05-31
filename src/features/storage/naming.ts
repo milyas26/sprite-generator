@@ -23,6 +23,10 @@ export function buildSpritePackKey(characterId: string, animationName: string): 
   return `${characterId}/sprite_packs/${animationName}.png`;
 }
 
+export function buildDirectionalSpritePackKey(characterId: string, animationName: string, direction: string): string {
+  return `${characterId}/sprite_packs/${animationName}/${direction.toLowerCase()}.png`;
+}
+
 export function buildBodyPartKey(characterId: string, bodyPartName: string): string {
   return `${characterId}/parts/${bodyPartName}.png`;
 }
