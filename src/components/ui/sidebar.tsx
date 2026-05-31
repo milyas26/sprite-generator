@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
-import { Library, PlusCircle, PenLine, Boxes, Puzzle } from "lucide-react";
+import { Library, PlusCircle, PenLine, Boxes, Puzzle, Film } from "lucide-react";
 import { ProcessJobsButton } from "@/features/generation/components/process-jobs-button";
 import { CreateSpriteDialog } from "@/features/sprites/components/create-sprite-dialog";
 import { CreateAssetDialog } from "@/features/assets/components/create-asset-dialog";
@@ -18,6 +18,7 @@ const spriteItems = [
 
 const riggedSpriteItems = [
   { href: "/dashboard/rigged-sprites", label: "Rigged Sprites", icon: Puzzle },
+  { href: "/dashboard/rigged-sprites/frame-editor", label: "Frame Editor", icon: Film },
 ] as const;
 
 const assetItems = [
@@ -90,7 +91,10 @@ export function Sidebar() {
         </p>
         <ul className="space-y-0.5">
           {riggedSpriteItems.map((item) => {
-            const isActive = pathname.startsWith("/dashboard/rigged-sprites");
+            const isActive =
+              item.href === "/dashboard/rigged-sprites/frame-editor"
+                ? pathname.startsWith("/dashboard/rigged-sprites/frame-editor")
+                : pathname === "/dashboard/rigged-sprites" || (pathname.startsWith("/dashboard/rigged-sprites") && !pathname.startsWith("/dashboard/rigged-sprites/frame-editor"));
             return (
               <li key={item.href}>
                 <Link
