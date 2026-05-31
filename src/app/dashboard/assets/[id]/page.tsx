@@ -157,7 +157,7 @@ export default async function AssetDetailPage({ params }: Props) {
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
         <div className="xl:col-span-2 space-y-4">
           {hasSheet && (
-            <Card className="border-border bg-card overflow-hidden gap-0 animate-fade-slide-up stagger-1">
+            <Card className="border-border bg-card overflow-hidden gap-0 animate-fade-slide-up stagger-1 py-0">
               <CardContent className="p-0">
                 <CharacterSheetViewer imageUrl={asset.sheetUrl} characterName={asset.name} />
               </CardContent>
@@ -165,7 +165,7 @@ export default async function AssetDetailPage({ params }: Props) {
           )}
 
           {!hasSheet && asset.status !== "FAILED" && (
-            <Card className="border-dashed border-border bg-card animate-fade-slide-up stagger-1">
+            <Card className="border-dashed border-border bg-card animate-fade-slide-up stagger-1 py-0">
               <CardContent className="p-14 flex flex-col items-center justify-center text-center gap-4">
                 <div className="w-16 h-16 rounded-2xl border border-border flex items-center justify-center bg-popover">
                   <Layers className="h-8 w-8 text-muted-foreground/25" />
@@ -186,7 +186,7 @@ export default async function AssetDetailPage({ params }: Props) {
           )}
 
           {asset.status === "FAILED" && (
-            <Card className="border-red-500/20 bg-card animate-fade-slide-up stagger-1">
+            <Card className="border-red-500/20 bg-card animate-fade-slide-up stagger-1 py-0">
               <CardContent className="p-5 flex items-center gap-4">
                 <div className="w-10 h-10 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center flex-shrink-0">
                   <AlertCircle className="h-5 w-5 text-red-400" />
@@ -200,7 +200,7 @@ export default async function AssetDetailPage({ params }: Props) {
           )}
 
           {dna?.visual?.colors?.length > 0 && (
-            <Card className="border-border bg-card overflow-hidden gap-0 animate-fade-slide-up stagger-2">
+            <Card className="border-border bg-card overflow-hidden gap-0 animate-fade-slide-up stagger-2 py-0">
               <div className="editor-panel-header flex items-center gap-2 px-4 py-2.5">
                 <Palette className="h-3.5 w-3.5 text-primary" />
                 <CardTitle className="text-foreground font-mono text-xs tracking-wider">COLOR PALETTE</CardTitle>
@@ -232,7 +232,7 @@ export default async function AssetDetailPage({ params }: Props) {
           )}
 
           {dna?.directions && (
-            <Card className="border-border bg-card overflow-hidden gap-0 animate-fade-slide-up stagger-3">
+            <Card className="border-border bg-card overflow-hidden gap-0 animate-fade-slide-up stagger-3 py-0">
               <div className="editor-panel-header flex items-center gap-2 px-4 py-2.5">
                 <ChevronRight className="h-3.5 w-3.5 text-primary" />
                 <CardTitle className="text-foreground font-mono text-xs tracking-wider">DIRECTIONS</CardTitle>
@@ -251,7 +251,7 @@ export default async function AssetDetailPage({ params }: Props) {
 
         <div className="space-y-4">
           {hasDna && (
-            <Card className="border-border bg-card overflow-hidden gap-0 animate-fade-slide-up stagger-1">
+            <Card className="border-border bg-card overflow-hidden gap-0 animate-fade-slide-up stagger-1 py-0">
               <div className="editor-panel-header flex items-center gap-2 px-4 py-2.5">
                 <Info className="h-3.5 w-3.5 text-primary" />
                 <CardTitle className="text-foreground font-mono text-xs tracking-wider">ASSET DNA</CardTitle>
@@ -266,7 +266,7 @@ export default async function AssetDetailPage({ params }: Props) {
           )}
 
           {hasDna && (dna.visual?.material || dna.visual?.scale || dna.visual?.aesthetic) && (
-            <Card className="border-border bg-card overflow-hidden gap-0 animate-fade-slide-up stagger-2">
+            <Card className="border-border bg-card overflow-hidden gap-0 animate-fade-slide-up stagger-2 py-0">
               <div className="editor-panel-header flex items-center gap-2 px-4 py-2.5">
                 <Hash className="h-3.5 w-3.5 text-primary" />
                 <CardTitle className="text-foreground font-mono text-xs tracking-wider">METADATA</CardTitle>
@@ -295,7 +295,7 @@ export default async function AssetDetailPage({ params }: Props) {
           )}
 
           {jobs.length > 0 && (
-            <Card className="border-border bg-card overflow-hidden gap-0 animate-fade-slide-up stagger-3">
+            <Card className="border-border bg-card overflow-hidden gap-0 animate-fade-slide-up stagger-3 py-0">
               <div className="editor-panel-header flex items-center gap-2 px-4 py-2.5">
                 <Clock className="h-3.5 w-3.5 text-primary" />
                 <CardTitle className="text-foreground font-mono text-xs tracking-wider">JOB HISTORY</CardTitle>
@@ -359,7 +359,7 @@ export default async function AssetDetailPage({ params }: Props) {
           )}
 
           {!hasDna && jobs.length === 0 && (
-            <Card className="border-dashed border-border bg-card animate-fade-slide-up stagger-1">
+            <Card className="border-dashed border-border bg-card animate-fade-slide-up stagger-1 py-0">
               <CardContent className="p-10 flex flex-col items-center justify-center text-center gap-3">
                 <Sparkles className="h-6 w-6 text-muted-foreground/15" />
                 <p className="text-[11px] text-muted-foreground/40 font-mono">No data available yet</p>

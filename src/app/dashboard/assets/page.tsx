@@ -42,7 +42,7 @@ export default function AssetsPage() {
 
       <Suspense
         fallback={
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
             {Array.from({ length: 8 }).map((_, i) => (
               <Skeleton key={i} className="h-72 rounded-lg bg-card border border-border" />
             ))}
@@ -76,7 +76,7 @@ async function AssetsGridWrapper() {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
       {result.data.map((asset) => {
         const status = statusConfig[asset.status as string] || {
           colors: "text-muted-foreground border-border bg-transparent",
