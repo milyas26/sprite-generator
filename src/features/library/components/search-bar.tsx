@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { useDebounce } from "@/shared/hooks/use-debounce";
 import { useEffect, useState } from "react";
@@ -8,6 +8,7 @@ import { Search } from "lucide-react";
 
 export function SearchBar() {
   const router = useRouter();
+  const pathname = usePathname();
   const searchParams = useSearchParams();
   const [value, setValue] = useState(searchParams.get("search") || "");
   const debouncedValue = useDebounce(value, 300);
@@ -22,7 +23,7 @@ export function SearchBar() {
       params.delete("search");
     }
     params.delete("page");
-    router.push(`/dashboard?${params.toString()}`);
+    router.push(`${pathname}?${params.toString()}`);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedValue, router]);
 

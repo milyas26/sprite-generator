@@ -13,6 +13,7 @@ enum CharacterStatus {
   DNA_READY
   GENERATING_SHEET
   GENERATING
+  GENERATING_PARTS
   READY
   FAILED
 }
@@ -23,11 +24,13 @@ enum JobType {
   COMPOSITE
   SPRITE_PACK
   ASSET_GENERATION
+  BODY_PART_GENERATION
 }
 
 enum EntityType {
   SPRITE
   ASSET
+  RIGGED_SPRITE
 }
 
 enum JobStatus {
@@ -42,6 +45,7 @@ enum AssetType {
   LAYER
   SPRITE
   ANIMATION_FRAME
+  BODY_PART
 }
 
 enum DirectionEnum {

@@ -22,3 +22,7 @@ export function buildAnimationFrameKey(characterId: string, animationName: strin
 export function buildSpritePackKey(characterId: string, animationName: string): string {
   return `${characterId}/sprite_packs/${animationName}.png`;
 }
+
+export function buildBodyPartKey(characterId: string, bodyPartName: string): string {
+  return `${characterId}/parts/${bodyPartName}.png`;
+}

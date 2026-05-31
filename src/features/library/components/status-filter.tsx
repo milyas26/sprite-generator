@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 
 const statuses = [
@@ -13,6 +13,7 @@ const statuses = [
 
 export function StatusFilter() {
   const router = useRouter();
+  const pathname = usePathname();
   const searchParams = useSearchParams();
   const current = searchParams.get("status") || "";
 
@@ -24,7 +25,7 @@ export function StatusFilter() {
       params.delete("status");
     }
     params.delete("page");
-    router.push(`/dashboard?${params.toString()}`);
+    router.push(`${pathname}?${params.toString()}`);
   }
 
   return (

@@ -5,14 +5,19 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
-import { Library, PlusCircle, PenLine, Boxes } from "lucide-react";
+import { Library, PlusCircle, PenLine, Boxes, Puzzle } from "lucide-react";
 import { ProcessJobsButton } from "@/features/generation/components/process-jobs-button";
 import { CreateSpriteDialog } from "@/features/sprites/components/create-sprite-dialog";
 import { CreateAssetDialog } from "@/features/assets/components/create-asset-dialog";
+import { CreateRiggedSpriteDialog } from "@/features/rigged-sprites/components/create-rigged-sprite-dialog";
 
 const spriteItems = [
   { href: "/dashboard", label: "Sprite Library", icon: Library },
   { href: "/dashboard/editor", label: "Sprite Editor", icon: PenLine },
+] as const;
+
+const riggedSpriteItems = [
+  { href: "/dashboard/rigged-sprites", label: "Rigged Sprites", icon: Puzzle },
 ] as const;
 
 const assetItems = [
@@ -22,6 +27,7 @@ const assetItems = [
 export function Sidebar() {
   const pathname = usePathname();
   const [spriteDialogOpen, setSpriteDialogOpen] = useState(false);
+  const [riggedDialogOpen, setRiggedDialogOpen] = useState(false);
   const [assetDialogOpen, setAssetDialogOpen] = useState(false);
 
   return (
@@ -80,6 +86,45 @@ export function Sidebar() {
         <Separator className="my-4 opacity-40" />
 
         <p className="mb-1.5 px-2.5 text-[9px] font-mono font-semibold tracking-widest text-muted-foreground uppercase">
+          Rigged Sprites
+        </p>
+        <ul className="space-y-0.5">
+          {riggedSpriteItems.map((item) => {
+            const isActive = pathname.startsWith("/dashboard/rigged-sprites");
+            return (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  className={cn(
+                    "flex items-center gap-2.5 rounded-md px-2.5 py-2 text-[13px] font-medium transition-all duration-150",
+                    isActive
+                      ? "bg-primary/8 text-primary border border-primary/15"
+                      : "text-sidebar-foreground/60 border border-transparent hover:bg-sidebar-accent hover:text-sidebar-foreground"
+                  )}
+                >
+                  <item.icon className={cn(
+                    "h-3.5 w-3.5 flex-shrink-0",
+                    isActive ? "text-primary" : "text-muted-foreground group-hover:text-foreground"
+                  )} />
+                  {item.label}
+                </Link>
+              </li>
+            );
+          })}
+          <li>
+            <button
+              onClick={() => setRiggedDialogOpen(true)}
+              className="w-full flex items-center gap-2.5 rounded-md px-2.5 py-2 text-[13px] font-medium transition-all duration-150 text-sidebar-foreground/60 border border-transparent hover:bg-sidebar-accent hover:text-sidebar-foreground cursor-pointer"
+            >
+              <PlusCircle className="h-3.5 w-3.5 flex-shrink-0 text-muted-foreground" />
+              New Rigged Sprite
+            </button>
+          </li>
+        </ul>
+
+        <Separator className="my-4 opacity-40" />
+
+        <p className="mb-1.5 px-2.5 text-[9px] font-mono font-semibold tracking-widest text-muted-foreground uppercase">
           Assets
         </p>
         <ul className="space-y-0.5">
@@ -122,6 +167,7 @@ export function Sidebar() {
       </div>
 
       <CreateSpriteDialog open={spriteDialogOpen} onOpenChange={setSpriteDialogOpen} />
+      <CreateRiggedSpriteDialog open={riggedDialogOpen} onOpenChange={setRiggedDialogOpen} />
       <CreateAssetDialog open={assetDialogOpen} onOpenChange={setAssetDialogOpen} />
     </aside>
   );
